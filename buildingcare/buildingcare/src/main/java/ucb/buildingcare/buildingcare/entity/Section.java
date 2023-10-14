@@ -16,8 +16,9 @@ public class Section {
     @Column(name = "location", length = 100, nullable = false)
     private String location;
 
-    @Column(name = "idUser", nullable = false)
-    private int idUser;
+    @ManyToOne
+    @JoinColumn(name = "idUser", referencedColumnName = "id")
+    private User idUser;
 
     // Constructor por defecto
     public Section() {
@@ -48,11 +49,11 @@ public class Section {
         this.location = location;
     }
 
-    public int getIdUser() {
+    public User getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(int idUser) {
+    public void setIdUser(User idUser) {
         this.idUser = idUser;
     }
 

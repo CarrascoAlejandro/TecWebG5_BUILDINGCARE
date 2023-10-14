@@ -28,8 +28,9 @@ public class User {
     @Column(name = "phone", length = 13, nullable = false)
     private String phone;
 
-    @Column(name = "idTypeUser", nullable = false)
-    private int idTypeUser;
+    @ManyToOne
+    @JoinColumn(name = "idTypeUser", referencedColumnName = "id")
+    private TypeUser idTypeUser;
 
     // Constructor por defecto
     public User() {
@@ -92,11 +93,11 @@ public class User {
         this.phone = phone;
     }
 
-    public int getIdTypeUser() {
+    public TypeUser getIdTypeUser() {
         return idTypeUser;
     }
 
-    public void setIdTypeUser(int idTypeUser) {
+    public void setIdTypeUser(TypeUser idTypeUser) {
         this.idTypeUser = idTypeUser;
     }
 

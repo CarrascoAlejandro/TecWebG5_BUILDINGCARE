@@ -30,11 +30,13 @@ public class Property {
     @JoinColumn(name = "idSection", referencedColumnName = "id")
     private Section idSection;
 
-    @Column(name = "idTypeProperty", nullable = false)
-    private int idTypeProperty;
+    @ManyToOne
+    @JoinColumn(name = "idTypeProperty", referencedColumnName = "id")
+    private TypeProperty idTypeProperty;
 
-    @Column(name = "idUser", nullable = false)
-    private int idUser;
+    @ManyToOne
+    @JoinColumn(name = "idUser", referencedColumnName = "id")
+    private User idUser;
 
     // Constructor por defecto
     public Property() {
@@ -97,19 +99,19 @@ public class Property {
         this.idSection = idSection;
     }
 
-    public int getIdTypeProperty() {
+    public TypeProperty getIdTypeProperty() {
         return idTypeProperty;
     }
 
-    public void setIdTypeProperty(int idTypeProperty) {
+    public void setIdTypeProperty(TypeProperty idTypeProperty) {
         this.idTypeProperty = idTypeProperty;
     }
 
-    public int getIdUser() {
+    public User getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(int idUser) {
+    public void setIdUser(User idUser) {
         this.idUser = idUser;
     }
 

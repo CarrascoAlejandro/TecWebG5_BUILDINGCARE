@@ -13,8 +13,9 @@ public class CommonArea {
     @Column(name = "description", length = 250, nullable = false)
     private String description;
 
-    @Column(name = "idTypeArea", nullable = false)
-    private int idTypeArea;
+    @ManyToOne
+    @JoinColumn(name = "idTypeArea", referencedColumnName = "id")
+    private TypeArea idTypeArea;
 
     @ManyToOne
     @JoinColumn(name = "idSection", referencedColumnName = "id")
@@ -24,7 +25,7 @@ public class CommonArea {
     public CommonArea() {
     }
 
-    public CommonArea(String description, int typeAreaId, Section sectionId) {
+    public CommonArea(String description, TypeArea typeAreaId, Section sectionId) {
         this.description = description;
         this.idTypeArea = typeAreaId;
         this.idSection = sectionId;
@@ -47,11 +48,11 @@ public class CommonArea {
         this.description = description;
     }
 
-    public int getTypeAreaId() {
+    public TypeArea getTypeAreaId() {
         return idTypeArea;
     }
 
-    public void setTypeAreaId(int typeAreaId) {
+    public void setTypeAreaId(TypeArea typeAreaId) {
         this.idTypeArea = typeAreaId;
     }
 

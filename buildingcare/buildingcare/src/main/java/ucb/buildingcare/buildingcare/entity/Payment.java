@@ -25,11 +25,13 @@ public class Payment {
     @Column(name = "detail", length = 100, nullable = false)
     private String detail;
 
-    @Column(name = "idUserPays", nullable = false)
-    private int idUserPays;
+    @ManyToOne
+    @JoinColumn(name = "idUserPays", referencedColumnName = "id")
+    private User idUserPays;
 
-    @Column(name = "idUserReceives", nullable = false)
-    private int idUserReceives;
+    @ManyToOne
+    @JoinColumn(name = "idUserReceives", referencedColumnName = "id")
+    private User idUserReceives;
 
     // Constructor por defecto
     public Payment() {
@@ -76,19 +78,19 @@ public class Payment {
         this.detail = detail;
     }
 
-    public int getIdUserPays() {
+    public User getIdUserPays() {
         return idUserPays;
     }
 
-    public void setIdUserPays(int idUserPays) {
+    public void setIdUserPays(User idUserPays) {
         this.idUserPays = idUserPays;
     }
 
-    public int getIdUserReceives() {
+    public User getIdUserReceives() {
         return idUserReceives;
     }
 
-    public void setIdUserReceives(int idUserReceives) {
+    public void setIdUserReceives(User idUserReceives) {
         this.idUserReceives = idUserReceives;
     }
 

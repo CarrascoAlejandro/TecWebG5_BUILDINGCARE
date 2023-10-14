@@ -23,14 +23,17 @@ public class Contract {
     @Column(name = "amount", nullable = false, precision = 12, scale = 2)
     private BigDecimal amount;
 
-    @Column(name = "idProperty", nullable = false)
-    private int idProperty;
+    @ManyToOne
+    @JoinColumn(name = "idProperty", referencedColumnName = "id")
+    private Property idProperty;
 
-    @Column(name = "idUser", nullable = false)
-    private int idUser;
+    @ManyToOne
+    @JoinColumn(name = "idUser", referencedColumnName = "id")
+    private User idUser;
 
-    @Column(name = "idTypeContract", nullable = false)
-    private int idTypeContract;
+    @ManyToOne
+    @JoinColumn(name = "idTypeContract", referencedColumnName = "id")
+    private TypeContract idTypeContract;
 
     // Constructor por defecto
     public Contract() {
@@ -69,27 +72,27 @@ public class Contract {
         this.amount = amount;
     }
 
-    public int getIdProperty() {
+    public Property getIdProperty() {
         return idProperty;
     }
 
-    public void setIdProperty(int idProperty) {
+    public void setIdProperty(Property idProperty) {
         this.idProperty = idProperty;
     }
 
-    public int getIdUser() {
+    public User getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(int idUser) {
+    public void setIdUser(User idUser) {
         this.idUser = idUser;
     }
 
-    public int getIdTypeContract() {
+    public TypeContract getIdTypeContract() {
         return idTypeContract;
     }
 
-    public void setIdTypeContract(int idTypeContract) {
+    public void setIdTypeContract(TypeContract idTypeContract) {
         this.idTypeContract = idTypeContract;
     }
 

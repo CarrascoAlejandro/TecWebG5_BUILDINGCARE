@@ -28,14 +28,17 @@ public class Post {
     @Column(name = "state", length = 50, nullable = false)
     private String state;
 
-    @Column(name = "idUser", nullable = false)
-    private int idUser;
+    @ManyToOne
+    @JoinColumn(name = "idUser", referencedColumnName = "id")
+    private User idUser;
 
-    @Column(name = "idTypePost", nullable = false)
-    private int idTypePost;
+    @ManyToOne
+    @JoinColumn(name = "idTypePost", referencedColumnName = "id")
+    private TypePost idTypePost;
 
-    @Column(name = "idPostRequest")
-    private Integer idPostRequest; // Puede ser nulo, por lo que usamos Integer en lugar de int
+    @ManyToOne
+    @JoinColumn(name = "idPostRequest", referencedColumnName = "id")
+    private Post idPostRequest; // Puede ser nulo, por lo que usamos Integer en lugar de int
 
     // Constructor por defecto
     public Post() {
@@ -90,27 +93,27 @@ public class Post {
         this.state = state;
     }
 
-    public int getIdUser() {
+    public User getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(int idUser) {
+    public void setIdUser(User idUser) {
         this.idUser = idUser;
     }
 
-    public int getIdTypePost() {
+    public TypePost getIdTypePost() {
         return idTypePost;
     }
 
-    public void setIdTypePost(int idTypePost) {
+    public void setIdTypePost(TypePost idTypePost) {
         this.idTypePost = idTypePost;
     }
 
-    public Integer getIdPostRequest() {
+    public Post getIdPostRequest() {
         return idPostRequest;
     }
 
-    public void setIdPostRequest(Integer idPostRequest) {
+    public void setIdPostRequest(Post idPostRequest) {
         this.idPostRequest = idPostRequest;
     }
 
