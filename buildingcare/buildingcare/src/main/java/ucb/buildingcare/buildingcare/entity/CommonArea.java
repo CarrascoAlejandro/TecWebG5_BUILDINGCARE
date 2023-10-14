@@ -13,12 +13,12 @@ public class CommonArea {
     @Column(name = "description", length = 250, nullable = false)
     private String description;
 
-    @Column(name = "TypeArea_id", nullable = false)
-    private int typeAreaId;
+    @Column(name = "idTypeArea", nullable = false)
+    private int idTypeArea;
 
     @ManyToOne
-    @JoinColumn(name = "Section_id", referencedColumnName = "id")
-    private Section sectionId;
+    @JoinColumn(name = "idSection", referencedColumnName = "id")
+    private Section idSection;
 
     // Constructor por defecto
     public CommonArea() {
@@ -26,8 +26,8 @@ public class CommonArea {
 
     public CommonArea(String description, int typeAreaId, Section sectionId) {
         this.description = description;
-        this.typeAreaId = typeAreaId;
-        this.sectionId = sectionId;
+        this.idTypeArea = typeAreaId;
+        this.idSection = sectionId;
     }
 
     // Getters y Setters
@@ -48,23 +48,23 @@ public class CommonArea {
     }
 
     public int getTypeAreaId() {
-        return typeAreaId;
+        return idTypeArea;
     }
 
     public void setTypeAreaId(int typeAreaId) {
-        this.typeAreaId = typeAreaId;
+        this.idTypeArea = typeAreaId;
     }
 
     public Section getSectionId() {
-        return sectionId;
+        return idSection;
     }
 
     public void setSectionId(Section sectionId) {
-        this.sectionId = sectionId;
+        this.idSection = sectionId;
     }
 
     @Override
     public String toString() {
-        return "CommonArea [id=" + id + ", description=" + description + ", typeAreaId=" + typeAreaId + ", sectionId=" + sectionId + "]";
+        return "CommonArea [id=" + id + ", description=" + description + ", typeAreaId=" + idTypeArea + ", sectionId=" + idSection + "]";
     }
 }

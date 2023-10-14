@@ -1,13 +1,13 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2023-10-14 03:14:51.915
+-- Last modification date: 2023-10-14 18:18:00.901
 
 -- tables
 -- Table: CommonArea
 CREATE TABLE CommonArea (
     id int  NOT NULL,
     description varchar(250)  NOT NULL,
-    TypeArea_id int  NOT NULL,
-    Section_id int  NOT NULL,
+    idTypeArea int  NOT NULL,
+    idSection int  NOT NULL,
     CONSTRAINT CommonArea_pk PRIMARY KEY (id)
 );
 
@@ -123,7 +123,7 @@ CREATE TABLE "User" (
 -- foreign keys
 -- Reference: Areas_Comunes_Seccion (table: CommonArea)
 ALTER TABLE CommonArea ADD CONSTRAINT Areas_Comunes_Seccion
-    FOREIGN KEY (Section_id)
+    FOREIGN KEY (idSection)
     REFERENCES Section (id)  
     NOT DEFERRABLE 
     INITIALLY IMMEDIATE
@@ -131,7 +131,7 @@ ALTER TABLE CommonArea ADD CONSTRAINT Areas_Comunes_Seccion
 
 -- Reference: Areas_Comunes_tipo_Area (table: CommonArea)
 ALTER TABLE CommonArea ADD CONSTRAINT Areas_Comunes_tipo_Area
-    FOREIGN KEY (TypeArea_id)
+    FOREIGN KEY (idTypeArea)
     REFERENCES TypeArea (id)  
     NOT DEFERRABLE 
     INITIALLY IMMEDIATE
