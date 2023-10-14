@@ -26,8 +26,9 @@ public class Property {
     @Column(name = "image", length = 250, nullable = false)
     private String image;
 
-    @Column(name = "idSection", nullable = false)
-    private int idSection;
+    @ManyToOne
+    @JoinColumn(name = "idSection", referencedColumnName = "id")
+    private Section idSection;
 
     @Column(name = "idTypeProperty", nullable = false)
     private int idTypeProperty;
@@ -88,11 +89,11 @@ public class Property {
         this.image = image;
     }
 
-    public int getIdSection() {
+    public Section getIdSection() {
         return idSection;
     }
 
-    public void setIdSection(int idSection) {
+    public void setIdSection(Section idSection) {
         this.idSection = idSection;
     }
 

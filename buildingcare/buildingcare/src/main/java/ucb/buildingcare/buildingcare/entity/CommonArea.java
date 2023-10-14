@@ -16,14 +16,15 @@ public class CommonArea {
     @Column(name = "TypeArea_id", nullable = false)
     private int typeAreaId;
 
-    @Column(name = "Section_id", nullable = false)
-    private int sectionId;
+    @ManyToOne
+    @JoinColumn(name = "Section_id", referencedColumnName = "id")
+    private Section sectionId;
 
     // Constructor por defecto
     public CommonArea() {
     }
 
-    public CommonArea(String description, int typeAreaId, int sectionId) {
+    public CommonArea(String description, int typeAreaId, Section sectionId) {
         this.description = description;
         this.typeAreaId = typeAreaId;
         this.sectionId = sectionId;
@@ -54,11 +55,11 @@ public class CommonArea {
         this.typeAreaId = typeAreaId;
     }
 
-    public int getSectionId() {
+    public Section getSectionId() {
         return sectionId;
     }
 
-    public void setSectionId(int sectionId) {
+    public void setSectionId(Section sectionId) {
         this.sectionId = sectionId;
     }
 
