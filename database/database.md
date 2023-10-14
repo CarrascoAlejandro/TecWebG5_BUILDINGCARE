@@ -16,4 +16,9 @@ docker start condominio_ct
 ```
 docker exec -it condominio_img bash
 ```
-entramos a la consola del contenedor
+entramos a la consola del contenedor, ahora nos conectamos a la base "condominiodb":
+'''
+psql -U user --password --db condominiodb
+'''
+(Pedira una contraseña: 123456 )
+* Nota: se sale de esta consola con ctrl+D 2 veces
