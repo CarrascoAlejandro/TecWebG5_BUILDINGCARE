@@ -29,7 +29,7 @@ public class Post {
     private String state;
 
     @ManyToOne
-    @JoinColumn(name = "idUser", referencedColumnName = "id")
+    @JoinColumn(name = "idUser", referencedColumnName = "idUser")
     private User idUser;
 
     @ManyToOne

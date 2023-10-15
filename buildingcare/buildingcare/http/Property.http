@@ -1,0 +1,9 @@
+###
+GET http://localhost:8080/api/v1/property/all
+Accept: application/json
+Token: 1
+
+###
+GET http://localhost:8080/api/v1/property/1
+Accept: application/json
+Token: 1

@@ -1,10 +1,15 @@
 package ucb.buildingcare.buildingcare.entity;
 
+import java.util.List;
+
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "TypeUser")
 public class TypeUser {
+
+    public static final String ADMIN = null;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -12,6 +17,9 @@ public class TypeUser {
 
     @Column(name = "permission", length = 30, nullable = false)
     private String permission;
+
+    @OneToMany(mappedBy = "idTypeUser", cascade = CascadeType.ALL)
+    private List<User> users;
 
     // Constructor por defecto
     public TypeUser() {

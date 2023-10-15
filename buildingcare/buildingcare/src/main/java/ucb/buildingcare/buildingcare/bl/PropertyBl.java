@@ -3,6 +3,12 @@ package ucb.buildingcare.buildingcare.bl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import ucb.buildingcare.buildingcare.api.PropertyAPI;
 import ucb.buildingcare.buildingcare.dto.BuildingcareResponse;
 import ucb.buildingcare.buildingcare.dto.PropertyRequest;
 import ucb.buildingcare.buildingcare.dto.PropertyResponse;
@@ -11,14 +17,23 @@ import ucb.buildingcare.buildingcare.repository.PropertyRepository;
 import ucb.buildingcare.buildingcare.repository.SectionRepository;
 import ucb.buildingcare.buildingcare.repository.UserRepository;
 
+@Service
 public class PropertyBl {
 
+    Logger LOGGER = LoggerFactory.getLogger(PropertyAPI.class);
+
+    @Autowired
     private PropertyRepository propertyRepository;
+
+    @Autowired
     private UserRepository userRepository;
+
+    @Autowired
     private SectionRepository sectionRepository;
 
 
     public BuildingcareResponse ListAllProperties() {
+        LOGGER.info("PropertyBl - ListAllProperties");
         List<Property> properties = propertyRepository.findAll();
         List<PropertyResponse> propertyResponses = new ArrayList<>();
         for (Property property : properties) {

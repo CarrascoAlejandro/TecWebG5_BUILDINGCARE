@@ -26,11 +26,11 @@ public class Payment {
     private String detail;
 
     @ManyToOne
-    @JoinColumn(name = "idUserPays", referencedColumnName = "id")
+    @JoinColumn(name = "idUserPays", referencedColumnName = "idUser")
     private User idUserPays;
 
     @ManyToOne
-    @JoinColumn(name = "idUserReceives", referencedColumnName = "id")
+    @JoinColumn(name = "idUserReceives", referencedColumnName = "idUser")
     private User idUserReceives;
 
     // Constructor por defecto

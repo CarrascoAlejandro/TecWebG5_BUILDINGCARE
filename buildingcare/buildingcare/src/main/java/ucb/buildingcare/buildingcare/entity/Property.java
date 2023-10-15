@@ -35,7 +35,7 @@ public class Property {
     private TypeProperty idTypeProperty;
 
     @ManyToOne
-    @JoinColumn(name = "idUser", referencedColumnName = "id")
+    @JoinColumn(name = "idUser", referencedColumnName = "idUser")
     private User idUser;
 
     // Constructor por defecto

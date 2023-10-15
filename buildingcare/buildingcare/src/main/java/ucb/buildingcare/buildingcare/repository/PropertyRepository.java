@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import ucb.buildingcare.buildingcare.entity.Property;
 import ucb.buildingcare.buildingcare.entity.Section;
-import ucb.buildingcare.buildingcare.entity.TypeProperty;
 import ucb.buildingcare.buildingcare.entity.User;
 
 import java.math.BigDecimal;
@@ -13,13 +12,15 @@ import java.util.List;
 
 @Repository
 public interface PropertyRepository extends JpaRepository<Property, Integer> {
-    List<Property> findAll();
     Property findById(int id);
 
     @Query("SELECT p.id FROM Property p")
     List<Integer> findAllPropertyIds();
 
-    List<Property> findByIdTypeProperty(TypeProperty idTypeProperty);
+    /*
+
+    //FIXME Fabi esto no esta funcionando como debe y son muchos errores para corregir ahora
+
     List<Property> findByIdTypeProperty(int idTypeProperty);
 
     List<Property> findByEnvironments(int environments);
@@ -36,6 +37,7 @@ public interface PropertyRepository extends JpaRepository<Property, Integer> {
     List<Property> findByIdSection(Section idSection);
     List<Property> findByIdSection(int idSection);
 
-    List<Property> findByIdUserAndIdSection(User idUser, Section idSection);
     List<Property> findByIdUserAndIdSection(int idUser, int idSection);
+
+    */
 }

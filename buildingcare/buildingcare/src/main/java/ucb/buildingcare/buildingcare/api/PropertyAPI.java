@@ -1,5 +1,8 @@
 package ucb.buildingcare.buildingcare.api;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,31 +12,39 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import ucb.buildingcare.buildingcare.bl.PropertyBl;
 import ucb.buildingcare.buildingcare.dto.BuildingcareResponse;
 import ucb.buildingcare.buildingcare.dto.PropertyRequest;
 
+@RestController
 @RequestMapping(path = "/api/v1/property")
 public class PropertyAPI {
+
+    Logger LOGGER = LoggerFactory.getLogger(PropertyAPI.class);
     
     @Autowired
     private PropertyBl propertyBl;
 
     @GetMapping(path = "/all")
     public BuildingcareResponse ListAllProperties() {
+        LOGGER.info("ListAllProperties");
         BuildingcareResponse buildingcareResponse = propertyBl.ListAllProperties();
         buildingcareResponse.setResponseCode("PROP-0000");
+        LOGGER.info("{}", buildingcareResponse);
         return buildingcareResponse;
     }
 
     @GetMapping(path = "/{id}")
     public BuildingcareResponse getPropertyById(@PathVariable Integer id) {
+        LOGGER.info("getPropertyById: id: {}", id);
         BuildingcareResponse buildingcareResponse = new BuildingcareResponse();
         
         buildingcareResponse.setData(propertyBl.getPropertyById(id));
         buildingcareResponse.setResponseCode("PROP-0000");
 
+        LOGGER.info("{}", buildingcareResponse);
         return buildingcareResponse;
     }
 

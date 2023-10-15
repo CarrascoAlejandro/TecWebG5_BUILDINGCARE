@@ -17,7 +17,7 @@ public class Section {
     private String location;
 
     @ManyToOne
-    @JoinColumn(name = "idUser", referencedColumnName = "id")
+    @JoinColumn(name = "idUser", referencedColumnName = "idUser")
     private User idUser;
 
     // Constructor por defecto
