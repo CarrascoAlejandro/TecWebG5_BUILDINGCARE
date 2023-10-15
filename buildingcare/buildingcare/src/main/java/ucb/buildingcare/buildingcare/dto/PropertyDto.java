@@ -99,4 +99,19 @@ public class PropertyDto {
     public void setIdUser(int idUser) {
         this.idUser = idUser;
     }
+
+    @Override
+    public String toString() {
+        return "PropertyDto{" +
+                "id=" + id +
+                ", environments=" + environments +
+                ", dimensions=" + dimensions +
+                ", value=" + value +
+                ", description='" + description + '\'' +
+                ", image='" + image + '\'' +
+                ", idSection=" + idSection +
+                ", idTypeProperty=" + idTypeProperty +
+                ", idUser=" + idUser +
+                '}';
+    }
 }
