@@ -4,8 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ucb.buildingcare.buildingcare.dto.BuildingcareResponse;
+import ucb.buildingcare.buildingcare.dto.PropertyRequest;
 import ucb.buildingcare.buildingcare.dto.PropertyResponse;
 import ucb.buildingcare.buildingcare.entity.Property;
+import ucb.buildingcare.buildingcare.repository.PropertyRepository;
+import ucb.buildingcare.buildingcare.repository.SectionRepository;
+import ucb.buildingcare.buildingcare.repository.UserRepository;
 
 public class PropertyBl {
 
@@ -33,7 +37,7 @@ public class PropertyBl {
         }
     }
 
-    public PropertyResponse createProperty(PropertyRequest propertyRequest) {
+    public PropertyResponse createProperty(PropertyRequest propertyRequest, Integer token) {
         Property property = new Property();
         property.setEnvironments(propertyRequest.getPropertyEnvironments());
         property.setDimensions(propertyRequest.getPropertyDimensions());
@@ -41,12 +45,11 @@ public class PropertyBl {
         property.setDescription(propertyRequest.getPropertyDescription());
         property.setImage(propertyRequest.getPropertyImage());
         property.setIdSection(sectionRepository.findById(propertyRequest.getPropertyIdSection()).orElse(null));
-        property.setIdUser(userRepository.findById(propertyRequest.getPropertyIdUser()).orElse(null));
-        propertyRepository.save(property);
+        property.setIdUser(userRepository.findById(token).get());
         return new PropertyResponse(property);
     }
 
-    public PropertyResponse updateProperty(Integer id, PropertyRequest propertyRequest) {
+    public PropertyResponse updateProperty(Integer id, PropertyRequest propertyRequest, Integer token) {
         Property property = propertyRepository.findById(id).orElse(null);
         if (property != null) {
             property.setEnvironments(propertyRequest.getPropertyEnvironments());
@@ -55,7 +58,7 @@ public class PropertyBl {
             property.setDescription(propertyRequest.getPropertyDescription());
             property.setImage(propertyRequest.getPropertyImage());
             property.setIdSection(sectionRepository.findById(propertyRequest.getPropertyIdSection()).orElse(null));
-            property.setIdUser(userRepository.findById(propertyRequest.getPropertyIdUser()).orElse(null));
+            property.setIdUser(userRepository.findById(token).get());
             propertyRepository.save(property);
             return new PropertyResponse(property);
         } else {
@@ -64,13 +67,14 @@ public class PropertyBl {
         }
     }
 
-    public void deleteProperty(Integer id) {
+    public PropertyResponse deleteProperty(Integer id) {
         Property property = propertyRepository.findById(id).orElse(null);
         if (property != null) {
             propertyRepository.delete(property);
         } else {
             //TODO raise exception
         }
+        return new PropertyResponse(property);
     }
 
 }
