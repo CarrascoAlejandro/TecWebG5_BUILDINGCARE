@@ -9,10 +9,8 @@ public class BuildingcareResponse {
     public BuildingcareResponse() {
     }
 
-    public BuildingcareResponse(String responseCode, Object data, String errorMessage) {
-        this.responseCode = responseCode;
+    public BuildingcareResponse(Object data) {
         this.data = data;
-        this.errorMessage = errorMessage;
     }
 
     public String getResponseCode() {

@@ -3,6 +3,7 @@ package ucb.buildingcare.buildingcare.bl;
 import java.util.ArrayList;
 import java.util.List;
 
+import ucb.buildingcare.buildingcare.dto.BuildingcareResponse;
 import ucb.buildingcare.buildingcare.dto.PropertyResponse;
 import ucb.buildingcare.buildingcare.entity.Property;
 
@@ -12,116 +13,64 @@ public class PropertyBl {
     private UserRepository userRepository;
     private SectionRepository sectionRepository;
 
-    public List<PropertyResponse> ListAllProperties() {
+
+    public BuildingcareResponse ListAllProperties() {
         List<Property> properties = propertyRepository.findAll();
         List<PropertyResponse> propertyResponses = new ArrayList<>();
         for (Property property : properties) {
-            PropertyResponse propertyResponse = new PropertyResponse();
-            propertyResponse.setPropertyId(property.getPropertyId());
-            propertyResponse.setPropertyName(property.getPropertyName());
-            propertyResponse.setPropertyAddress(property.getPropertyAddress());
-            propertyResponse.setPropertyPhone(property.getPropertyPhone());
-            propertyResponse.setPropertyEmail(property.getPropertyEmail());
-            propertyResponse.setPropertyType(property.getPropertyType());
-            propertyResponse.setPropertyStatus(property.getPropertyStatus());
-            propertyResponse.setPropertyDate(property.getPropertyDate());
-            propertyResponse.setPropertyDescription(property.getPropertyDescription());
-            propertyResponse.setUserId(property.getUserId());
-            propertyResponse.setSectionId(property.getSectionId());
-            propertyResponses.add(propertyResponse);
+            propertyResponses.add(new PropertyResponse(property));
         }
-        return propertyResponses;
+        return new BuildingcareResponse(propertyResponses);
     }
 
     public PropertyResponse getPropertyById(Integer id) {
-        Property property = propertyRepository.findById(id).orElseThrow(() -> new RuntimeException("Not found"));
-        PropertyResponse propertyResponse = new PropertyResponse();
-        propertyResponse.setPropertyId(property.getPropertyId());
-        propertyResponse.setPropertyName(property.getPropertyName());
-        propertyResponse.setPropertyAddress(property.getPropertyAddress());
-        propertyResponse.setPropertyPhone(property.getPropertyPhone());
-        propertyResponse.setPropertyEmail(property.getPropertyEmail());
-        propertyResponse.setPropertyType(property.getPropertyType());
-        propertyResponse.setPropertyStatus(property.getPropertyStatus());
-        propertyResponse.setPropertyDate(property.getPropertyDate());
-        propertyResponse.setPropertyDescription(property.getPropertyDescription());
-        propertyResponse.setUserId(property.getUserId());
-        propertyResponse.setSectionId(property.getSectionId());
-        return propertyResponse;
+        Property property = propertyRepository.findById(id).orElse(null);
+        if (property != null) {
+            return new PropertyResponse(property);
+        } else {
+            //TODO raise exception
+            return null;
+        }
     }
 
     public PropertyResponse createProperty(PropertyRequest propertyRequest) {
         Property property = new Property();
-        property.setPropertyName(propertyRequest.getPropertyName());
-        property.setPropertyAddress(propertyRequest.getPropertyAddress());
-        property.setPropertyPhone(propertyRequest.getPropertyPhone());
-        property.setPropertyEmail(propertyRequest.getPropertyEmail());
-        property.setPropertyType(propertyRequest.getPropertyType());
-        property.setPropertyStatus(propertyRequest.getPropertyStatus());
-        property.setPropertyDate(propertyRequest.getPropertyDate());
-        property.setPropertyDescription(propertyRequest.getPropertyDescription());
-        property.setUserId(propertyRequest.getUserId());
-        property.setSectionId(propertyRequest.getSectionId());
+        property.setEnvironments(propertyRequest.getPropertyEnvironments());
+        property.setDimensions(propertyRequest.getPropertyDimensions());
+        property.setValue(propertyRequest.getPropertyValue());
+        property.setDescription(propertyRequest.getPropertyDescription());
+        property.setImage(propertyRequest.getPropertyImage());
+        property.setIdSection(sectionRepository.findById(propertyRequest.getPropertyIdSection()).orElse(null));
+        property.setIdUser(userRepository.findById(propertyRequest.getPropertyIdUser()).orElse(null));
         propertyRepository.save(property);
-        PropertyResponse propertyResponse = new PropertyResponse();
-        propertyResponse.setPropertyId(property.getPropertyId());
-        propertyResponse.setPropertyName(property.getPropertyName());
-        propertyResponse.setPropertyAddress(property.getPropertyAddress());
-        propertyResponse.setPropertyPhone(property.getPropertyPhone());
-        propertyResponse.setPropertyEmail(property.getPropertyEmail());
-        propertyResponse.setPropertyType(property.getPropertyType());
-        propertyResponse.setPropertyStatus(property.getPropertyStatus());
-        propertyResponse.setPropertyDate(property.getPropertyDate());
-        propertyResponse.setPropertyDescription(property.getPropertyDescription());
-        propertyResponse.setUserId(property.getUserId());
-        propertyResponse.setSectionId(property.getSectionId());
-        return propertyResponse;
+        return new PropertyResponse(property);
     }
 
     public PropertyResponse updateProperty(Integer id, PropertyRequest propertyRequest) {
-        Property property = propertyRepository.findById(id).orElseThrow(() -> new RuntimeException("Not found"));
-        property.setPropertyName(propertyRequest.getPropertyName());
-        property.setPropertyAddress(propertyRequest.getPropertyAddress());
-        property.setPropertyPhone(propertyRequest.getPropertyPhone());
-        property.setPropertyEmail(propertyRequest.getPropertyEmail());
-        property.setPropertyType(propertyRequest.getPropertyType());
-        property.setPropertyStatus(propertyRequest.getPropertyStatus());
-        property.setPropertyDate(propertyRequest.getPropertyDate());
-        property.setPropertyDescription(propertyRequest.getPropertyDescription());
-        property.setUserId(propertyRequest.getUserId());
-        property.setSectionId(propertyRequest.getSectionId());
-        propertyRepository.save(property);
-        PropertyResponse propertyResponse = new PropertyResponse();
-        propertyResponse.setPropertyId(property.getPropertyId());
-        propertyResponse.setPropertyName(property.getPropertyName());
-        propertyResponse.setPropertyAddress(property.getPropertyAddress());
-        propertyResponse.setPropertyPhone(property.getPropertyPhone());
-        propertyResponse.setPropertyEmail(property.getPropertyEmail());
-        propertyResponse.setPropertyType(property.getPropertyType());
-        propertyResponse.setPropertyStatus(property.getPropertyStatus());
-        propertyResponse.setPropertyDate(property.getPropertyDate());
-        propertyResponse.setPropertyDescription(property.getPropertyDescription());
-        propertyResponse.setUserId(property.getUserId());
-        propertyResponse.setSectionId(property.getSectionId());
-        return propertyResponse;
+        Property property = propertyRepository.findById(id).orElse(null);
+        if (property != null) {
+            property.setEnvironments(propertyRequest.getPropertyEnvironments());
+            property.setDimensions(propertyRequest.getPropertyDimensions());
+            property.setValue(propertyRequest.getPropertyValue());
+            property.setDescription(propertyRequest.getPropertyDescription());
+            property.setImage(propertyRequest.getPropertyImage());
+            property.setIdSection(sectionRepository.findById(propertyRequest.getPropertyIdSection()).orElse(null));
+            property.setIdUser(userRepository.findById(propertyRequest.getPropertyIdUser()).orElse(null));
+            propertyRepository.save(property);
+            return new PropertyResponse(property);
+        } else {
+            //TODO raise exception
+            return null;
+        }
     }
 
-    public PropertyResponse deleteProperty(Integer id) {
-        Property property = propertyRepository.findById(id).orElseThrow(() -> new RuntimeException("Not found"));
-        propertyRepository.delete(property);
-        PropertyResponse propertyResponse = new PropertyResponse();
-        propertyResponse.setPropertyId(property.getPropertyId());
-        propertyResponse.setPropertyName(property.getPropertyName());
-        propertyResponse.setPropertyAddress(property.getPropertyAddress());
-        propertyResponse.setPropertyPhone(property.getPropertyPhone());
-        propertyResponse.setPropertyEmail(property.getPropertyEmail());
-        propertyResponse.setPropertyType(property.getPropertyType());
-        propertyResponse.setPropertyStatus(property.getPropertyStatus());
-        propertyResponse.setPropertyDate(property.getPropertyDate());
-        propertyResponse.setPropertyDescription(property.getPropertyDescription());
-        propertyResponse.setUserId(property.getUserId());
-        propertyResponse.setSectionId(property.getSectionId());
-        return propertyResponse;
+    public void deleteProperty(Integer id) {
+        Property property = propertyRepository.findById(id).orElse(null);
+        if (property != null) {
+            propertyRepository.delete(property);
+        } else {
+            //TODO raise exception
+        }
     }
-    
+
 }
