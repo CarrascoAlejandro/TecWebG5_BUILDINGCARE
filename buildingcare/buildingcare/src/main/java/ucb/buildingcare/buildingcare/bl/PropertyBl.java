@@ -3,6 +3,11 @@ package ucb.buildingcare.buildingcare.bl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import ucb.buildingcare.buildingcare.dto.BuildingcareResponse;
 import ucb.buildingcare.buildingcare.dto.PropertyRequest;
 import ucb.buildingcare.buildingcare.dto.PropertyResponse;
@@ -11,19 +16,30 @@ import ucb.buildingcare.buildingcare.repository.PropertyRepository;
 import ucb.buildingcare.buildingcare.repository.SectionRepository;
 import ucb.buildingcare.buildingcare.repository.UserRepository;
 
+@Service
 public class PropertyBl {
-
+    private static final Logger LOG = LoggerFactory.getLogger(PropertyBl.class);
+    @Autowired
     private PropertyRepository propertyRepository;
+    @Autowired
     private UserRepository userRepository;
+    @Autowired
     private SectionRepository sectionRepository;
 
-
+    public PropertyBl(PropertyRepository propertyRepository, UserRepository userRepository, SectionRepository sectionRepository) {
+        this.propertyRepository = propertyRepository;
+        this.userRepository = userRepository;
+        this.sectionRepository = sectionRepository;
+    }
     public BuildingcareResponse ListAllProperties() {
         List<Property> properties = propertyRepository.findAll();
+        LOG.info("el tamano de properties List<Property> es: "+ properties.size());
         List<PropertyResponse> propertyResponses = new ArrayList<>();
         for (Property property : properties) {
+            LOG.info("en el for de List<Property> properties: "+ property.toString());
             propertyResponses.add(new PropertyResponse(property));
         }
+        LOG.info("retornando new BuildingcareResponse(propertyResponses): "+ new BuildingcareResponse(propertyResponses).toString());
         return new BuildingcareResponse(propertyResponses);
     }
 
