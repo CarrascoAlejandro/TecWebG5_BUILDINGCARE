@@ -9,5 +9,5 @@ import ucb.buildingcare.buildingcare.entity.User;
 
 public interface SectionRepository extends CrudRepository<Section, Integer> {
     List<Section> findByIdUser(User user);
-    List<Section> findByIdUser(int user);
+    // List<Section> findByIdUser(int user);
 }
