@@ -14,7 +14,7 @@ docker start condominio_ct
 ```
 **Nota:** Para ingresar a la DB:
 ```
-docker exec -it condominio_img bash
+docker exec -it condominio_ct bash
 ```
 entramos a la consola del contenedor, ahora nos conectamos a la base "condominiodb":
 ```
