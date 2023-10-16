@@ -28,7 +28,7 @@ public class Contract {
     private Property idProperty;
 
     @ManyToOne
-    @JoinColumn(name = "idUser", referencedColumnName = "idUser")
+    @JoinColumn(name = "idUser", referencedColumnName = "id")
     private User idUser;
 
     @ManyToOne

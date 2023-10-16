@@ -1,12 +1,8 @@
 package ucb.buildingcare.buildingcare.api;
 
-<<<<<<< HEAD
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-=======
-//import org.apache.catalina.authenticator.jaspic.PersistentProviderRegistrations.Property;
->>>>>>> 9b0c1bafd1766a380f813b8e4ebd037cd14ac0b7
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,11 +22,8 @@ import ucb.buildingcare.buildingcare.dto.PropertyRequest;
 @RequestMapping(path = "/api/v1/property")
 public class PropertyAPI {
 
-<<<<<<< HEAD
     Logger LOGGER = LoggerFactory.getLogger(PropertyAPI.class);
     
-=======
->>>>>>> 9b0c1bafd1766a380f813b8e4ebd037cd14ac0b7
     @Autowired
     private PropertyBl propertyBl;
 

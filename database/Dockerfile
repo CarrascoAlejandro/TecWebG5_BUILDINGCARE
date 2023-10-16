@@ -6,9 +6,6 @@ ENV POSTGRES_USER=user
 ENV POSTGRES_PASSWORD=123456
 ENV POSTGRES_DB=condominiodb
 
-# Opcional: Copia archivos SQL de inicialización (por ejemplo, dump de una base de datos) al contenedor
-COPY init.sql /docker-entrypoint-initdb.d/
-
 # Opcional: Expón el puerto en el que PostgreSQL escucha (predeterminado es 5432)
 EXPOSE 5432
 
