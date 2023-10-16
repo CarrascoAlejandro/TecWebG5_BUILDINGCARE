@@ -57,8 +57,9 @@ public class PropertyAPI {
     @PostMapping()
     public BuildingcareResponse createProperty(@RequestBody PropertyRequest propertyRequest, @RequestHeader Integer token) {
         BuildingcareResponse buildingcareResponse = new BuildingcareResponse();
-
+        LOGGER.info("Entrando a crear propiedad");
         buildingcareResponse.setData(propertyBl.createProperty(propertyRequest, token));
+        LOGGER.info("Saliendo de crear propiedad");
         buildingcareResponse.setResponseCode("PROP-0001");
 
         return buildingcareResponse;

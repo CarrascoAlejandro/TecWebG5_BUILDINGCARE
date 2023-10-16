@@ -60,6 +60,7 @@ public class PropertyBl {
 
     public PropertyResponse createProperty(PropertyRequest propertyRequest, Integer token) {
         Property property = new Property();
+        LOGGER.info("Entrando a crear propiedad BL");
         property.setEnvironments(propertyRequest.getPropertyEnvironments());
         property.setDimensions(propertyRequest.getPropertyDimensions());
         property.setValue(propertyRequest.getPropertyValue());
@@ -67,6 +68,8 @@ public class PropertyBl {
         property.setImage(propertyRequest.getPropertyImage());
         property.setIdSection(sectionRepository.findById(propertyRequest.getPropertyIdSection()).orElse(null));
         property.setIdUser(userRepository.findById(token).get());
+        LOGGER.info("se ha creado: " + property.toString());
+        propertyRepository.save(property);
         return new PropertyResponse(property);
     }
 
