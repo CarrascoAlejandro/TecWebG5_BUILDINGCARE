@@ -109,15 +109,15 @@ CREATE TABLE TypeUser (
 
 -- Table: User
 CREATE TABLE "User" (
-    idUser int  NOT NULL,
+    id int  NOT NULL,
     name varchar(128)  NOT NULL,
-    usename varchar(128)  NOT NULL,
+    username varchar(128)  NOT NULL,
     password varchar(32)  NOT NULL,
     email varchar(128)  NOT NULL,
     CI varchar(15)  NOT NULL,
     phone varchar(13)  NOT NULL,
     idTypeUser int  NOT NULL,
-    CONSTRAINT User_pk PRIMARY KEY (idUser)
+    CONSTRAINT User_pk PRIMARY KEY (id)
 );
 
 -- foreign keys
@@ -156,7 +156,7 @@ ALTER TABLE Contract ADD CONSTRAINT Contratos_tipocontrato
 -- Reference: Contratos_usuarios (table: Contract)
 ALTER TABLE Contract ADD CONSTRAINT Contratos_usuarios
     FOREIGN KEY (idUser)
-    REFERENCES "User" (idUser)  
+    REFERENCES "User" (id)  
     NOT DEFERRABLE 
     INITIALLY IMMEDIATE
 ;
@@ -180,7 +180,7 @@ ALTER TABLE Post ADD CONSTRAINT Post_tipo_post
 -- Reference: Post_usuarios (table: Post)
 ALTER TABLE Post ADD CONSTRAINT Post_usuarios
     FOREIGN KEY (idUser)
-    REFERENCES "User" (idUser)  
+    REFERENCES "User" (id)  
     NOT DEFERRABLE 
     INITIALLY IMMEDIATE
 ;
@@ -188,7 +188,7 @@ ALTER TABLE Post ADD CONSTRAINT Post_usuarios
 -- Reference: Seccion_usuarios (table: Section)
 ALTER TABLE Section ADD CONSTRAINT Seccion_usuarios
     FOREIGN KEY (idUser)
-    REFERENCES "User" (idUser)  
+    REFERENCES "User" (id)  
     NOT DEFERRABLE 
     INITIALLY IMMEDIATE
 ;
@@ -196,15 +196,15 @@ ALTER TABLE Section ADD CONSTRAINT Seccion_usuarios
 -- Reference: pagos_usuarios (table: Payment)
 ALTER TABLE Payment ADD CONSTRAINT pagos_usuarios
     FOREIGN KEY (idUserPays)
-    REFERENCES "User" (idUser)  
+    REFERENCES "User" (id)  
     NOT DEFERRABLE 
     INITIALLY IMMEDIATE
 ;
 
 -- Reference: pagos_usuarios_recibe (table: Payment)
 ALTER TABLE Payment ADD CONSTRAINT pagos_usuarios_recibe
-    FOREIGN KEY (idUserPays)
-    REFERENCES "User" (idUser)  
+    FOREIGN KEY (idUserReceives)
+    REFERENCES "User" (id)
     NOT DEFERRABLE 
     INITIALLY IMMEDIATE
 ;
@@ -228,7 +228,7 @@ ALTER TABLE Property ADD CONSTRAINT propiedades_tipo_Propiedad
 -- Reference: propiedades_usuarios (table: Property)
 ALTER TABLE Property ADD CONSTRAINT propiedades_usuarios
     FOREIGN KEY (idUser)
-    REFERENCES "User" (idUser)  
+    REFERENCES "User" (id)  
     NOT DEFERRABLE 
     INITIALLY IMMEDIATE
 ;

@@ -8,6 +8,5 @@ import org.springframework.data.repository.CrudRepository;
 import ucb.buildingcare.buildingcare.entity.Section;
 
 public interface SectionRepository extends CrudRepository<Section, Integer> {
-    @Query(value = "SELECT * FROM section WHERE idUser = ?1", nativeQuery = true)
-    List<Section> findByIdUser(int idUser);
+    // List<Section> findByIdUser(int user);
 }

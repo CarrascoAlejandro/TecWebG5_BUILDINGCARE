@@ -12,5 +12,6 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 
     @Query(value = "SELECT * FROM user WHERE idTypeUser = ?1", nativeQuery = true)
     List<User> findByIdTypeUser(int typeUser);
+    // List<User> findByIdTypeUser(int typeUser);
     
 }
