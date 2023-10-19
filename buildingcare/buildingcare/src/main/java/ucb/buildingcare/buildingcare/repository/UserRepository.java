@@ -8,9 +8,9 @@ import org.springframework.data.repository.CrudRepository;
 import ucb.buildingcare.buildingcare.entity.User;
 
 public interface UserRepository extends CrudRepository<User, Integer> {
-    List<User> findByUsename(String usename);//Nota: Se puso en la base "usename" en vez de "username"
+    List<User> findByUsenameAndPassword(String usename, String password);//Nota: Se puso en la base "usename" en vez de "username"
 
-    @Query(value = "SELECT * FROM user WHERE idTypeUser = ?1", nativeQuery = true)
+    @Query(value = "SELECT * FROM user WHERE idTypeUser = ?", nativeQuery = true)
     List<User> findByIdTypeUser(int typeUser);
     // List<User> findByIdTypeUser(int typeUser);
     
