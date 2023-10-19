@@ -22,7 +22,8 @@ public class UserAPI {
     
     public UserAPI(UserBl userService) {
         this.userService = userService;
-    } 
+    }
+    
     @PostMapping
     public BuildingcareResponse login(@RequestBody UserRequest userRequest) {
         BuildingcareResponse buildingcareResponse = new BuildingcareResponse();
@@ -37,7 +38,7 @@ public class UserAPI {
             }else{
                 LOG.info("el usuario llego a login api");
             }
-        }catch(Exception e){
+        }catch(Exception e){ //TODO crear excepción específica
             LOG.error("no se pudo hacer login", e);
             return buildingcareResponse;
         }

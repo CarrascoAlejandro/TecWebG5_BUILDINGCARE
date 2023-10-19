@@ -1,6 +1,41 @@
 # Documentación de API Buildingcare
 Esta documentación proporciona detalles sobre el API de Buildingcare, que se utiliza para gestionar propiedades.
 
+## Endpoints de Usuario
+### Iniciar Sesión (Login)
+__Endpoint:__ `/login`
+
+__Método HTTP:__ POST
+
+__Descripción:__
+
+Este endpoint permite a los usuarios iniciar sesión en el sistema proporcionando sus credenciales de inicio de sesión.
+
+__Parámetros:__
+
+`userRequest (Request body)` - Datos de inicio de sesión del usuario, que incluyen el nombre de usuario y la contraseña.
+__Respuesta Exitosa (200 OK):__
+
+En caso de una autenticación exitosa, el servidor devolverá la información del usuario:
+
+```
+{
+  "responseCode": "PROP-0001",
+  "data": {
+    // Datos del usuario autenticado
+  }
+}
+```
+Si el inicio de sesión falla debido a credenciales incorrectas o cualquier otro error, la respuesta será vacía:
+
+```
+{
+  "responseCode": "PROP-0001",
+  "data": null
+}
+```
+En el caso de un error no controlado durante el inicio de sesión, la respuesta también será vacía.
+
 ## Endpoints de propiedades
 ### Listar Todas las Propiedades
 __Endpoint:__ `/all`
