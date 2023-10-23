@@ -8,6 +8,7 @@ ENV POSTGRES_DB=condominiodb
 
 # Opcional: Expón el puerto en el que PostgreSQL escucha (predeterminado es 5432)
 EXPOSE 5432
+#Fabi 5433
 
 # Opcional: Establece la zona horaria
 # ENV TZ=America/New_York
