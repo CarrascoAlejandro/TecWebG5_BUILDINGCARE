@@ -1,6 +1,5 @@
 package ucb.buildingcare.buildingcare.bl;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.sql.Time;
 
@@ -16,7 +15,6 @@ import ucb.buildingcare.buildingcare.dto.BuildingcareResponse;
 import ucb.buildingcare.buildingcare.dto.PostRequest;
 import ucb.buildingcare.buildingcare.dto.PostResponse;
 import ucb.buildingcare.buildingcare.entity.Post;
-import ucb.buildingcare.buildingcare.entity.User;
 import ucb.buildingcare.buildingcare.repository.PostRepository;
 import ucb.buildingcare.buildingcare.repository.UserRepository;
 import ucb.buildingcare.buildingcare.repository.TypePostRepository;

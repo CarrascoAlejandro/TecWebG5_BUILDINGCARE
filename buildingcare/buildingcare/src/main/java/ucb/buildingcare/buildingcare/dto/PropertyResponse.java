@@ -6,6 +6,7 @@ import ucb.buildingcare.buildingcare.entity.Property;
 
 public class PropertyResponse{
     
+    private Integer id;
     private Integer propertyEnvironments;
     private BigDecimal propertyDimensions;
     private BigDecimal propertyValue;
@@ -19,6 +20,7 @@ public class PropertyResponse{
     }
 
     public PropertyResponse(Property property){
+        this.id = property.getId();
         this.propertyEnvironments = property.getEnvironments();
         this.propertyDimensions = property.getDimensions();
         this.propertyValue = property.getValue();
@@ -28,6 +30,14 @@ public class PropertyResponse{
         // this.propertyType = property.getIdSection().getName();
         this.propertyType = property.getIdTypeProperty().getType();
         this.propertyOwner = property.getIdUser().getName();
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer idProperty) {
+        this.id = idProperty;
     }
 
     public Integer getPropertyEnvironments() {

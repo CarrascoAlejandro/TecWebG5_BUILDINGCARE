@@ -3,6 +3,8 @@ package ucb.buildingcare.buildingcare.dto;
 import ucb.buildingcare.buildingcare.entity.Post;
 
 public class PostResponse {
+
+    private Integer id;
     private String postDateAndHour;
     private String postTitle;
     private String postContent;
@@ -15,6 +17,7 @@ public class PostResponse {
     }
 
     public PostResponse(Post post) {
+        this.id = post.getId();
         this.postDateAndHour = post.getDate()+" "+post.getHour();
         this.postTitle = post.getTitle();
         this.postContent = post.getContent();
@@ -26,6 +29,14 @@ public class PostResponse {
             this.postRequest = post.getIdPostRequest().getContent();
         }
         
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer idPost) {
+        this.id = idPost;
     }
 
     public String getPostDateAndHour() {
