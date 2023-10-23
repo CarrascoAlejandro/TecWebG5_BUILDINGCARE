@@ -99,7 +99,7 @@ public class blogBl {
         }
     }
 
-    public PostResponse markPostAsDone(Integer id) {
+    public PostResponse markPostAsDone(Integer id, Integer token) {
         Post post = postRepository.findById(id).orElse(null);
         if (post != null) {
             post.setState("Done");
@@ -111,7 +111,7 @@ public class blogBl {
         }
     }
     
-    public PostResponse markPostAsUrgent(Integer id) {
+    public PostResponse markPostAsUrgent(Integer id, Integer token) {
         Post post = postRepository.findById(id).orElse(null);
         if (post != null) {
             post.setState("Urgent");
