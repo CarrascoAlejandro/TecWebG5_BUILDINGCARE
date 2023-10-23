@@ -20,7 +20,6 @@
         List<Integer> findAllPropertyIds();
 
         List<Property> findByIdTypeProperty(TypeProperty idTypeProperty);
-        // List<Property> findByIdTypeProperty(int idTypeProperty);
 
         List<Property> findByEnvironments(int environments);
 
@@ -31,11 +30,8 @@
         List<Property> findByValue(double value);
 
         List<Property> findByIdUser(User idUser);
-        // List<Property> findByIdUser(int idUser);
 
         List<Property> findByIdSection(Section idSection);
-        // List<Property> findByIdSection(int idSection);
 
         List<Property> findByIdUserAndIdSection(User idUser, Section idSection);
-        // List<Property> findByIdUserAndIdSection(int idUser, int idSection);
     }

@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ucb.buildingcare.buildingcare.dto.BuildingcareResponse;
+import ucb.buildingcare.buildingcare.dto.PostRequest;
+import ucb.buildingcare.buildingcare.dto.PostResponse;
 import ucb.buildingcare.buildingcare.entity.Post;
 import ucb.buildingcare.buildingcare.entity.User;
 import ucb.buildingcare.buildingcare.repository.PostRepository;
@@ -76,8 +78,12 @@ public class blogBl {
         post.setIdTypePost(typePostRepository.findById(postRequest.getIdTypePost()).orElse(null));
 
         //If post has a parent post
-        post.setIdPostRequest(postRepository.findById(postRequest.getIdPostRequest()).orElse(null));
+        // post.setIdPostRequest(postRepository.findById(postRequest.getIdPostRequest()).orElse(null));
+        if(postRequest.getIdPostRequest() != null) {
+            post.setIdPostRequest(postRepository.findById(postRequest.getIdPostRequest()).orElse(null));
+        }
 
+        
         LOGGER.info("blogBl - creating post: "+ post.toString());
         // Save the post object to the database
         postRepository.save(post);
@@ -98,7 +104,7 @@ public class blogBl {
     public PostResponse markPostAsDone(Integer id) {
         Post post = postRepository.findById(id).orElse(null);
         if (post != null) {
-            post.setState("done");
+            post.setState("Done");
             postRepository.save(post);
             return new PostResponse(post);
         } else {
@@ -110,7 +116,7 @@ public class blogBl {
     public PostResponse markPostAsUrgent(Integer id) {
         Post post = postRepository.findById(id).orElse(null);
         if (post != null) {
-            post.setState("urgent");
+            post.setState("Urgent");
             postRepository.save(post);
             return new PostResponse(post);
         } else {
@@ -119,6 +125,23 @@ public class blogBl {
         }
     }
 
+    public PostResponse updatePost(Integer id, PostRequest postRequest) {
+        Post post = postRepository.findById(id).orElse(null);
+        if (post != null) {
 
-
+            if (postRequest.getTitle() != null) post.setTitle(postRequest.getTitle());
+            if (postRequest.getContent() != null) post.setContent(postRequest.getContent());
+            if (postRequest.getState() != null) post.setState(postRequest.getState());
+            if (postRequest.getIdUser() != null) post.setIdUser(userRepository.findById(postRequest.getIdUser()).orElse(null));
+            if (postRequest.getIdTypePost() != null) post.setIdTypePost(typePostRepository.findById(postRequest.getIdTypePost()).orElse(null));
+            
+            postRepository.save(post);
+            
+            return new PostResponse(post);
+        } else {
+            //TODO raise exception
+            return null;
+        }
+    }
+    
 }

@@ -25,7 +25,8 @@ public class PropertyResponse{
         this.propertyDescription = property.getDescription();
         this.propertyImage = property.getImage();
         this.propertyIdSection = property.getIdSection().getId();
-        this.propertyType = property.getIdSection().getName();
+        // this.propertyType = property.getIdSection().getName();
+        this.propertyType = property.getIdTypeProperty().getType();
         this.propertyOwner = property.getIdUser().getName();
     }
 

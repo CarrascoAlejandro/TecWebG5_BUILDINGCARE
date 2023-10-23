@@ -1,0 +1,56 @@
+### List All Posts
+GET http://localhost:8080/api/v1/blog/all
+Accept: application/json
+
+###
+
+### Get Post By ID
+GET http://localhost:8080/api/v1/blog/1
+Accept: application/json
+
+###
+
+### Create New Post
+POST http://localhost:8080/api/v1/blog
+Content-Type: application/json
+
+{
+    "title": "Post Title",
+    "content": "I need help with my bathroom.",
+    "state": "New",
+    "idUser": 1,
+    "idTypePost": 1,
+    "idPostRequest": null
+}
+
+###
+
+### Delete Post By ID
+DELETE http://localhost:8080/api/v1/blog/5
+Accept: application/json
+
+###
+
+### Mark Post As Done
+PUT http://localhost:8080/api/v1/blog/1/done
+Accept: application/json
+
+###
+
+### Mark Post As Urgent
+PUT http://localhost:8080/api/v1/blog/1/urgent
+Accept: application/json
+
+### Update Post by ID
+PUT http://localhost:8080/api/v1/blog/2
+Content-Type: application/json
+Accept: application/json
+
+{
+    "title": "Updated Title",
+    "content": "Updated content for the blog post.",
+    "state": "active",
+    "idUser": 2,
+    "idTypePost": 2,
+    "idPostRequest": null
+}
