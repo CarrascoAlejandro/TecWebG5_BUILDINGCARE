@@ -26,7 +26,7 @@ public class PostAPI {
     public BuildingcareResponse ListAllPosts() {
         LOGGER.info("ListAllPosts");
         BuildingcareResponse buildingcareResponse = blogService.ListAllPosts();
-        buildingcareResponse.setResponseCode("PROP-0000");
+        buildingcareResponse.setResponseCode("POST-0000");
         LOGGER.info("{}", buildingcareResponse);
         return buildingcareResponse;
     }
@@ -36,7 +36,7 @@ public class PostAPI {
         LOGGER.info("getPostById: id: {}", id);
         BuildingcareResponse buildingcareResponse = new BuildingcareResponse();
         buildingcareResponse.setData(blogService.getPostById(id));
-        buildingcareResponse.setResponseCode("PROP-0000");
+        buildingcareResponse.setResponseCode("POST-0000");
         LOGGER.info("{}", buildingcareResponse);
         return buildingcareResponse;
     }
@@ -46,7 +46,7 @@ public class PostAPI {
         LOGGER.info("Entrando a crear post");
         BuildingcareResponse buildingcareResponse = new BuildingcareResponse();
         buildingcareResponse.setData(blogService.createPost(postRequest));
-        buildingcareResponse.setResponseCode("PROP-0001");
+        buildingcareResponse.setResponseCode("POST-0001");
         return buildingcareResponse;
     }
 
@@ -55,7 +55,7 @@ public class PostAPI {
         LOGGER.info("Deleting post with id: {}", id);
         BuildingcareResponse buildingcareResponse = new BuildingcareResponse();
         buildingcareResponse.setData(blogService.deletePost(id));
-        buildingcareResponse.setResponseCode("PROP-0003");
+        buildingcareResponse.setResponseCode("POST-0003");
         return buildingcareResponse;
     }
 
@@ -64,7 +64,7 @@ public class PostAPI {
         LOGGER.info("Marking post as done: {}", id);
         BuildingcareResponse buildingcareResponse = new BuildingcareResponse();
         buildingcareResponse.setData(blogService.markPostAsDone(id));
-        buildingcareResponse.setResponseCode("PROP-0002");
+        buildingcareResponse.setResponseCode("POST-0002");
         return buildingcareResponse;
     }
 
@@ -73,7 +73,7 @@ public class PostAPI {
         LOGGER.info("Marking post as urgent: {}", id);
         BuildingcareResponse buildingcareResponse = new BuildingcareResponse();
         buildingcareResponse.setData(blogService.markPostAsUrgent(id));
-        buildingcareResponse.setResponseCode("PROP-0002");
+        buildingcareResponse.setResponseCode("POST-0002");
         return buildingcareResponse;
     }
 

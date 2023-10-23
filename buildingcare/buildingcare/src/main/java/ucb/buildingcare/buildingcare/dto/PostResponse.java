@@ -11,7 +11,7 @@ public class PostResponse {
     private String postState;
     private String postUser;
     private String postType;
-    private String postRequest;//TODO: como responder si hay varios post?
+    private Integer postRequest;
 
     public PostResponse() {
     }
@@ -26,7 +26,7 @@ public class PostResponse {
         this.postType = post.getIdTypePost().getCategory();
         // this.postRequest = post.getIdPostRequest().getContent();
         if(post.getIdPostRequest() != null) {
-            this.postRequest = post.getIdPostRequest().getContent();
+            this.postRequest = post.getIdPostRequest().getId();
         }
         
     }
@@ -87,11 +87,11 @@ public class PostResponse {
         this.postType = postType;
     }
 
-    public String getPostRequest() {
+    public Integer getPostRequest() {
         return postRequest;
     }
 
-    public void setPostRequest(String postRequest) {
+    public void setPostRequest(Integer postRequest) {
         this.postRequest = postRequest;
     }
 
