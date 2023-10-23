@@ -8,6 +8,9 @@ Luego, creamos el contenedor:
 ```
 docker run -d --name condominio_ct -p 5432:5432 condominio_img
 ```
+
+(Fabi:5433:5432)
+
 Hacemos correr el contenedor:
 ```
 docker start condominio_ct

@@ -1,4 +1,4 @@
-package ucb.buildingcare.buildingcare.configuration;
+package ucb.buildingcare.buildingcare.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

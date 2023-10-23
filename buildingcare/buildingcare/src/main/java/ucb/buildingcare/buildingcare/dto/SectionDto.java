@@ -1,3 +1,4 @@
+//TODO: volver response y request
 package ucb.buildingcare.buildingcare.dto;
 
 public class SectionDto {
