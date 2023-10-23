@@ -10,17 +10,19 @@ public class PropertyRequest {
     private String propertyDescription;
     private String propertyImage;
     private Integer propertyIdSection;
+    private Integer propertyIdType;
 
     public PropertyRequest() {
     }
     public PropertyRequest(Integer propertyEnvironments, BigDecimal propertyDimensions, BigDecimal propertyValue,
-            String propertyDescription, String propertyImage, Integer propertyIdSection) {
+            String propertyDescription, String propertyImage, Integer propertyIdSection, Integer propertyIdType) {
         this.propertyEnvironments = propertyEnvironments;
         this.propertyDimensions = propertyDimensions;
         this.propertyValue = propertyValue;
         this.propertyDescription = propertyDescription;
         this.propertyImage = propertyImage;
         this.propertyIdSection = propertyIdSection;
+        this.propertyIdType = propertyIdType;
     }
     public Integer getPropertyEnvironments() {
         return propertyEnvironments;
@@ -59,5 +61,12 @@ public class PropertyRequest {
         this.propertyIdSection = propertyIdSection;
     }
 
+    public Integer getPropertyIdType() {
+        return propertyIdType;
+    }
+
+    public void setPropertyIdType(Integer propertyIdType) {
+        this.propertyIdType = propertyIdType;
+    }
     
 }

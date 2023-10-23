@@ -12,8 +12,10 @@ import ucb.buildingcare.buildingcare.dto.BuildingcareResponse;
 import ucb.buildingcare.buildingcare.dto.PropertyRequest;
 import ucb.buildingcare.buildingcare.dto.PropertyResponse;
 import ucb.buildingcare.buildingcare.entity.Property;
+import ucb.buildingcare.buildingcare.entity.TypeProperty;
 import ucb.buildingcare.buildingcare.repository.PropertyRepository;
 import ucb.buildingcare.buildingcare.repository.SectionRepository;
+import ucb.buildingcare.buildingcare.repository.TypePropertyRepository;
 import ucb.buildingcare.buildingcare.repository.UserRepository;
 
 @Service
@@ -30,10 +32,14 @@ public class PropertyBl {
     @Autowired
     private SectionRepository sectionRepository;
 
-    public PropertyBl(PropertyRepository propertyRepository, UserRepository userRepository, SectionRepository sectionRepository) {
+    @Autowired
+    private TypePropertyRepository typePropertyRepository;
+
+    public PropertyBl(PropertyRepository propertyRepository, UserRepository userRepository, SectionRepository sectionRepository, TypePropertyRepository typePropertyRepository) {
         this.propertyRepository = propertyRepository;
         this.userRepository = userRepository;
         this.sectionRepository = sectionRepository;
+        this.typePropertyRepository = typePropertyRepository;
     }
     public BuildingcareResponse ListAllProperties() {
         LOGGER.info("PropertyBl - ListAllProperties");
@@ -67,6 +73,7 @@ public class PropertyBl {
         property.setDescription(propertyRequest.getPropertyDescription());
         property.setImage(propertyRequest.getPropertyImage());
         property.setIdSection(sectionRepository.findById(propertyRequest.getPropertyIdSection()).orElse(null));
+        property.setIdTypeProperty(typePropertyRepository.findById(propertyRequest.getPropertyIdType()).orElse(null));
         property.setIdUser(userRepository.findById(token).get());
         LOGGER.info("se ha creado: " + property.toString());
         propertyRepository.save(property);
@@ -82,6 +89,7 @@ public class PropertyBl {
             property.setDescription(propertyRequest.getPropertyDescription());
             property.setImage(propertyRequest.getPropertyImage());
             property.setIdSection(sectionRepository.findById(propertyRequest.getPropertyIdSection()).orElse(null));
+            property.setIdTypeProperty(typePropertyRepository.findById(propertyRequest.getPropertyIdType()).orElse(null));
             property.setIdUser(userRepository.findById(token).get());
             propertyRepository.save(property);
             return new PropertyResponse(property);
