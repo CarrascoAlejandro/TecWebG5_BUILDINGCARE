@@ -5,7 +5,7 @@ Accept: application/json
 ###
 
 ### Get Post By ID
-GET http://localhost:8080/api/v1/blog/1
+GET http://localhost:8080/api/v1/blog/6
 Accept: application/json
 
 ###
@@ -21,6 +21,21 @@ Content-Type: application/json
     "idUser": 1,
     "idTypePost": 1,
     "idPostRequest": null
+}
+
+###
+
+### Create response to a post
+POST http://localhost:8080/api/v1/blog
+Content-Type: application/json
+
+{
+    "title": "Son Post",
+    "content": "OK.",
+    "state": "New",
+    "idUser": 3,
+    "idTypePost": 1,
+    "idPostRequest": 4
 }
 
 ###
