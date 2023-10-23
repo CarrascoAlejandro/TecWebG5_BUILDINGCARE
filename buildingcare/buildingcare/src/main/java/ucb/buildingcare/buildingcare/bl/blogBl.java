@@ -64,7 +64,7 @@ public class blogBl {
 
     
 
-    public PostResponse createPost(PostRequest postRequest) {
+    public PostResponse createPost(PostRequest postRequest, Integer token) {
         Post post = new Post();
         //insert with current date
         post.setDate(new Date());
@@ -72,7 +72,7 @@ public class blogBl {
         post.setTitle(postRequest.getTitle());
         post.setContent(postRequest.getContent());
         post.setState(postRequest.getState());
-        post.setIdUser(userRepository.findById(postRequest.getIdUser()).orElse(null));
+        post.setIdUser(userRepository.findById(token).orElse(null));
         post.setIdTypePost(typePostRepository.findById(postRequest.getIdTypePost()).orElse(null));
 
         //If post has a parent post
@@ -99,7 +99,7 @@ public class blogBl {
         }
     }
 
-    public PostResponse markPostAsDone(Integer id) {
+    public PostResponse markPostAsDone(Integer id, Integer token) {
         Post post = postRepository.findById(id).orElse(null);
         if (post != null) {
             post.setState("Done");
@@ -111,7 +111,7 @@ public class blogBl {
         }
     }
     
-    public PostResponse markPostAsUrgent(Integer id) {
+    public PostResponse markPostAsUrgent(Integer id, Integer token) {
         Post post = postRepository.findById(id).orElse(null);
         if (post != null) {
             post.setState("Urgent");
@@ -123,14 +123,14 @@ public class blogBl {
         }
     }
 
-    public PostResponse updatePost(Integer id, PostRequest postRequest) {
+    public PostResponse updatePost(Integer id, PostRequest postRequest, Integer token) {
         Post post = postRepository.findById(id).orElse(null);
         if (post != null) {
 
             if (postRequest.getTitle() != null) post.setTitle(postRequest.getTitle());
             if (postRequest.getContent() != null) post.setContent(postRequest.getContent());
             if (postRequest.getState() != null) post.setState(postRequest.getState());
-            if (postRequest.getIdUser() != null) post.setIdUser(userRepository.findById(postRequest.getIdUser()).orElse(null));
+            if (postRequest.getIdUser() != null) post.setIdUser(userRepository.findById(token).orElse(null));
             if (postRequest.getIdTypePost() != null) post.setIdTypePost(typePostRepository.findById(postRequest.getIdTypePost()).orElse(null));
             
             postRepository.save(post);

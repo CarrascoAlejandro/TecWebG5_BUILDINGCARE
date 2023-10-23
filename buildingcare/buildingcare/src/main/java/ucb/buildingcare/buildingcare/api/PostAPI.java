@@ -42,10 +42,10 @@ public class PostAPI {
     }
 
     @PostMapping()
-    public BuildingcareResponse createPost(@RequestBody PostRequest postRequest) {
+    public BuildingcareResponse createPost(@RequestBody PostRequest postRequest, @RequestHeader Integer token) {
         LOGGER.info("Entrando a crear post");
         BuildingcareResponse buildingcareResponse = new BuildingcareResponse();
-        buildingcareResponse.setData(blogService.createPost(postRequest));
+        buildingcareResponse.setData(blogService.createPost(postRequest, token));
         buildingcareResponse.setResponseCode("POST-0001");
         return buildingcareResponse;
     }
@@ -60,28 +60,28 @@ public class PostAPI {
     }
 
     @PutMapping(path = "/{id}/done")
-    public BuildingcareResponse markPostAsDone(@PathVariable Integer id) {
+    public BuildingcareResponse markPostAsDone(@PathVariable Integer id, @RequestHeader Integer token) {
         LOGGER.info("Marking post as done: {}", id);
         BuildingcareResponse buildingcareResponse = new BuildingcareResponse();
-        buildingcareResponse.setData(blogService.markPostAsDone(id));
+        buildingcareResponse.setData(blogService.markPostAsDone(id, token));
         buildingcareResponse.setResponseCode("POST-0002");
         return buildingcareResponse;
     }
 
     @PutMapping(path = "/{id}/urgent")
-    public BuildingcareResponse markPostAsUrgent(@PathVariable Integer id) {
+    public BuildingcareResponse markPostAsUrgent(@PathVariable Integer id,@RequestHeader Integer token) {
         LOGGER.info("Marking post as urgent: {}", id);
         BuildingcareResponse buildingcareResponse = new BuildingcareResponse();
-        buildingcareResponse.setData(blogService.markPostAsUrgent(id));
+        buildingcareResponse.setData(blogService.markPostAsUrgent(id, token));
         buildingcareResponse.setResponseCode("POST-0002");
         return buildingcareResponse;
     }
 
     @PutMapping(path = "/{id}")
-    public BuildingcareResponse updatePost(@PathVariable Integer id, @RequestBody PostRequest postRequest) {
+    public BuildingcareResponse updatePost(@PathVariable Integer id, @RequestBody PostRequest postRequest, @RequestHeader Integer token) {
         LOGGER.info("Updating post with id: {}", id);
         BuildingcareResponse buildingcareResponse = new BuildingcareResponse();
-        buildingcareResponse.setData(blogService.updatePost(id, postRequest));
+        buildingcareResponse.setData(blogService.updatePost(id, postRequest, token));
         buildingcareResponse.setResponseCode("POST-0002");
         
         return buildingcareResponse;
