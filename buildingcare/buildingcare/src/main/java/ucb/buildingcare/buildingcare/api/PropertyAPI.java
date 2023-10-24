@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ucb.buildingcare.buildingcare.bl.PropertyBl;
 import ucb.buildingcare.buildingcare.dto.BuildingcareResponse;
 import ucb.buildingcare.buildingcare.dto.PropertyRequest;
+import ucb.buildingcare.buildingcare.util.BuildingcareException;
 
 @RestController
 @RequestMapping(path = "/api/v1/property")
@@ -47,8 +48,13 @@ public class PropertyAPI {
         LOGGER.info("getPropertyById: id: {}", id);
         BuildingcareResponse buildingcareResponse = new BuildingcareResponse();
         
-        buildingcareResponse.setData(propertyBl.getPropertyById(id));
-        buildingcareResponse.setResponseCode("PROP-0000");
+        try {
+            buildingcareResponse.setData(propertyBl.getPropertyById(id));
+            buildingcareResponse.setResponseCode("PROP-0000");
+        } catch (BuildingcareException e) {
+            buildingcareResponse.setErrorMessage(e.getMessage());
+            buildingcareResponse.setResponseCode("PROP-6000");
+        }
 
         LOGGER.info("{}", buildingcareResponse);
         return buildingcareResponse;
@@ -69,8 +75,13 @@ public class PropertyAPI {
     public BuildingcareResponse updateProperty(@PathVariable Integer id, @RequestBody PropertyRequest propertyRequest, @RequestHeader Integer token) {
         BuildingcareResponse buildingcareResponse = new BuildingcareResponse();
 
-        buildingcareResponse.setData(propertyBl.updateProperty(id, propertyRequest, token));
-        buildingcareResponse.setResponseCode("PROP-0002");
+        try {
+            buildingcareResponse.setData(propertyBl.updateProperty(id, propertyRequest, token));
+            buildingcareResponse.setResponseCode("PROP-0002");
+        } catch (BuildingcareException e) {
+            buildingcareResponse.setErrorMessage(e.getMessage());
+            buildingcareResponse.setResponseCode("PROP-6002");
+        }
 
         return buildingcareResponse;
     }
@@ -79,8 +90,14 @@ public class PropertyAPI {
     public BuildingcareResponse deleteProperty(@PathVariable Integer id) {
         BuildingcareResponse buildingcareResponse = new BuildingcareResponse();
 
-        buildingcareResponse.setData(propertyBl.deleteProperty(id));
-        buildingcareResponse.setResponseCode("PROP-0003");
+        try {
+            buildingcareResponse.setData(propertyBl.deleteProperty(id));
+            buildingcareResponse.setResponseCode("PROP-0003");
+        } catch (BuildingcareException e) {
+            buildingcareResponse.setErrorMessage(e.getMessage());
+            buildingcareResponse.setResponseCode("PROP-6003");
+        }
+        
 
         return buildingcareResponse;
     }
