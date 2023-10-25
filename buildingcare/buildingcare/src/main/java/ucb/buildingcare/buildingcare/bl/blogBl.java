@@ -17,6 +17,7 @@ import ucb.buildingcare.buildingcare.dto.PostResponse;
 import ucb.buildingcare.buildingcare.entity.Post;
 import ucb.buildingcare.buildingcare.repository.PostRepository;
 import ucb.buildingcare.buildingcare.repository.UserRepository;
+import ucb.buildingcare.buildingcare.util.BuildingcareException;
 import ucb.buildingcare.buildingcare.repository.TypePostRepository;
 
 @Service
@@ -52,13 +53,12 @@ public class blogBl {
         return new BuildingcareResponse(postResponses);
     }
 
-    public PostResponse getPostById(Integer id) {
+    public PostResponse getPostById(Integer id) throws BuildingcareException {
         Post post = postRepository.findById(id).orElse(null);
         if (post != null) {
             return new PostResponse(post);
         } else {
-            //TODO raise exception
-            return null;
+            throw new BuildingcareException("No se encontró la publicación");
         }
     }
 
@@ -84,46 +84,55 @@ public class blogBl {
         
         LOGGER.info("blogBl - creating post: "+ post.toString());
         // Save the post object to the database
-        postRepository.save(post);
+        try {
+                postRepository.save(post);
+            } catch (Exception e) {
+                LOGGER.error("No se pudo guardar el elemento: {}", e);
+            }
         return new PostResponse(post);
     }
 
-    public PostResponse deletePost(Integer id) {
+    public PostResponse deletePost(Integer id) throws BuildingcareException {
         Post post = postRepository.findById(id).orElse(null);
         if (post != null) {
             postRepository.delete(post);
             return new PostResponse(post);
         } else {
-            //TODO raise exception
-            return null;
+            throw new BuildingcareException("No se encontró la publicación");
         }
     }
 
-    public PostResponse markPostAsDone(Integer id, Integer token) {
+    public PostResponse markPostAsDone(Integer id, Integer token) throws BuildingcareException {
         Post post = postRepository.findById(id).orElse(null);
         if (post != null) {
             post.setState("Done");
-            postRepository.save(post);
+            try {
+                postRepository.save(post);
+            } catch (Exception e) {
+                LOGGER.error("No se pudo guardar el elemento: {}", e);
+            }
             return new PostResponse(post);
         } else {
-            //TODO raise exception
-            return null;
+            throw new BuildingcareException("No se encontró la publicación");
         }
     }
     
-    public PostResponse markPostAsUrgent(Integer id, Integer token) {
+    public PostResponse markPostAsUrgent(Integer id, Integer token) throws BuildingcareException {
         Post post = postRepository.findById(id).orElse(null);
         if (post != null) {
             post.setState("Urgent");
-            postRepository.save(post);
+            try {
+                postRepository.save(post);
+            } catch (Exception e) {
+                LOGGER.error("No se pudo guardar el elemento: {}", e);
+            }
             return new PostResponse(post);
         } else {
-            //TODO raise exception
-            return null;
+            throw new BuildingcareException("No se encontró la publicación");
         }
     }
 
-    public PostResponse updatePost(Integer id, PostRequest postRequest, Integer token) {
+    public PostResponse updatePost(Integer id, PostRequest postRequest, Integer token) throws BuildingcareException {
         Post post = postRepository.findById(id).orElse(null);
         if (post != null) {
 
@@ -133,12 +142,15 @@ public class blogBl {
             if (postRequest.getIdUser() != null) post.setIdUser(userRepository.findById(token).orElse(null));
             if (postRequest.getIdTypePost() != null) post.setIdTypePost(typePostRepository.findById(postRequest.getIdTypePost()).orElse(null));
             
-            postRepository.save(post);
+            try {
+                postRepository.save(post);
+            } catch (Exception e) {
+                LOGGER.error("No se pudo guardar el elemento: {}", e);
+            }
             
             return new PostResponse(post);
         } else {
-            //TODO raise exception
-            return null;
+            throw new BuildingcareException("No se encontró la publicación");
         }
     }
     

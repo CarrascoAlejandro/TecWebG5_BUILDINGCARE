@@ -14,7 +14,9 @@ import ucb.buildingcare.buildingcare.dto.PropertyResponse;
 import ucb.buildingcare.buildingcare.entity.Property;
 import ucb.buildingcare.buildingcare.repository.PropertyRepository;
 import ucb.buildingcare.buildingcare.repository.SectionRepository;
+import ucb.buildingcare.buildingcare.repository.TypePropertyRepository;
 import ucb.buildingcare.buildingcare.repository.UserRepository;
+import ucb.buildingcare.buildingcare.util.BuildingcareException;
 
 @Service
 public class PropertyBl {
@@ -30,10 +32,14 @@ public class PropertyBl {
     @Autowired
     private SectionRepository sectionRepository;
 
-    public PropertyBl(PropertyRepository propertyRepository, UserRepository userRepository, SectionRepository sectionRepository) {
+    @Autowired
+    private TypePropertyRepository typePropertyRepository;
+
+    public PropertyBl(PropertyRepository propertyRepository, UserRepository userRepository, SectionRepository sectionRepository, TypePropertyRepository typePropertyRepository) {
         this.propertyRepository = propertyRepository;
         this.userRepository = userRepository;
         this.sectionRepository = sectionRepository;
+        this.typePropertyRepository = typePropertyRepository;
     }
     public BuildingcareResponse ListAllProperties() {
         LOGGER.info("PropertyBl - ListAllProperties");
@@ -48,13 +54,12 @@ public class PropertyBl {
         return new BuildingcareResponse(propertyResponses);
     }
 
-    public PropertyResponse getPropertyById(Integer id) {
+    public PropertyResponse getPropertyById(Integer id) throws BuildingcareException {
         Property property = propertyRepository.findById(id).orElse(null);
         if (property != null) {
             return new PropertyResponse(property);
         } else {
-            //TODO raise exception
-            return null;
+            throw new BuildingcareException("No se encontro la propedad con id "+id);
         }
     }
 
@@ -67,13 +72,18 @@ public class PropertyBl {
         property.setDescription(propertyRequest.getPropertyDescription());
         property.setImage(propertyRequest.getPropertyImage());
         property.setIdSection(sectionRepository.findById(propertyRequest.getPropertyIdSection()).orElse(null));
+        property.setIdTypeProperty(typePropertyRepository.findById(propertyRequest.getPropertyIdType()).orElse(null));
         property.setIdUser(userRepository.findById(token).get());
         LOGGER.info("se ha creado: " + property.toString());
-        propertyRepository.save(property);
+        try {
+            propertyRepository.save(property);
+        } catch (Exception e) {
+            LOGGER.error("No se pudo guardar el elemento", e);
+        }
         return new PropertyResponse(property);
     }
 
-    public PropertyResponse updateProperty(Integer id, PropertyRequest propertyRequest, Integer token) {
+    public PropertyResponse updateProperty(Integer id, PropertyRequest propertyRequest, Integer token) throws BuildingcareException {
         Property property = propertyRepository.findById(id).orElse(null);
         if (property != null) {
             property.setEnvironments(propertyRequest.getPropertyEnvironments());
@@ -82,21 +92,25 @@ public class PropertyBl {
             property.setDescription(propertyRequest.getPropertyDescription());
             property.setImage(propertyRequest.getPropertyImage());
             property.setIdSection(sectionRepository.findById(propertyRequest.getPropertyIdSection()).orElse(null));
+            property.setIdTypeProperty(typePropertyRepository.findById(propertyRequest.getPropertyIdType()).orElse(null));
             property.setIdUser(userRepository.findById(token).get());
-            propertyRepository.save(property);
+            try {
+                propertyRepository.save(property);
+            } catch (Exception e) {
+                LOGGER.error("No se pudo guardar el elemento", e);
+            }
             return new PropertyResponse(property);
         } else {
-            //TODO raise exception
-            return null;
+            throw new BuildingcareException("No se encontro la propedad con id "+id);
         }
     }
 
-    public PropertyResponse deleteProperty(Integer id) {
+    public PropertyResponse deleteProperty(Integer id) throws BuildingcareException {
         Property property = propertyRepository.findById(id).orElse(null);
         if (property != null) {
             propertyRepository.delete(property);
         } else {
-            //TODO raise exception
+            throw new BuildingcareException("No se encontro la propedad con id "+id);
         }
         return new PropertyResponse(property);
     }

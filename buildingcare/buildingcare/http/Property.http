@@ -4,11 +4,43 @@ Accept: application/json
 Token: 1
 
 ###
-GET http://localhost:8080/api/v1/property/4
+GET http://localhost:8080/api/v1/property/5
 Accept: application/json
 Token: 1
 
 ###
 POST http://localhost:8080/api/v1/property
 Content-Type: application/json
+Accept: application/json
+Token: 1
+
+{
+    "propertyEnvironments": 2,
+    "propertyDimensions": 500.0,
+    "propertyValue": 500000.0,
+    "propertyDescription": "Casa de 2 pisos",
+    "propertyImage": "no hay",
+    "propertyIdSection": 1,
+    "propertyIdType": 2
+}
+
+###
+PUT http://localhost:8080/api/v1/property/5
+Content-Type: application/json
+Accept: application/json
+Token: 1
+
+{
+    "propertyEnvironments": 2,
+    "propertyDimensions": 500.0,
+    "propertyValue": 500000.0,
+    "propertyDescription": "Duplex",
+    "propertyImage": "no hay",
+    "propertyIdSection": 1,
+    "propertyIdType": 2
+}
+
+###
+DELETE http://localhost:8080/api/v1/property/5
+Accept: application/json
 
