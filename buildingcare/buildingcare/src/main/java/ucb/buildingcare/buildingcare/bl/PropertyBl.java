@@ -115,4 +115,9 @@ public class PropertyBl {
         return new PropertyResponse(property);
     }
 
+    public BuildingcareResponse listAllPropertyTypes() {
+        LOGGER.info("PropertyBl - listAllPropertyTypes");
+        return new BuildingcareResponse(typePropertyRepository.findAll());
+    }
+
 }
