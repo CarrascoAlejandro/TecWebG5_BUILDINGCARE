@@ -101,5 +101,12 @@ public class PropertyAPI {
 
         return buildingcareResponse;
     }
+
+    @GetMapping(path = "/type")
+    public BuildingcareResponse listAllPropertyTypes() {
+        BuildingcareResponse buildingcareResponse = propertyBl.listAllPropertyTypes();
+        buildingcareResponse.setResponseCode("PROP-0004");
+        return buildingcareResponse;
+    }
     
 }
