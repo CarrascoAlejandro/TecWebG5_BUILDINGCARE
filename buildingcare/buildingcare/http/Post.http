@@ -47,19 +47,19 @@ Accept: application/json
 ###
 
 ### Mark Post As Done
-PUT http://localhost:8080/api/v1/blog/1/done
+PUT http://localhost:8080/api/v1/blog/7/done
 Accept: application/json
 token :1
 
 ###
 
 ### Mark Post As Urgent
-PUT http://localhost:8080/api/v1/blog/1/urgent
+PUT http://localhost:8080/api/v1/blog/7/urgent
 Accept: application/json
 token: 1
 
 ### Update Post by ID
-PUT http://localhost:8080/api/v1/blog/2
+PUT http://localhost:8080/api/v1/blog/7
 Content-Type: application/json
 Accept: application/json
 token: 2
