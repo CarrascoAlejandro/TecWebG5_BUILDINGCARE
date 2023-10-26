@@ -13,6 +13,9 @@ import ucb.buildingcare.buildingcare.util.BuildingcareException;
 @RestController
 @RequestMapping(path = "/api/v1/blog")
 public class PostAPI {
+    //Esta API se encarga de la logica sobre el blog de publicaciones
+    //Requiere de los servicios:
+    //blogBl
 
     Logger LOGGER = LoggerFactory.getLogger(PostAPI.class);
     

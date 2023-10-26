@@ -22,6 +22,9 @@ import ucb.buildingcare.buildingcare.util.BuildingcareException;
 @RestController
 @RequestMapping(path = "/api/v1/property")
 public class PropertyAPI {
+    //Esta API se encarga de la logica sobre las propiedades, sus propietarios y su descripcion
+    //Requiere de los servicios:
+    //PropertyBl
 
     Logger LOGGER = LoggerFactory.getLogger(PropertyAPI.class);
     

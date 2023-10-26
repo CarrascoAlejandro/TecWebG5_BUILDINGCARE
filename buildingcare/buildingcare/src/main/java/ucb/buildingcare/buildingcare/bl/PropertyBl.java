@@ -20,6 +20,12 @@ import ucb.buildingcare.buildingcare.util.BuildingcareException;
 
 @Service
 public class PropertyBl {
+    //Esta clase es la que se encarga de la logica sobre las propiedades, sus propietarios y su descripcion
+    //Requiere de las tablas:
+    //Property
+    //User
+    //Section
+    //TypeProperty
 
     Logger LOGGER = LoggerFactory.getLogger(PropertyBl.class);
 

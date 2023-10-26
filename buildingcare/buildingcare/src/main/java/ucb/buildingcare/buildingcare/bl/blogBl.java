@@ -22,6 +22,11 @@ import ucb.buildingcare.buildingcare.repository.TypePostRepository;
 
 @Service
 public class blogBl {
+    //Esta clase es la que se encarga de la logica sobre el blog de publicaciones
+    //Requiere de las tablas:
+    //Post
+    //User
+    //TypePost
 
     Logger LOGGER = LoggerFactory.getLogger(blogBl.class);
     

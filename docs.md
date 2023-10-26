@@ -154,3 +154,164 @@ __Respuesta Exitosa (200 OK):__
 }
 ```
 Recuerda incluir el token de autenticación en las solicitudes que lo requieran.
+
+## Endpoints de sección
+### Listar Todas las Secciones
+__Endpoint:__ `/all`
+
+__Método HTTP:__ GET
+
+__Descripción:__ Este endpoint permite obtener una lista de todas las secciones disponibles en el sistema.
+
+__Parámetros:__ Ninguno.
+
+__Respuesta Exitosa (200 OK):__
+
+```
+{
+  "responseCode": "PROP-0000",
+  "data": {
+    // Lista de secciones
+  }
+}
+```
+
+## Endpoints de Publicación
+### Listar Todas las Publicaciones
+__Endpoint:__ `/all`
+
+__Método HTTP:__ GET
+
+__Descripción:__ Este endpoint permite obtener una lista de todas las publicaciones disponibles en el sistema.
+
+__Parámetros:__ Ninguno.
+
+__Respuesta Exitosa (200 OK):__
+
+```
+{
+  "responseCode": "PROP-0000",
+  "data": {
+    // Lista de publicaciones
+  }
+}
+```
+### Obtener Publicación por ID
+__Endpoint:__ `/{id}`
+
+__Método HTTP:__ GET
+
+__Descripción:__ Este endpoint permite obtener información detallada de una publicación específica mediante su ID.
+
+__Parámetros:__ `{id} (Path variable)` - ID de la publicación que se desea obtener.
+
+__Respuesta Exitosa (200 OK):__
+
+```
+{
+  "responseCode": "PROP-0000",
+  "data": {
+    // Detalles de la publicación
+  }
+}
+```
+### Crear Publicación
+__Endpoint:__ `/`
+
+__Método HTTP:__ POST
+
+__Descripción:__ Este endpoint permite crear una nueva publicación en el sistema.
+
+__Parámetros:__ `postRequest (Request body)` - Datos de la publicación que se va a crear.
+
+Encabezado Requerido: `token (Request header)` - Token de autenticación.
+
+__Respuesta Exitosa (200 OK):__
+
+```
+{
+  "responseCode": "PROP-0001",
+  "data": {
+    // Detalles de la publicación creada
+  }
+}
+```
+### Actualizar Publicación
+__Endpoint:__ `/{id}`
+
+__Método HTTP:__ PUT
+
+__Descripción:__ Este endpoint permite actualizar los detalles de una publicación existente.
+
+__Parámetros:__ `{id} (Path variable)` - ID de la publicación que se va a actualizar.
+
+`postRequest (Request body)` - Datos actualizados de la publicación.
+
+__Respuesta Exitosa (200 OK):__
+
+```
+{
+  "responseCode": "PROP-0002",
+  "data": {
+    // Detalles de la publicación actualizada
+  }
+}
+```
+### Eliminar Publicación
+__Endpoint:__ `/{id}`
+
+__Método HTTP:__ DELETE
+
+__Descripción:__ Este endpoint permite eliminar una publicación del sistema.
+
+__Parámetros:__ `{id} (Path variable)` - ID de la publicación que se va a eliminar.
+
+__Respuesta Exitosa (200 OK):__
+
+```
+{
+  "responseCode": "PROP-0003",
+  "data": null
+}
+```
+### Marcar publicación como completada
+__Endpoint:__ `/{id}/done`
+
+__Método HTTP:__ PUT
+
+__Descripción:__ Este endpoint permite marcar una publicación como completada.
+
+__Parámetros:__ `{id} (Path variable)` - ID de la publicación que se va a marcar como completada.
+
+__Respuesta Exitosa (200 OK):__
+
+```
+{
+  "responseCode": "PROP-0002",
+  "data": {
+    // Detalles de la publicación actualizada
+  }
+}
+```
+### Marcar publicación como urgente
+__Endpoint:__ `/{id}/urgent`
+
+__Método HTTP:__ PUT
+
+__Descripción:__ Este endpoint permite marcar una publicación como urgente.
+
+__Parámetros:__ `{id} (Path variable)` - ID de la publicación que se va a marcar como urgente.
+
+__Respuesta Exitosa (200 OK):__
+
+```
+{
+  "responseCode": "PROP-0002",
+  "data": {
+    // Detalles de la publicación actualizada
+  }
+}
+```
+
+Recuerda incluir el token de autenticación en las solicitudes que lo requieran.
+

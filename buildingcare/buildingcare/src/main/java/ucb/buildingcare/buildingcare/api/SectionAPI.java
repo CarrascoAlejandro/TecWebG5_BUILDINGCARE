@@ -13,6 +13,10 @@ import ucb.buildingcare.buildingcare.dto.BuildingcareResponse;
 @RestController
 @RequestMapping(path = "/api/v1/section")
 public class SectionAPI {
+    //Esta API se encarga de la logica sobre las secciones
+    //De momento solo aplica para listar las secciones para el combo box de la vista de propiedades
+    //Requiere de los servicios:
+    //SectionBl
 
     Logger LOGGER = LoggerFactory.getLogger(SectionAPI.class);
     

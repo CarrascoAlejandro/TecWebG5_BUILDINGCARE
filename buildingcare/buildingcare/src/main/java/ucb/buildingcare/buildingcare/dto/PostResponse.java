@@ -3,6 +3,7 @@ package ucb.buildingcare.buildingcare.dto;
 import ucb.buildingcare.buildingcare.entity.Post;
 
 public class PostResponse {
+    //Esta clase es la que se encarga de enviar la respuesta sobre post al front end
 
     private Integer id;
     private String postDateAndHour;

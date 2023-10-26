@@ -1,6 +1,8 @@
 package ucb.buildingcare.buildingcare.dto;
 
 public class PostRequest {
+    //Esta clase es la que se encarga de recibir una peticion de Post del front end
+
     private String title;
     private String content;
     private String state;

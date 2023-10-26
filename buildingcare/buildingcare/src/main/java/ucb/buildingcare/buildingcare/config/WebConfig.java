@@ -6,6 +6,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
+    //Este metodo permite que el front end se conecte con el back end
+    //desde el puerto 8081
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
