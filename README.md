@@ -1,6 +1,53 @@
 # TecWebG5_BUILDINGCARE
 
 ## Proyecto final de Tecnologías Web - Grupo 5 - Sitio Web para Condominio
+
+### Descripción General del Proyecto:
+
+#### Propósito:
+El proyecto busca diseñar e implementar un sistema web para la gestión administrativa de los condominios. Este sistema está diseñado para ser una herramienta integral que aborde los desafíos y necesidades de la administración de condominios. Al centralizar y automatizar estos procesos, se espera mejorar la eficiencia, transparencia, control y satisfacción tanto para los administradores como para los residentes de los condominios.
+
+#### Funcionalidad:
+
+1. **Login y Seguridad:**
+   - Provee un sistema de login seguro para los usuarios.
+   - Ofrece distintos niveles de acceso basados en roles de usuario.
+   - Permite la creación de cuentas para residentes y vendedores.
+
+2. **Gestión de Propiedades:**
+   - Mostrar un tablero de anuncios para gestionar propiedades en venta o alquiler.
+   - Registro detallado de propiedades incluyendo información del propietario, inquilino y cuotas.
+   - Vista especializada para propiedades rentadas y detalles del inquilino.
+
+3. **Contabilidad y Finanzas:**
+   - Registro y seguimiento de gastos comunes, pagos de alquiler y cuotas de mantenimiento.
+   - Generación de estados financieros para mantener una contabilidad transparente y accesible.
+
+4. **Reservas y Alquileres:**
+   - Permite a los usuarios reservar espacios disponibles en el condominio.
+
+5. **Reserva de Servicios:**
+   - Facilita la reserva de servicios ofrecidos por la administración del condominio.
+
+6. **Gestión de Documentos:**
+   - Herramienta para gestionar documentos vitales como reglamentos, contratos y actas.
+
+7. **Gestión de Mantenimiento:**
+   - Programación y seguimiento de mantenimientos preventivos y correctivos.
+   - Permite a los usuarios reportar áreas que requieren mantenimiento.
+
+8. **Encuestas y Votaciones:**
+   - Facilita la creación y participación en encuestas y votaciones para decisiones conjuntas.
+
+9. **Privacidad y Seguridad:**
+   - Registro detallado de ingresos y salidas para garantizar la seguridad de la propiedad.
+   - Herramientas administrativas para gestionar propiedades, usuarios y comunicación.
+   - Registro de actividad para rastrear acciones de los usuarios y asegurar la integridad del sistema.
+
+10. **Soporte y Capacitación:**
+   - Provee un manual de usuario para facilitar el entendimiento y uso óptimo del sistema.
+     
+
 ### Objetivos
 
 - Simplificar la actualización del catálogo de condominios.
