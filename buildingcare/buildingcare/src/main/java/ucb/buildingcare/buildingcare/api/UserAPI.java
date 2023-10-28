@@ -15,6 +15,11 @@ import ucb.buildingcare.buildingcare.dto.UserRequest;
 @RestController
 @RequestMapping("/api/v1/login")
 public class UserAPI {
+    //Esta API se encarga de la logica sobre los usuarios
+    //De momento solo aplica para el login
+    //Requiere de los servicios:
+    //UserBl
+
     private static final Logger LOG = LoggerFactory.getLogger(UserAPI.class);
     @Autowired
     private final UserBl userService;

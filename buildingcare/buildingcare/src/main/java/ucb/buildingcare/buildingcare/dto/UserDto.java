@@ -1,6 +1,8 @@
 package ucb.buildingcare.buildingcare.dto;
 
 public class UserDto {
+        //Clase en desuso
+
     private int idUser;
     private String name;
     //Nota: Se puso en la base "usename" en vez de "username"

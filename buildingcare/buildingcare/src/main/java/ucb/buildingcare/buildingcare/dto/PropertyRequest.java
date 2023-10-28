@@ -3,6 +3,7 @@ package ucb.buildingcare.buildingcare.dto;
 import java.math.BigDecimal;
 
 public class PropertyRequest {
+    //Esta clase es la que se encarga de recibir una peticion de Property del front end
     
     private Integer propertyEnvironments;
     private BigDecimal propertyDimensions;

@@ -8,6 +8,10 @@ import ucb.buildingcare.buildingcare.repository.SectionRepository;
 
 @Service
 public class SectionBl {
+    //Esta clase es la que se encarga de la logica sobre las secciones
+    //De momento solo aplica para listar las secciones para el combo box de la vista de propiedades
+    //Requiere de las tablas:
+    //Section
     
     @Autowired
     private SectionRepository sectionRepository;

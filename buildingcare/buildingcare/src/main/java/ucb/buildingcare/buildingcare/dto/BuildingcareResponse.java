@@ -1,6 +1,7 @@
 package ucb.buildingcare.buildingcare.dto;
 
 public class BuildingcareResponse {
+    //Esta clase es la que se encarga de enviar la respuesta al front end
     
     private String responseCode;
     private Object data;
