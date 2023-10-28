@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import ucb.buildingcare.buildingcare.bl.blogBl;
+import ucb.buildingcare.buildingcare.bl.BlogBl;
 import ucb.buildingcare.buildingcare.dto.BuildingcareResponse;
 import ucb.buildingcare.buildingcare.dto.PostRequest;
 import ucb.buildingcare.buildingcare.util.BuildingcareException;
@@ -20,9 +20,9 @@ public class PostAPI {
     Logger LOGGER = LoggerFactory.getLogger(PostAPI.class);
     
     @Autowired
-    private blogBl blogService;
+    private BlogBl blogService;
 
-    public PostAPI(blogBl blogService) {
+    public PostAPI(BlogBl blogService) {
         this.blogService = blogService;
     }
 
@@ -49,6 +49,51 @@ public class PostAPI {
         LOGGER.info("{}", buildingcareResponse);
         return buildingcareResponse;
     }
+
+    @GetMapping(path = "/urgent")
+    public BuildingcareResponse getUrgentPosts() {
+        LOGGER.info("getUrgentPosts");
+        BuildingcareResponse buildingcareResponse = new BuildingcareResponse();
+        try {
+            buildingcareResponse.setData(blogService.getPostsByStatus("urgent"));
+            buildingcareResponse.setResponseCode("POST-0000");
+        } catch (BuildingcareException e) {
+            buildingcareResponse.setErrorMessage(e.getMessage());
+            buildingcareResponse.setResponseCode("POST-6000");
+        }
+        LOGGER.info("{}", buildingcareResponse);
+        return buildingcareResponse;
+    }
+
+    @GetMapping(path = "/done")
+    public BuildingcareResponse getDonePosts() {
+        LOGGER.info("getDonePosts");
+        BuildingcareResponse buildingcareResponse = new BuildingcareResponse();
+        try {
+            buildingcareResponse.setData(blogService.getPostsByStatus("done"));
+            buildingcareResponse.setResponseCode("POST-0000");
+        } catch (BuildingcareException e) {
+            buildingcareResponse.setErrorMessage(e.getMessage());
+            buildingcareResponse.setResponseCode("POST-6000");
+        }
+        LOGGER.info("{}", buildingcareResponse);
+        return buildingcareResponse;
+    }
+
+    /* @GetMapping(path = "/children/{id}")
+    public BuildingcareResponse getChildrenPosts(@PathVariable Integer id) {
+        LOGGER.info("getChildrenPosts");
+        BuildingcareResponse buildingcareResponse = new BuildingcareResponse();
+        try {
+            buildingcareResponse.setData(blogService.getChildrenPosts(id));
+            buildingcareResponse.setResponseCode("POST-0000");
+        } catch (BuildingcareException e) {
+            buildingcareResponse.setErrorMessage(e.getMessage());
+            buildingcareResponse.setResponseCode("POST-6000");
+        }
+        LOGGER.info("{}", buildingcareResponse);
+        return buildingcareResponse;
+    } */
 
     @PostMapping()
     public BuildingcareResponse createPost(@RequestBody PostRequest postRequest, @RequestHeader Integer token) {

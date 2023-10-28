@@ -21,14 +21,14 @@ import ucb.buildingcare.buildingcare.util.BuildingcareException;
 import ucb.buildingcare.buildingcare.repository.TypePostRepository;
 
 @Service
-public class blogBl {
+public class BlogBl {
     //Esta clase es la que se encarga de la logica sobre el blog de publicaciones
     //Requiere de las tablas:
     //Post
     //User
     //TypePost
 
-    Logger LOGGER = LoggerFactory.getLogger(blogBl.class);
+    Logger LOGGER = LoggerFactory.getLogger(BlogBl.class);
     
     @Autowired
     private PostRepository postRepository;
@@ -39,7 +39,7 @@ public class blogBl {
     @Autowired
     private TypePostRepository typePostRepository;
 
-    public blogBl(PostRepository postRepository, UserRepository userRepository, TypePostRepository typePostRepository) {
+    public BlogBl(PostRepository postRepository, UserRepository userRepository, TypePostRepository typePostRepository) {
         this.postRepository = postRepository;
         this.userRepository = userRepository;
         this.typePostRepository = typePostRepository;
@@ -67,7 +67,23 @@ public class blogBl {
         }
     }
 
-    
+    public BuildingcareResponse getPostsByStatus(String status) throws BuildingcareException {
+        LOGGER.info("blogBl - getPostsByStatus: "+status);
+        List<Post> posts = postRepository.findAll();
+        LOGGER.info("el tamano de posts List<Post> es: "+ posts.size());
+        List<PostResponse> postResponses = new ArrayList<>();
+        for (Post post : posts) {
+            LOGGER.info("en el for de List<Post> posts: "+ post.toString());
+            if(post.getState().equalsIgnoreCase(status)) {
+                postResponses.add(new PostResponse(post));
+            }
+        }
+        if (postResponses.size() == 0) {
+            throw new BuildingcareException("No se encontraron publicaciones con el estado "+status);
+        }
+        LOGGER.info("retornando new BuildingcareResponse(postResponses): "+ new BuildingcareResponse(postResponses).toString());
+        return new BuildingcareResponse(postResponses);
+    }
 
     public PostResponse createPost(PostRequest postRequest, Integer token) {
         Post post = new Post();

@@ -34,4 +34,5 @@
         List<Property> findByIdSection(Section idSection);
 
         List<Property> findByIdUserAndIdSection(User idUser, Section idSection);
+        List<Property> findByIdTypePropertyAndIdSection(TypeProperty idTypeProperty, Section idSection);
     }

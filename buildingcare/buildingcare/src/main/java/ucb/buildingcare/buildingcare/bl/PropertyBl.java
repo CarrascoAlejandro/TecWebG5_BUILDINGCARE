@@ -69,6 +69,49 @@ public class PropertyBl {
         }
     }
 
+    public BuildingcareResponse getPropertyByOwnerId(Integer id) throws BuildingcareException{
+        LOGGER.info("PropertyBl - getPropertyByOwnerId "+ id);
+        List<Property> properties = propertyRepository.findByIdUser(userRepository.findById(id).orElse(null));
+        LOGGER.info("el tamano de properties List<Property> es: "+ properties.size());
+        if (properties.size() == 0) {
+            LOGGER.error("No se encontro la propedades con id "+id);
+            throw new BuildingcareException("No se encontro la propedades con id "+id);
+        }
+        List<PropertyResponse> propertyResponses = new ArrayList<>();
+        for (Property property : properties) {
+            LOGGER.info("en el for de List<Property> properties: "+ property.toString());
+            propertyResponses.add(new PropertyResponse(property));
+        }
+        LOGGER.info("retornando new BuildingcareResponse(propertyResponses): "+ new BuildingcareResponse(propertyResponses).toString());
+        return new BuildingcareResponse(propertyResponses);
+    }
+
+    public BuildingcareResponse getPropertyByTypeAndSection(Integer idType, Integer idSection) throws BuildingcareException{
+        LOGGER.info("PropertyBl - getPropertyByTypeAndSection "+ idType + " " + idSection);
+        List<Property> properties = new ArrayList<>();
+        List<PropertyResponse> propertyResponses = new ArrayList<>();
+        if (idType != 0 && idSection != 0) {
+            properties = propertyRepository.findByIdTypePropertyAndIdSection(typePropertyRepository.findById(idType).orElse(null), sectionRepository.findById(idSection).orElse(null));
+        } else if (idType != 0) {
+            properties = propertyRepository.findByIdTypeProperty(typePropertyRepository.findById(idType).orElse(null));
+        } else if (idSection != 0) {
+            properties = propertyRepository.findByIdSection(sectionRepository.findById(idSection).orElse(null));
+        } else {
+            return this.ListAllProperties();
+        }
+        LOGGER.info("el tamano de properties List<Property> es: "+ properties.size());
+        if (properties.size() == 0) {
+            LOGGER.error("No se encontro la propedades con los parametros indicados");
+            throw new BuildingcareException("No se encontro la propedades con los parametros indicados");
+        }
+        for (Property property : properties) {
+            LOGGER.info("en el for de List<Property> properties: "+ property.toString());
+            propertyResponses.add(new PropertyResponse(property));
+        }
+        LOGGER.info("retornando new BuildingcareResponse(propertyResponses): "+ new BuildingcareResponse(propertyResponses).toString());
+        return new BuildingcareResponse(propertyResponses);
+    }
+
     public PropertyResponse createProperty(PropertyRequest propertyRequest, Integer token) {
         Property property = new Property();
         LOGGER.info("Entrando a crear propiedad BL");
