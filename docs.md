@@ -58,7 +58,7 @@ __Respuesta Exitosa (200 OK):__
   "data": {
     // Lista de propiedades
   }
-}`
+}
 ```
 ### Obtener Propiedad por ID
 __Endpoint:__ `/{id}`
@@ -82,6 +82,52 @@ _Respuesta Exitosa (200 OK):_
   }
 }
 ```
+### Obtener Propiedades por Usuario
+__Endpoint:__ `/owner/{id}`
+
+__Método HTTP:__ GET
+
+__Descripción:__
+
+Este endpoint permite obtener una lista de todas las propiedades que pertenecen a un usuario específico.
+
+__Parámetros:__
+
+`{id} (Path variable)` - ID del usuario cuyas propiedades se desean obtener.
+_Respuesta Exitosa (200 OK):_
+
+```
+{
+  "responseCode": "PROP-0000",
+  "data": {
+    // Lista de propiedades
+  }
+}
+```
+### Filtrar Propiedades según tipo y sección
+__Endpoint:__ `/`
+
+__Método HTTP:__ GET
+
+__Descripción:__
+
+Este endpoint permite obtener una lista de propiedades que coinciden con los criterios de búsqueda especificados.
+
+__Parámetros:__
+
+`type (Query parameter)` - Tipo de propiedad que se desea buscar.
+`section (Query parameter)` - Sección de la propiedad que se desea buscar.
+_Respuesta Exitosa (200 OK):_
+
+```
+{
+  "responseCode": "PROP-0000",
+  "data": {
+    // Lista de propiedades
+  }
+}
+```
+
 ### Crear Propiedad
 __Endpoint:__ `/`
 
@@ -97,7 +143,7 @@ __Parámetros:__
 Encabezado Requerido:
 
 `token (Request header)` - Token de autenticación.
-__Respuesta Exitosa (200 OK):__
+_Respuesta Exitosa (200 OK):_
 
 ```
 {
@@ -123,7 +169,7 @@ __Parámetros:__
 Encabezado Requerido:
 
 `token (Request header)` - Token de autenticación.
-__Respuesta Exitosa (200 OK):__
+_Respuesta Exitosa (200 OK):_
 
 ```
 {
@@ -145,7 +191,7 @@ Este endpoint permite eliminar una propiedad del sistema.
 __Parámetros:__
 
 `{id} (Path variable)` - ID de la propiedad que se va a eliminar.
-__Respuesta Exitosa (200 OK):__
+_Respuesta Exitosa (200 OK):_
 
 ```
 {
@@ -165,7 +211,7 @@ __Descripción:__ Este endpoint permite obtener una lista de todas las secciones
 
 __Parámetros:__ Ninguno.
 
-__Respuesta Exitosa (200 OK):__
+_Respuesta Exitosa (200 OK):_
 
 ```
 {
@@ -186,7 +232,7 @@ __Descripción:__ Este endpoint permite obtener una lista de todas las publicaci
 
 __Parámetros:__ Ninguno.
 
-__Respuesta Exitosa (200 OK):__
+_Respuesta Exitosa (200 OK):_
 
 ```
 {
@@ -205,13 +251,73 @@ __Descripción:__ Este endpoint permite obtener información detallada de una pu
 
 __Parámetros:__ `{id} (Path variable)` - ID de la publicación que se desea obtener.
 
-__Respuesta Exitosa (200 OK):__
+_Respuesta Exitosa (200 OK):_
 
 ```
 {
   "responseCode": "PROP-0000",
   "data": {
     // Detalles de la publicación
+  }
+}
+```
+### Obtener todas las publicaciones urgentes
+__Endpoint:__ `/urgent`
+
+__Método HTTP:__ GET
+
+__Descripción:__ 
+Este endpoint permite obtener una lista de todas las publicaciones urgentes disponibles en el sistema.
+
+__Parámetros:__ Ninguno.
+
+_Respuesta Exitosa (200 OK):_
+
+```
+{
+  "responseCode": "PROP-0000",
+  "data": {
+    // Lista de publicaciones
+  }
+}
+```
+### Obtener todas las publicaciones resueltas
+__Endpoint:__ `/done`
+
+__Método HTTP:__ GET
+
+__Descripción:__
+Este endpoint permite obtener una lista de todas las publicaciones resueltas disponibles en el sistema.
+
+__Parámetros:__ Ninguno.
+
+_Respuesta Exitosa (200 OK):_
+
+```
+{
+  "responseCode": "PROP-0000",
+  "data": {
+    // Lista de publicaciones
+  }
+}
+```
+### Obtener todas las publicaciones hijas de una publicación especificada
+__!OJO!__ Este endpoint no está implementado aún en el backend.
+__Endpoint:__ `/{id}/children`
+
+__Método HTTP:__ GET
+
+__Descripción:__ Este endpoint permite obtener una lista de todas las publicaciones hijas de una publicación especificada. ***Nota:*** *Las publicaciones hijas son aquellas que se crean como respuesta a una publicación existente.*
+
+__Parámetros:__ `{id} (Path variable)` - ID de la publicación cuyas publicaciones hijas se desean obtener.
+
+_Respuesta Exitosa (200 OK):_
+
+```
+{
+  "responseCode": "PROP-0000",
+  "data": {
+    // Lista de publicaciones
   }
 }
 ```
@@ -226,7 +332,7 @@ __Parámetros:__ `postRequest (Request body)` - Datos de la publicación que se 
 
 Encabezado Requerido: `token (Request header)` - Token de autenticación.
 
-__Respuesta Exitosa (200 OK):__
+_Respuesta Exitosa (200 OK):_
 
 ```
 {
@@ -247,7 +353,7 @@ __Parámetros:__ `{id} (Path variable)` - ID de la publicación que se va a actu
 
 `postRequest (Request body)` - Datos actualizados de la publicación.
 
-__Respuesta Exitosa (200 OK):__
+_Respuesta Exitosa (200 OK):_
 
 ```
 {
@@ -266,7 +372,7 @@ __Descripción:__ Este endpoint permite eliminar una publicación del sistema.
 
 __Parámetros:__ `{id} (Path variable)` - ID de la publicación que se va a eliminar.
 
-__Respuesta Exitosa (200 OK):__
+_Respuesta Exitosa (200 OK):_
 
 ```
 {
@@ -283,7 +389,7 @@ __Descripción:__ Este endpoint permite marcar una publicación como completada.
 
 __Parámetros:__ `{id} (Path variable)` - ID de la publicación que se va a marcar como completada.
 
-__Respuesta Exitosa (200 OK):__
+_Respuesta Exitosa (200 OK):_
 
 ```
 {
@@ -302,7 +408,7 @@ __Descripción:__ Este endpoint permite marcar una publicación como urgente.
 
 __Parámetros:__ `{id} (Path variable)` - ID de la publicación que se va a marcar como urgente.
 
-__Respuesta Exitosa (200 OK):__
+_Respuesta Exitosa (200 OK):_
 
 ```
 {

@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class PaymentRequest {
+    //Formato para recibir los datos de un pago
 
     private BigDecimal amount;
     private Date date;

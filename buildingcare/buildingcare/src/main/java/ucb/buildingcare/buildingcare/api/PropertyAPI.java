@@ -64,6 +64,7 @@ public class PropertyAPI {
         return buildingcareResponse;
     }
 
+    //Obtener todas las propiedades de un propietario
     @GetMapping(path = "/owner/{id}")
     public BuildingcareResponse getPropertyByOwnerId(@PathVariable Integer id) {
         LOGGER.info("getPropertyByOwnerId: id: {}", id);
@@ -81,6 +82,7 @@ public class PropertyAPI {
         return buildingcareResponse;
     }
 
+    //Para filtrar según tipo y sección
     @GetMapping
     public BuildingcareResponse getPropertyByTypeAndSection(@RequestParam Integer type, @RequestParam Integer section) {
         LOGGER.info("getPropertyByTypeAndSection: type: {}, section: {}", type, section);

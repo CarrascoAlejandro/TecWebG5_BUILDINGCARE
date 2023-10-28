@@ -19,6 +19,11 @@ import ucb.buildingcare.buildingcare.util.BuildingcareException;
 
 @Service
 public class PaymentsBl {
+    //Esta clase es la que se encarga de la logica sobre los pagos
+    //Requiere de las tablas:
+    //Payment
+    //User
+    //TypeUser
     
     Logger LOGGER = LoggerFactory.getLogger(PaymentsBl.class);
 

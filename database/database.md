@@ -1,4 +1,5 @@
 # Base de datos
+A continuación se indican los pasos para crear la base de datos en un contenedor de docker y poder acceder a ella.
 
 Para crear la imagen con postgres y la DB inicial: 
 ```

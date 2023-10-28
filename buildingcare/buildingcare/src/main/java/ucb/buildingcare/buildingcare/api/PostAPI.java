@@ -80,7 +80,7 @@ public class PostAPI {
         return buildingcareResponse;
     }
 
-    /* @GetMapping(path = "/children/{id}")
+    /* @GetMapping(path = "/{id}/children")
     public BuildingcareResponse getChildrenPosts(@PathVariable Integer id) {
         LOGGER.info("getChildrenPosts");
         BuildingcareResponse buildingcareResponse = new BuildingcareResponse();

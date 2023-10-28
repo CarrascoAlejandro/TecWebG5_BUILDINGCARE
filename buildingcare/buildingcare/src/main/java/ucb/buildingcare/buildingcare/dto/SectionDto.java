@@ -2,6 +2,8 @@
 package ucb.buildingcare.buildingcare.dto;
 
 public class SectionDto {
+        //Clase en desuso
+
     private int id;
     private String name;
     private String location;

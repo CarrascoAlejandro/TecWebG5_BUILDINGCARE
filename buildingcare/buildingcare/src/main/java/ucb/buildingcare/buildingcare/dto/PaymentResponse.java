@@ -3,6 +3,7 @@ package ucb.buildingcare.buildingcare.dto;
 import ucb.buildingcare.buildingcare.entity.Payment;
 
 public class PaymentResponse {
+    //Formato para enviar los datos de un pago
     
     private Integer id;
     private String amount;

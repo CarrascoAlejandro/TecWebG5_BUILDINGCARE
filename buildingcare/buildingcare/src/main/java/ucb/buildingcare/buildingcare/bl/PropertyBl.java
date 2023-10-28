@@ -69,6 +69,7 @@ public class PropertyBl {
         }
     }
 
+    //Filtrar propiedades según su propietario
     public BuildingcareResponse getPropertyByOwnerId(Integer id) throws BuildingcareException{
         LOGGER.info("PropertyBl - getPropertyByOwnerId "+ id);
         List<Property> properties = propertyRepository.findByIdUser(userRepository.findById(id).orElse(null));
@@ -86,6 +87,7 @@ public class PropertyBl {
         return new BuildingcareResponse(propertyResponses);
     }
 
+    //Filtrar propiedades por tipo y sección
     public BuildingcareResponse getPropertyByTypeAndSection(Integer idType, Integer idSection) throws BuildingcareException{
         LOGGER.info("PropertyBl - getPropertyByTypeAndSection "+ idType + " " + idSection);
         List<Property> properties = new ArrayList<>();

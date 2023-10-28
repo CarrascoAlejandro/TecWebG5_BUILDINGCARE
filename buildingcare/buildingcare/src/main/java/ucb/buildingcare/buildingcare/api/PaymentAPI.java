@@ -18,6 +18,9 @@ import ucb.buildingcare.buildingcare.dto.PaymentRequest;
 @RestController
 @RequestMapping("/api/v1/payment")
 public class PaymentAPI {
+    //Esta API se encarga de la logica sobre los pagos
+    //Requiere de los servicios:
+    //paymentBl
     
     Logger LOGGER = LoggerFactory.getLogger(PaymentAPI.class);
 
