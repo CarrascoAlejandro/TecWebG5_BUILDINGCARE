@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ucb.buildingcare.buildingcare.bl.PropertyBl;
@@ -22,6 +23,9 @@ import ucb.buildingcare.buildingcare.util.BuildingcareException;
 @RestController
 @RequestMapping(path = "/api/v1/property")
 public class PropertyAPI {
+    //Esta API se encarga de la logica sobre las propiedades, sus propietarios y su descripcion
+    //Requiere de los servicios:
+    //PropertyBl
 
     Logger LOGGER = LoggerFactory.getLogger(PropertyAPI.class);
     
@@ -50,6 +54,42 @@ public class PropertyAPI {
         
         try {
             buildingcareResponse.setData(propertyBl.getPropertyById(id));
+            buildingcareResponse.setResponseCode("PROP-0000");
+        } catch (BuildingcareException e) {
+            buildingcareResponse.setErrorMessage(e.getMessage());
+            buildingcareResponse.setResponseCode("PROP-6000");
+        }
+
+        LOGGER.info("{}", buildingcareResponse);
+        return buildingcareResponse;
+    }
+
+    //Obtener todas las propiedades de un propietario
+    @GetMapping(path = "/owner/{id}")
+    public BuildingcareResponse getPropertyByOwnerId(@PathVariable Integer id) {
+        LOGGER.info("getPropertyByOwnerId: id: {}", id);
+        BuildingcareResponse buildingcareResponse = new BuildingcareResponse();
+        
+        try {
+            buildingcareResponse.setData(propertyBl.getPropertyByOwnerId(id));
+            buildingcareResponse.setResponseCode("PROP-0000");
+        } catch (BuildingcareException e) {
+            buildingcareResponse.setErrorMessage(e.getMessage());
+            buildingcareResponse.setResponseCode("PROP-6000");
+        }
+
+        LOGGER.info("{}", buildingcareResponse);
+        return buildingcareResponse;
+    }
+
+    //Para filtrar según tipo y sección
+    @GetMapping
+    public BuildingcareResponse getPropertyByTypeAndSection(@RequestParam Integer type, @RequestParam Integer section) {
+        LOGGER.info("getPropertyByTypeAndSection: type: {}, section: {}", type, section);
+        BuildingcareResponse buildingcareResponse = new BuildingcareResponse();
+        
+        try {
+            buildingcareResponse.setData(propertyBl.getPropertyByTypeAndSection(type, section));
             buildingcareResponse.setResponseCode("PROP-0000");
         } catch (BuildingcareException e) {
             buildingcareResponse.setErrorMessage(e.getMessage());

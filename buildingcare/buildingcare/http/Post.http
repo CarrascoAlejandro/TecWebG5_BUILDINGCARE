@@ -9,6 +9,12 @@ GET http://localhost:8080/api/v1/blog/6
 Accept: application/json
 
 ###
+GET http://localhost:8080/api/v1/blog/urgent
+Accept: application/json
+
+### 
+GET http://localhost:8080/api/v1/blog/done
+Accept: application/json
 
 ### Create New Post
 POST http://localhost:8080/api/v1/blog
@@ -17,8 +23,8 @@ token: 1
 
 {
     "title": "Post Title",
-    "content": "I need help with my bathroom.",
-    "state": "New",
+    "content": "I need help with my kitchen.",
+    "state": "urgent",
     "idTypePost": 1,
     "idPostRequest": null
 }
@@ -47,7 +53,7 @@ Accept: application/json
 ###
 
 ### Mark Post As Done
-PUT http://localhost:8080/api/v1/blog/7/done
+PUT http://localhost:8080/api/v1/blog/2/done
 Accept: application/json
 token :1
 

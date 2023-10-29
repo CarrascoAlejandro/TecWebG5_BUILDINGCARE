@@ -35,3 +35,8 @@ VALUES
     (2, 2, 80.25, 180000.00, 'Modern kitchen', 'image2.jpg', 2, 1, 1),
     (3, 3, 150.75, 320000.00, 'Cozy bedroom', 'image3.jpg', 3, 2, 2),
     (4, 2, 200.00, 450000.00, 'Beautiful garden', 'image4.jpg', 4, 4, 2);
+
+-- Insert mock data into TypePost table
+INSERT INTO type_post(category) VALUES ('Mantenimiento');
+INSERT INTO type_post (category) VALUES ('Reserva');
+INSERT INTO type_post (category) VALUES ('Solicitud');

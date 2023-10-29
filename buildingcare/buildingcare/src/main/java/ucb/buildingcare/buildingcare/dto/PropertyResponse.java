@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import ucb.buildingcare.buildingcare.entity.Property;
 
 public class PropertyResponse{
+    //Esta clase es la que se encarga de enviar la respuesta sobre property al front end
     
     private Integer id;
     private Integer propertyEnvironments;

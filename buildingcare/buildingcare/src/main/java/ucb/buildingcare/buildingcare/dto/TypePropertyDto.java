@@ -1,6 +1,8 @@
 package ucb.buildingcare.buildingcare.dto;
 
 public class TypePropertyDto {
+        //Clase en desuso
+
     private int id;
     private String type;
 

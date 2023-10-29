@@ -1,6 +1,7 @@
 package ucb.buildingcare.buildingcare.dto;
 
 public class TypePostDto {
+    //Clase en desuso
     private int id;
     private String category;
 

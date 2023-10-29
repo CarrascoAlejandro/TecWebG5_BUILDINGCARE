@@ -11,6 +11,10 @@ import ucb.buildingcare.buildingcare.repository.UserRepository;
 
 @Service
 public class UserBl {
+    //Esta clase es la que se encarga de la logica sobre los usuarios
+    //De momento solo aplica para el login
+    //Requiere de las tablas:
+    //User
     private static final Logger LOG = LoggerFactory.getLogger(UserBl.class);
     @Autowired
     private final UserRepository userRepository;

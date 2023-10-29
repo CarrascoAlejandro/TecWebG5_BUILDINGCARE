@@ -1,6 +1,8 @@
 package ucb.buildingcare.buildingcare.dto;
 
 public class TypeUserDto {
+        //Clase en desuso
+
     private int id;
     private String permission;
 
