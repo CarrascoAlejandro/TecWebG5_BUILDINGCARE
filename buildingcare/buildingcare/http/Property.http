@@ -57,5 +57,3 @@ Accept: application/json
 ###
 GET http://localhost:8080/api/v1/property/type
 Accept: application/json
-
-

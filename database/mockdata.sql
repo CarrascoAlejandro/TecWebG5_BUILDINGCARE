@@ -37,6 +37,27 @@ VALUES
     (4, 2, 200.00, 450000.00, 'Beautiful garden', 'image4.jpg', 4, 4, 2);
 
 -- Insert mock data into TypePost table
-INSERT INTO type_post(category) VALUES ('Mantenimiento');
-INSERT INTO type_post (category) VALUES ('Reserva');
-INSERT INTO type_post (category) VALUES ('Solicitud');
+INSERT INTO type_post(id, category) 
+VALUES 
+    (1, 'Mantenimiento'), 
+    (2, 'Reserva'),
+    (3, 'Solicitud');
+
+-- Insert mock data into Post table
+-- Insertando un post sin idPostRequest
+INSERT INTO post (id, date, hour, title, content, state, id_user, id_type_post)
+VALUES
+    (1, '2023-10-10', '12:00:00', 'Mantenimiento', 'Se necesita mantenimiento en el apartamento 1','Active', 1, 1),
+    (2, '2023-10-15', '11:00:00', 'Reserva', 'Se necesita reservar el apartamento 2','Active', 2, 2),
+    (3, '2023-10-20', '10:00:00', 'Solicitud', 'Se necesita solicitar el apartamento 3','Active', 3, 3);   
+
+-- Insertando un post con idPostRequest establecido en 1 (haciendo referencia al post 1)
+INSERT INTO post (id, date, hour, title, content, state, id_user, id_type_post, id_post_request) 
+VALUES (4, '2023-10-27', '14:30:00', 'Nuevo mantenimiento', 'Se necesita urgentemente mantenimiento', 'Urgent', 1, 1, 1);
+
+-- Insert mock data into Payment table
+INSERT INTO payment (id, amount, date, concept, detail, id_user_pays, id_user_receives) 
+VALUES
+    (1, 100.50, '2023-10-28', 'Mantenimiento', 'Mantenimiento de la sala', 1, 2),
+    (2, 200.75, '2023-10-29', 'Alquiler', 'Alquiler de salón de eventos', 2, 1),
+    (3, 50.25, '2023-10-30', 'Servicio', 'Servicio de limpieza', 1, 3);
