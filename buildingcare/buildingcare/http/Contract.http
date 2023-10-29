@@ -1,0 +1,45 @@
+###
+GET http://localhost:8080/api/v1/contract/all
+Accept: application/json
+Token: 1
+
+###
+
+GET http://localhost:8080/api/v1/contract/1
+Accept: application/json
+Token: 1
+
+###
+
+POST http://localhost:8080/api/v1/contract
+Content-Type: application/json
+Accept: application/json
+Token: 1
+
+{
+    "signatureDate": "2019-01-01",
+    "endDate": "2019-01-01",
+    "amount": 12345,
+    "idProperty": 1,
+    "idType": 1
+}
+
+###
+
+PUT http://localhost:8080/api/v1/contract/6
+Content-Type: application/json
+Accept: application/json
+Token: 1
+
+{
+    "signatureDate": "2020-01-01",
+    "endDate": "2020-01-01",
+    "amount": 10000,
+    "idProperty": 1,
+    "idType": 1
+}
+
+###
+
+DELETE http://localhost:8080/api/v1/contract/4
+Accept: application/json

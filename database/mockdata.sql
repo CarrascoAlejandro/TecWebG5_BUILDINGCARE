@@ -61,3 +61,33 @@ VALUES
     (1, 100.50, '2023-10-28', 'Mantenimiento', 'Mantenimiento de la sala', 1, 2),
     (2, 200.75, '2023-10-29', 'Alquiler', 'Alquiler de salón de eventos', 2, 1),
     (3, 50.25, '2023-10-30', 'Servicio', 'Servicio de limpieza', 1, 3);
+
+-- Insert mock data into TypeArea table
+INSERT INTO type_area (id, type)
+VALUES 
+    (1, 'Áreas recreativas'), 
+    (2, 'Áreas de fitness'), 
+    (3, 'Área de estudio');
+
+-- Insert mock data into CommonArea table
+INSERT INTO common_area (id, description, id_type_Area, id_section)
+VALUES 
+    (1,'Piscina olímpica para adultos y niños.', 1, 1),
+    (2,'Gimnasio con máquinas modernas y área de pesas libres.', 2, 2),  
+    (3,'Zona tranquila con mesas y sillas para estudio o trabajo remoto.', 3, 3); 
+
+-- Insert mock data into TypeContract table
+INSERT INTO type_contract (id, type)
+VALUES 
+    (1, 'Contrato a plazo fijo'),
+    (2, 'Contrato indefinido'),
+    (3,'Contrato por proyecto'),
+    (4,'Contrato temporal'),
+    (5, 'Contrato de prácticas');
+
+-- Insert mock data into Contract table
+INSERT INTO contract (id, signature_date, end_date, amount, id_property, id_user, id_type_contract)
+VALUES 
+    (1, '2023-01-15', '2024-01-14', 1500.50, 1, 1, 1),
+    (2, '2023-02-01', '2025-02-01', 2000.00, 2, 2, 2),
+    (3, '2023-03-10', '2023-12-10', 1000.75, 3, 3, 1);
