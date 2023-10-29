@@ -2,6 +2,12 @@
 
 ## Proyecto final de Tecnologías Web - Grupo 5 - Sitio Web para Condominio
 
+- Carrasco Céspedes Miguel Alejandro
+- Martínez Acarapi Fabiola Alejandra
+- Montero Garrido Diana Aneliz
+- Tapia Lazarte Juan Ignacio
+- Zizol Sempértegui Gabriela Zulema Britta
+
 ### Descripción General del Proyecto:
 
 #### Propósito:
@@ -72,8 +78,8 @@ A continuación se explica detalladamente las consideraciones necesarias para la
 
 Las tecnologias usadas en el desarrollo backend de este proyecto son:
 
-1. **PostgreSQL: ** Es un sistema de gestión de bases de datos relacional de código abierto. Se utiliza para almacenar y administrar datos estructurados y no estructurados. Ofrece capacidades avanzadas para consultas complejas, integridad de datos, y soporta múltiples tipos de datos. Se utiliza ampliamente en aplicaciones web, análisis de datos, y aplicaciones empresariales debido a su confiabilidad, rendimiento y funcionalidades avanzadas.
-2. **GitHub: ** Es una plataforma en línea que facilita el alojamiento y la colaboración en proyectos de desarrollo de software utilizando el control de versiones con Git. Sirve como un espacio donde los desarrolladores pueden almacenar, compartir, colaborar y gestionar cambios en el código de manera eficiente, lo que permite un seguimiento de versiones, colaboración remota y control de flujo de trabajo en equipos de desarrollo.
-3.  **Spring Boot: ** Es un marco de trabajo (framework) de desarrollo de aplicaciones en Java que simplifica la creación de aplicaciones basadas en Spring al facilitar la configuración y el desarrollo. Sirve para crear aplicaciones Java de manera rápida, con configuraciones automáticas, integración sencilla de bibliotecas y un entorno de desarrollo más ágil.
-4.  **Maven: ** Es una herramienta de gestión de proyectos de software que se utiliza principalmente para la construcción, el manejo de dependencias y la automatización de tareas en el desarrollo de aplicaciones. Sirve para simplificar y estandarizar el proceso de construcción de software, gestionar bibliotecas y facilitar el flujo de trabajo en proyectos de programación.
-5.  **Docker: ** Es una plataforma de contenedores que permite empaquetar, distribuir y ejecutar aplicaciones en entornos aislados llamados contenedores. Sirve para simplificar el desarrollo, la implementación y la administración de aplicaciones al garantizar que funcionen de manera consistente en diferentes entornos, desde el desarrollo hasta la producción.
+1. **PostgreSQL:** Es un sistema de gestión de bases de datos relacional de código abierto. Se utiliza para almacenar y administrar datos estructurados y no estructurados. Ofrece capacidades avanzadas para consultas complejas, integridad de datos, y soporta múltiples tipos de datos. Se utiliza ampliamente en aplicaciones web, análisis de datos, y aplicaciones empresariales debido a su confiabilidad, rendimiento y funcionalidades avanzadas.
+2. **GitHub:** Es una plataforma en línea que facilita el alojamiento y la colaboración en proyectos de desarrollo de software utilizando el control de versiones con Git. Sirve como un espacio donde los desarrolladores pueden almacenar, compartir, colaborar y gestionar cambios en el código de manera eficiente, lo que permite un seguimiento de versiones, colaboración remota y control de flujo de trabajo en equipos de desarrollo.
+3.  **Spring Boot:** Es un marco de trabajo (framework) de desarrollo de aplicaciones en Java que simplifica la creación de aplicaciones basadas en Spring al facilitar la configuración y el desarrollo. Sirve para crear aplicaciones Java de manera rápida, con configuraciones automáticas, integración sencilla de bibliotecas y un entorno de desarrollo más ágil.
+4.  **Maven:** Es una herramienta de gestión de proyectos de software que se utiliza principalmente para la construcción, el manejo de dependencias y la automatización de tareas en el desarrollo de aplicaciones. Sirve para simplificar y estandarizar el proceso de construcción de software, gestionar bibliotecas y facilitar el flujo de trabajo en proyectos de programación.
+5.  **Docker:** Es una plataforma de contenedores que permite empaquetar, distribuir y ejecutar aplicaciones en entornos aislados llamados contenedores. Sirve para simplificar el desarrollo, la implementación y la administración de aplicaciones al garantizar que funcionen de manera consistente en diferentes entornos, desde el desarrollo hasta la producción.
