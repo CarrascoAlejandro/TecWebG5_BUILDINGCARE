@@ -15,6 +15,7 @@ import ucb.buildingcare.buildingcare.dto.BuildingcareResponse;
 import ucb.buildingcare.buildingcare.dto.PostRequest;
 import ucb.buildingcare.buildingcare.dto.PostResponse;
 import ucb.buildingcare.buildingcare.entity.Post;
+import ucb.buildingcare.buildingcare.entity.TypePost;
 import ucb.buildingcare.buildingcare.repository.PostRepository;
 import ucb.buildingcare.buildingcare.repository.UserRepository;
 import ucb.buildingcare.buildingcare.util.BuildingcareException;
@@ -173,6 +174,19 @@ public class BlogBl {
         } else {
             throw new BuildingcareException("No se encontró la publicación");
         }
+    }
+
+    public BuildingcareResponse listAllPostTypes() throws BuildingcareException{
+        LOGGER.info("blogBl - listAllPostTypes");
+        List<TypePost> typePosts = typePostRepository.findAll();
+        LOGGER.info("el tamano de typePosts List<TypePost> es: "+ typePosts.size());
+        if (typePosts.size() == 0) {
+            LOGGER.error("No se encontraron tipos de publicaciones");
+            throw new BuildingcareException("No se encontraron tipos de publicaciones");
+        }
+        BuildingcareResponse buildingcareResponse = new BuildingcareResponse(typePosts);
+        LOGGER.info("retornando new BuildingcareResponse(typePosts): "+ buildingcareResponse.toString());
+        return buildingcareResponse;
     }
     
 }

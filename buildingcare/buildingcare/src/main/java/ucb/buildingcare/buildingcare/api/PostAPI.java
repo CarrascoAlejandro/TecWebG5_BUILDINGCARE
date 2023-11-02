@@ -161,4 +161,20 @@ public class PostAPI {
         return buildingcareResponse;
     }
 
+
+    @GetMapping(path = "/type")
+    public BuildingcareResponse listAllPostTypes() {
+        LOGGER.info("listAllPostTypes");
+        BuildingcareResponse buildingcareResponse;
+        try {
+            buildingcareResponse = blogService.listAllPostTypes();
+            buildingcareResponse.setResponseCode("POST-0004");
+        } catch (BuildingcareException e) {
+            buildingcareResponse = new BuildingcareResponse();
+            buildingcareResponse.setErrorMessage(e.getMessage());
+            buildingcareResponse.setResponseCode("POST-6004");
+        }
+        return buildingcareResponse;
+    }
+
 }
