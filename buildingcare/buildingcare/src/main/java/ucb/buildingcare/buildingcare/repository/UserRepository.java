@@ -11,9 +11,14 @@ import ucb.buildingcare.buildingcare.entity.User;
 
 @Repository
 public interface UserRepository extends CrudRepository<User, Integer> {
+
+    @Query(value = "SELECT * FROM \"user\" ORDER BY  id_type_user", nativeQuery = true)
+    List<User> findAll();
+
+
     List<User> findByUsenameAndPassword(String usename, String password);//Nota: Se puso en la base "usename" en vez de "username"
 
-    @Query(value = "SELECT * FROM user WHERE idTypeUser = ?", nativeQuery = true)
+    @Query(value = "SELECT * FROM \"user\" WHERE idTypeUser = ?", nativeQuery = true)
     List<User> findByIdTypeUser(int typeUser);
 
     List<User> findByIdTypeUser(TypeUser typeUser);
