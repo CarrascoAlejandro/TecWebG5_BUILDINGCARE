@@ -3,6 +3,7 @@ package ucb.buildingcare.buildingcare.api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,9 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 import ucb.buildingcare.buildingcare.bl.UserBl;
 import ucb.buildingcare.buildingcare.dto.BuildingcareResponse;
 import ucb.buildingcare.buildingcare.dto.UserRequest;
+import ucb.buildingcare.buildingcare.dto.UserResponse;
 
 @RestController
-@RequestMapping("/api/v1/login")
+@RequestMapping("/api/v1/user")
 public class UserAPI {
     //Esta API se encarga de la logica sobre los usuarios
     //De momento solo aplica para el login
@@ -28,27 +30,54 @@ public class UserAPI {
     public UserAPI(UserBl userService) {
         this.userService = userService;
     }
+
+    @GetMapping(path = "/all")
+    public BuildingcareResponse ListAllUsers() {
+        LOG.info("ListAllUsers");
+        BuildingcareResponse buildingcareResponse = userService.ListAllUsers();
+        buildingcareResponse.setResponseCode("USER-0000");
+        LOG.info("{}", buildingcareResponse);
+        return buildingcareResponse;
+    }
     
-    @PostMapping
+    @PostMapping(path = "/login")
     public BuildingcareResponse login(@RequestBody UserRequest userRequest) {
         BuildingcareResponse buildingcareResponse = new BuildingcareResponse();
-        UserRequest user;
-        String password=userRequest.getPassword();
-        String username=userRequest.getUsername();
-        try{
-            user = userService.login(username, password);
-            if(user== null){
-                LOG.warn("no se encontro al usuario " + userRequest.getUsername());
-                return buildingcareResponse;
-            }else{
-                LOG.info("el usuario llego a login api");
-            }
-        }catch(Exception e){ //TODO crear excepción específica
-            LOG.error("no se pudo hacer login", e);
-            return buildingcareResponse;
+        try {
+            buildingcareResponse.setResponseCode("USER-0001");
+            buildingcareResponse.setData(userService.login(userRequest));
+
+        } catch (RuntimeException e) {
+            buildingcareResponse.setResponseCode("USER-6001");
+            buildingcareResponse.setErrorMessage(e.getMessage());
         }
-        buildingcareResponse.setData(user);
-        buildingcareResponse.setResponseCode("PROP-0001");
+        return buildingcareResponse;
+    }
+
+    @PostMapping(path = "/signup")
+    public BuildingcareResponse signUp(@RequestBody UserRequest signUpRequest){
+        BuildingcareResponse buildingcareResponse = new BuildingcareResponse();
+        try {
+            buildingcareResponse.setResponseCode("USER-0002");
+            buildingcareResponse.setData(userService.signUp(signUpRequest));
+
+        } catch (Exception e) {
+            buildingcareResponse.setResponseCode("USER-6002");
+            buildingcareResponse.setErrorMessage(e.getMessage());
+        }
+        return buildingcareResponse;
+    }
+
+    public BuildingcareResponse updateUserData(@RequestBody UserResponse userRequestFull){
+        BuildingcareResponse buildingcareResponse = new BuildingcareResponse();
+        try {
+            buildingcareResponse.setResponseCode("USER-0003");
+            buildingcareResponse.setData(userService.updateUserData(userRequestFull));
+
+        } catch (RuntimeException e) {
+            buildingcareResponse.setResponseCode("USER-6003");
+            buildingcareResponse.setErrorMessage(e.getMessage());
+        }
         return buildingcareResponse;
     }
     

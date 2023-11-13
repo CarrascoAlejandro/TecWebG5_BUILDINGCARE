@@ -10,7 +10,7 @@ public class User {
     @Column(name = "id")
     private int idUser;
 
-    @Column(name = "name", length = 128, nullable = false)
+    @Column(name = "name", length = 128, nullable = true)
     private String name;
 
     @Column(name = "usename", length = 128, nullable = false)
@@ -19,17 +19,17 @@ public class User {
     @Column(name = "password", length = 32, nullable = false)
     private String password;
 
-    @Column(name = "email", length = 128, nullable = false)
+    @Column(name = "email", length = 128, nullable = true)
     private String email;
 
-    @Column(name = "CI", length = 15, nullable = false)
+    @Column(name = "CI", length = 15, nullable = true)
     private String CI;
 
-    @Column(name = "phone", length = 13, nullable = false)
+    @Column(name = "phone", length = 13, nullable = true)
     private String phone;
 
     @ManyToOne
-    @JoinColumn(name = "idTypeUser", referencedColumnName = "id")
+    @JoinColumn(name = "idTypeUser", referencedColumnName = "id", nullable = false)
     private TypeUser idTypeUser;
 
     // Constructor por defecto
