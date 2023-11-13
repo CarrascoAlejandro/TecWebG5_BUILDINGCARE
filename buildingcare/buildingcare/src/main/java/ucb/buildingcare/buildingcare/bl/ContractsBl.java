@@ -12,6 +12,7 @@ import ucb.buildingcare.buildingcare.dto.BuildingcareResponse;
 import ucb.buildingcare.buildingcare.dto.ContractRequest;
 import ucb.buildingcare.buildingcare.dto.ContractResponse;
 import ucb.buildingcare.buildingcare.entity.Contract;
+import ucb.buildingcare.buildingcare.entity.TypeContract;
 import ucb.buildingcare.buildingcare.repository.ContractRepository;
 import ucb.buildingcare.buildingcare.repository.PropertyRepository;
 import ucb.buildingcare.buildingcare.repository.TypeContractRepository;
@@ -45,9 +46,17 @@ public class ContractsBl {
         this.userRepository = userRepository;
     }
 
-    public BuildingcareResponse ListAllContracts() {
-        LOGGER.info("ContractBl - ListAllContracts");
-        List<Contract> contracts = contractRepository.findAll();
+    public BuildingcareResponse getContracts(Integer type) throws BuildingcareException{
+        LOGGER.info("ContractBl - ListAllContracts - type: "+ type);
+        List<Contract> contracts = new ArrayList<>();
+        if(type == null || type == 0){
+            LOGGER.info("el type es: null");
+            contracts = contractRepository.findAll();
+        }else{
+            LOGGER.info("el type es: "+ type);
+            contracts = contractRepository.findByIdTypeContract(typeContractRepository.findById(type).orElse(null));
+        }
+        
         LOGGER.info("el tamano de contracts List<Contract> es: "+ contracts.size());
         List<ContractResponse> contractResponses = new ArrayList<>();
         for (Contract contract : contracts) {
@@ -56,6 +65,19 @@ public class ContractsBl {
         }
         LOGGER.info("retornando new BuildingcareResponse(contractResponses): "+ new BuildingcareResponse(contractResponses).toString());
         return new BuildingcareResponse(contractResponses);
+    }
+
+    public BuildingcareResponse getTypeContract() throws BuildingcareException{
+        LOGGER.info("ContractBl - TypesContract");
+        List<TypeContract> typeContract = typeContractRepository.findAll();
+        LOGGER.info("el tamano de TypeContract List<TypeContract> es: "+ typeContract.size());
+        if (typeContract.size() == 0) {
+            LOGGER.error("No se encontraron tipos de contratos");
+            throw new BuildingcareException("No se encontraron tipos de contratos");
+        }
+        BuildingcareResponse buildingcareResponse = new BuildingcareResponse(typeContract);
+        LOGGER.info("retornando new BuildingcareResponse(typeContracts): "+ buildingcareResponse.toString());
+        return buildingcareResponse;
     }
 
     public ContractResponse getContractById(Integer id) throws BuildingcareException {

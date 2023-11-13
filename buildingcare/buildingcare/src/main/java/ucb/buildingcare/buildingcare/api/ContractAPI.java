@@ -10,11 +10,13 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ucb.buildingcare.buildingcare.bl.ContractsBl;
 import ucb.buildingcare.buildingcare.dto.BuildingcareResponse;
 import ucb.buildingcare.buildingcare.dto.ContractRequest;
+import ucb.buildingcare.buildingcare.util.BuildingcareException;
 
 @RestController
 @RequestMapping(path = "/api/v1/contract")
@@ -32,13 +34,13 @@ public class ContractAPI {
         this.contractBl = contractBl;
     }
 
-    @GetMapping(path = "/all")
-    public BuildingcareResponse ListAllContracts() {
+    @GetMapping
+    public BuildingcareResponse ListAllContracts(@RequestParam(required = false) Integer type) {
         LOGGER.info("ListAllContracts");
         BuildingcareResponse buildingcareResponse = new BuildingcareResponse();
         
         try {
-            buildingcareResponse = contractBl.ListAllContracts();
+            buildingcareResponse = contractBl.getContracts(type);
             buildingcareResponse.setResponseCode("CONT-0000");
             LOGGER.info("se obtuvieron todos los contratos: "+ buildingcareResponse.toString());
         } catch (Exception e) {
@@ -48,6 +50,21 @@ public class ContractAPI {
         }
         
         LOGGER.info("{}", buildingcareResponse);
+        return buildingcareResponse;
+    }
+
+    @GetMapping(path = "/type")
+    public BuildingcareResponse getTypeContract() {
+        LOGGER.info("getTypeContract");
+        BuildingcareResponse buildingcareResponse;
+        try {
+            buildingcareResponse = contractBl.getTypeContract();
+            buildingcareResponse.setResponseCode("POST-0004");
+        } catch (BuildingcareException e) {
+            buildingcareResponse = new BuildingcareResponse();
+            buildingcareResponse.setErrorMessage(e.getMessage());
+            buildingcareResponse.setResponseCode("POST-6004");
+        }
         return buildingcareResponse;
     }
 
