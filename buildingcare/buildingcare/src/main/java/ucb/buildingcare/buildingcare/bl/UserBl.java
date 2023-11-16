@@ -66,6 +66,7 @@ public class UserBl {
             user.setEmail(userRequestFull.getEmail());
             user.setCI(userRequestFull.getCI());
             user.setPhone(userRequestFull.getPhone());
+            user.setIdTypeUser(typeUserRepository.findByPermission(userRequestFull.getTypeUser()).get(0));
             try {
                 userRepository.save(user);
             } catch (Exception e) {
