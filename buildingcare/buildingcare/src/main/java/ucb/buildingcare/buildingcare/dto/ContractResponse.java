@@ -11,7 +11,7 @@ public class ContractResponse {
     private Date contractSignatureDate;
     private Date contractEndDate;
     private BigDecimal contractAmount;
-    private String contractType;
+    private Integer contractType;
     private Integer contractProperty;
     private Integer contractUser;
 
@@ -23,7 +23,7 @@ public class ContractResponse {
         this.contractSignatureDate = (Date) contract.getSignatureDate();
         this.contractEndDate = (Date) contract.getEndDate();
         this.contractAmount = contract.getAmount();
-        this.contractType = contract.getIdTypeContract().getType();
+        this.contractType = contract.getIdTypeContract().getId();
         this.contractProperty = contract.getIdProperty().getId();
         this.contractUser = contract.getIdUser().getIdUser();
     }
@@ -60,11 +60,11 @@ public class ContractResponse {
         this.contractAmount = contractAmount;
     }
 
-    public String getContractType() {
+    public Integer getContractType() {
         return contractType;
     }
 
-    public void setContractType(String contractType) {
+    public void setContractType(Integer contractType) {
         this.contractType = contractType;
     }
 

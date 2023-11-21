@@ -88,6 +88,15 @@ public class ContractsBl {
             throw new BuildingcareException("No se encontro el contrato con id "+id);
         }
     }
+
+    public BuildingcareResponse getTypeContractById(Integer id) throws BuildingcareException {
+        TypeContract typeContract = typeContractRepository.findById(id).orElse(null);
+        if (typeContract != null) {
+            return new BuildingcareResponse(typeContract);
+        } else {
+            throw new BuildingcareException("No se encontro el contrato con id "+id);
+        }
+    } 
     
     public ContractResponse createContract(ContractRequest contractRequest, Integer token) {
         Contract contract = new Contract();
