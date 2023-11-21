@@ -14,6 +14,7 @@ public class ContractResponse {
     private Integer contractType;
     private Integer contractProperty;
     private Integer contractUser;
+    private String contractOwner;
 
     public ContractResponse() {
     }
@@ -26,6 +27,8 @@ public class ContractResponse {
         this.contractType = contract.getIdTypeContract().getId();
         this.contractProperty = contract.getIdProperty().getId();
         this.contractUser = contract.getIdUser().getIdUser();
+        this.contractOwner = contract.getIdProperty().getIdUser().getName();
+        
     }
 
     public Integer getId() {
@@ -82,5 +85,13 @@ public class ContractResponse {
 
     public void setContractUser(Integer contractUser) {
         this.contractUser = contractUser;
+    }
+
+    public String getContractOwner() {
+        return contractOwner;
+    }
+
+    public void setContractOwner(String contractOwner) {
+        this.contractOwner = contractOwner;
     }
 }
