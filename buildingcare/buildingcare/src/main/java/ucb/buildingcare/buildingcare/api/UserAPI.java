@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -68,6 +69,7 @@ public class UserAPI {
         return buildingcareResponse;
     }
 
+    @PutMapping(path = "/update")
     public BuildingcareResponse updateUserData(@RequestBody UserResponse userRequestFull){
         BuildingcareResponse buildingcareResponse = new BuildingcareResponse();
         try {
@@ -76,6 +78,20 @@ public class UserAPI {
 
         } catch (RuntimeException e) {
             buildingcareResponse.setResponseCode("USER-6003");
+            buildingcareResponse.setErrorMessage(e.getMessage());
+        }
+        return buildingcareResponse;
+    }
+
+    @GetMapping("/type/all") 
+    public BuildingcareResponse getAllUserTypes(){
+        BuildingcareResponse buildingcareResponse = new BuildingcareResponse();
+        try {
+            buildingcareResponse.setResponseCode("USER-0004");
+            buildingcareResponse.setData(userService.getAllUserTypes().getData());
+
+        } catch (RuntimeException e) {
+            buildingcareResponse.setResponseCode("USER-6004");
             buildingcareResponse.setErrorMessage(e.getMessage());
         }
         return buildingcareResponse;
