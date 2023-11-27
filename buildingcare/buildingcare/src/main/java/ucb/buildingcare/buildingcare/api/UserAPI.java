@@ -82,6 +82,20 @@ public class UserAPI {
         }
         return buildingcareResponse;
     }
+
+    @GetMapping("/type/all") 
+    public BuildingcareResponse getAllUserTypes(){
+        BuildingcareResponse buildingcareResponse = new BuildingcareResponse();
+        try {
+            buildingcareResponse.setResponseCode("USER-0004");
+            buildingcareResponse.setData(userService.getAllUserTypes().getData());
+
+        } catch (RuntimeException e) {
+            buildingcareResponse.setResponseCode("USER-6004");
+            buildingcareResponse.setErrorMessage(e.getMessage());
+        }
+        return buildingcareResponse;
+    }
     
 
     

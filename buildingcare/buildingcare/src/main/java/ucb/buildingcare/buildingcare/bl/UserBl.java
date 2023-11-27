@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import ucb.buildingcare.buildingcare.dto.BuildingcareResponse;
 import ucb.buildingcare.buildingcare.dto.UserRequest;
 import ucb.buildingcare.buildingcare.dto.UserResponse;
+import ucb.buildingcare.buildingcare.entity.TypeUser;
 import ucb.buildingcare.buildingcare.entity.User;
 import ucb.buildingcare.buildingcare.repository.TypeUserRepository;
 import ucb.buildingcare.buildingcare.repository.UserRepository;
@@ -59,6 +60,7 @@ public class UserBl {
     }
 
     public UserResponse updateUserData(UserResponse userRequestFull){
+        LOG.info("UserBl - updateUserData "+ userRequestFull.toString());
         User user = userRepository.findById(userRequestFull.getIdUser()).orElse(null);
         if (user != null){
             user.setName(userRequestFull.getName());
@@ -90,5 +92,18 @@ public class UserBl {
         }
         LOG.info("retornando new BuildingcareResponse(userResponses): "+ new BuildingcareResponse(userResponses).toString());
         return new BuildingcareResponse(userResponses);
+    }
+
+    public BuildingcareResponse getAllUserTypes() {
+        LOG.info("UserBl - getAllUserTypes");
+        List<TypeUser> types = typeUserRepository.findAll();
+        LOG.info("el tamano de types List<String> es: "+ types.size());
+        List<TypeUser> typeResponses = new ArrayList<>();
+        for (TypeUser type : types){
+            LOG.info("en el for de list<String> types: "+ type.toString());
+            typeResponses.add(type);
+        }
+        LOG.info("retornando new BuildingcareResponse(typeResponses): "+ new BuildingcareResponse(typeResponses).toString());
+        return new BuildingcareResponse(typeResponses);
     }
 }

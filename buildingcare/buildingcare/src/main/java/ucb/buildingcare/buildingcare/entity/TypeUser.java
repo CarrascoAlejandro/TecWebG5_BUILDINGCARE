@@ -44,7 +44,7 @@ public class TypeUser {
 
     @Override
     public String toString() {
-        return "TypeUser [id=" + id + ", permission=" + permission + "]";
+        return permission;
     }
 }
 

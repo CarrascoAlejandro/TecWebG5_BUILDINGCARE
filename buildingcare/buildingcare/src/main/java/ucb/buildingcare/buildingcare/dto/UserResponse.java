@@ -88,5 +88,9 @@ public class UserResponse {
         this.typeUser = typeUser;
     }
 
-    
+    @Override
+    public String toString() {
+        return "UserResponse [CI=" + CI + ", email=" + email + ", idUser=" + idUser + ", name=" + name + ", phone="
+                + phone + ", typeUser=" + typeUser + ", usename=" + usename + "]";
+    }
 }

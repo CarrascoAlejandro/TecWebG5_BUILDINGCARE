@@ -11,7 +11,9 @@ public class PaymentResponse {
     private String concept;
     private String detail;
     private Integer idUserPays;
+    private String nameUserPays;
     private Integer idUserReceives;
+    private String nameUserReceives;
 
     public PaymentResponse() {
     }
@@ -23,7 +25,9 @@ public class PaymentResponse {
         this.concept = payment.getConcept();
         this.detail = payment.getDetail();
         this.idUserPays = payment.getIdUserPays().getIdUser();
+        this.nameUserPays = payment.getIdUserPays().getName();
         this.idUserReceives = payment.getIdUserReceives().getIdUser();
+        this.nameUserReceives = payment.getIdUserReceives().getName();
     }
 
     public Integer getId() {
@@ -74,12 +78,28 @@ public class PaymentResponse {
         this.idUserPays = idUserPays;
     }
 
+    public String getNameUserPays() {
+        return nameUserPays;
+    }
+
+    public void setNameUserPays(String nameUserPays) {
+        this.nameUserPays = nameUserPays;
+    }
+
     public Integer getIdUserReceives() {
         return idUserReceives;
     }
 
     public void setIdUserReceives(Integer idUserReceives) {
         this.idUserReceives = idUserReceives;
+    }
+
+    public String getNameUserReceives() {
+        return nameUserReceives;
+    }
+
+    public void setNameUserReceives(String nameUserReceives) {
+        this.nameUserReceives = nameUserReceives;
     }
 
     
