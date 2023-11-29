@@ -37,3 +37,7 @@ Token: 1
 
 DELETE http://localhost:8080/api/v1/commonarea/6
 Accept: application/json
+
+###
+GET http://localhost:8080/api/v1/commonarea/type
+Accept: application/json
