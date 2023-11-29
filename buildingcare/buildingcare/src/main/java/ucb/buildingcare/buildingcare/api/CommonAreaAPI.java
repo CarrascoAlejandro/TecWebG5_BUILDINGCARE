@@ -117,16 +117,8 @@ public class CommonAreaAPI {
     @GetMapping(path = "/type")
     public BuildingcareResponse listAllCommonAreaTypes() {
         LOGGER.info("ListAllCommonAreaTypes");
-        BuildingcareResponse buildingcareResponse = new BuildingcareResponse();
-        try {
-            buildingcareResponse = commonAreaBl.listAllCommonAreaTypes();
-            buildingcareResponse.setResponseCode("CARE-0004");
-            LOGGER.info("se obtuvieron todos los tipos de areas comunes: "+ buildingcareResponse.toString());
-        } catch (Exception e) {
-            buildingcareResponse.setErrorMessage(e.getMessage());
-            buildingcareResponse.setResponseCode("CARE-6004");
-            LOGGER.info("no se pudieron obtener todos los tipos de areas comunes: "+ buildingcareResponse.toString());
-        }
+        BuildingcareResponse buildingcareResponse = commonAreaBl.listAllCommonAreaTypes();
+        buildingcareResponse.setResponseCode("CARE-0004");
         LOGGER.info("{}", buildingcareResponse);
         return buildingcareResponse;
     }
