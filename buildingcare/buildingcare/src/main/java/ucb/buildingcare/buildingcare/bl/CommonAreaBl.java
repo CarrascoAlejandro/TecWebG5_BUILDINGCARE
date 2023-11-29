@@ -1,8 +1,10 @@
 package ucb.buildingcare.buildingcare.bl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+import org.hibernate.mapping.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -11,6 +13,7 @@ import ucb.buildingcare.buildingcare.dto.BuildingcareResponse;
 import ucb.buildingcare.buildingcare.dto.CommonAreaRequest;
 import ucb.buildingcare.buildingcare.dto.CommonAreaResponse;
 import ucb.buildingcare.buildingcare.entity.CommonArea;
+import ucb.buildingcare.buildingcare.entity.TypeArea;
 import ucb.buildingcare.buildingcare.repository.CommonAreaRepository;
 import ucb.buildingcare.buildingcare.repository.SectionRepository;
 import ucb.buildingcare.buildingcare.repository.TypeAreaRepository;
@@ -106,4 +109,19 @@ public class CommonAreaBl {
             throw new BuildingcareException("No se encontro Áreas Comunes con id "+id);
         }
     }
+
+    public BuildingcareResponse listAllCommonAreaTypes() {
+        LOGGER.info("CommonAreaBl - listAllTypeAreas");
+        List<TypeArea> typeAreas = typeAreaRepository.findAll();
+        LOGGER.info("el tamano de typeAreas List<TypeArea> es: "+ typeAreas.size());
+        HashMap<Integer, String> typeAreaResponses = new HashMap<>();
+        for (TypeArea typeArea : typeAreas) {
+            LOGGER.info("en el for de List<TypeArea> typeAreas: "+ typeArea.toString());
+            typeAreaResponses.put(typeArea.getId(), typeArea.getType());
+        }
+        LOGGER.info("retornando new BuildingcareResponse(typeAreaResponses): "+ new BuildingcareResponse(typeAreaResponses).toString());
+        return new BuildingcareResponse(typeAreaResponses);
+    }
+
+
 }
