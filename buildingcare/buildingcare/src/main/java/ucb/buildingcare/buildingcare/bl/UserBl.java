@@ -51,8 +51,12 @@ public class UserBl {
     public UserResponse signUp(UserRequest signUpRequest){
         LOG.info("Registrando... user service nickname : "+ signUpRequest.getUsername() + " y password : "+ signUpRequest.getPassword());
         User user = new User();
+        user.setName(signUpRequest.getName());
         user.setUsename(signUpRequest.getUsername());
         user.setPassword(signUpRequest.getPassword());
+        user.setEmail(signUpRequest.getEmail());
+        user.setCI(signUpRequest.getCi());
+        user.setPhone(signUpRequest.getPhone());
         user.setIdTypeUser(typeUserRepository.findById(3).orElse(null));
         userRepository.save(user);
         LOG.info("se registro un usuario");
