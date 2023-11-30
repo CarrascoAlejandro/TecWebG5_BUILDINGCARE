@@ -112,15 +112,7 @@ public class CommonAreaBl {
 
     public BuildingcareResponse listAllCommonAreaTypes() {
         LOGGER.info("CommonAreaBl - listAllTypeAreas");
-        List<TypeArea> typeAreas = typeAreaRepository.findAll();
-        LOGGER.info("el tamano de typeAreas List<TypeArea> es: "+ typeAreas.size());
-        HashMap<Integer, String> typeAreaResponses = new HashMap<>();
-        for (TypeArea typeArea : typeAreas) {
-            LOGGER.info("en el for de List<TypeArea> typeAreas: "+ typeArea.toString());
-            typeAreaResponses.put(typeArea.getId(), typeArea.getType());
-        }
-        LOGGER.info("retornando new BuildingcareResponse(typeAreaResponses): "+ new BuildingcareResponse(typeAreaResponses).toString());
-        return new BuildingcareResponse(typeAreaResponses);
+        return new BuildingcareResponse(typeAreaRepository.findAll());
     }
 
 

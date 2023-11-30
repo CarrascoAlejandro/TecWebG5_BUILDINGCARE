@@ -16,8 +16,13 @@ POST http://localhost:8080/api/v1/user/signup
 Content-Type: application/json
 
 {
+    "name": "Alejandro Carrasco",
     "username": "ale",
-    "password": "mipassword"
+    "password": "mipassword",
+    "email": "andomuriendo@gmail.com",
+    "ci": "9884026",
+    "phone": "60676400",
+    "typeUser": "1"
 }
 ###
 PUT http://localhost:8080/api/v1/user/update
