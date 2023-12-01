@@ -7,7 +7,7 @@ _Autores:_
 - Martínez Acarapi Fabiola Alejandra
 - Montero Garrido Diana Aneliz
 - Tapia Lazarte Juan Ignacio
-- Zizol Sempértegui Gabriela Zulema Britta
+- Zizold Sempertegui Gabriela Zulema Britta
 
 ### Descripción General del Proyecto:
 
