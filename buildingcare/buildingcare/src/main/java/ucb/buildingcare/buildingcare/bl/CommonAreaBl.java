@@ -1,10 +1,8 @@
 package ucb.buildingcare.buildingcare.bl;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-import org.hibernate.mapping.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -13,7 +11,6 @@ import ucb.buildingcare.buildingcare.dto.BuildingcareResponse;
 import ucb.buildingcare.buildingcare.dto.CommonAreaRequest;
 import ucb.buildingcare.buildingcare.dto.CommonAreaResponse;
 import ucb.buildingcare.buildingcare.entity.CommonArea;
-import ucb.buildingcare.buildingcare.entity.TypeArea;
 import ucb.buildingcare.buildingcare.repository.CommonAreaRepository;
 import ucb.buildingcare.buildingcare.repository.SectionRepository;
 import ucb.buildingcare.buildingcare.repository.TypeAreaRepository;

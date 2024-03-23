@@ -121,4 +121,27 @@ public class UserBl {
         LOG.info("retornando new BuildingcareResponse(typeResponses): "+ new BuildingcareResponse(typeResponses).toString());
         return new BuildingcareResponse(typeResponses);
     }
+
+    public String resetPassword(String newPassword, int idUser) throws BuildingcareException {
+        LOG.info("UserBl - resetPassword");
+        LOG.info("Validando password");
+        try {
+            ValidatePassword.validatePassword(newPassword);
+        } catch (Exception e) {
+            LOG.error("Error en la validacion de la contraseña", e);
+            throw new BuildingcareException(e.getMessage());
+        }
+        User user = userRepository.findById(idUser).orElse(null);
+        if (user != null){
+            user.setPassword(newPassword);
+            try {
+                userRepository.save(user);
+            } catch (Exception e) {
+                LOG.error("No se pudo guardar el elemento", e);
+            }
+            return "Contraseña cambiada con exito";
+        } else {
+            throw new RuntimeException("No se encontro el elemento");
+        }
+    }
 }
