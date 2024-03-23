@@ -15,6 +15,8 @@ import ucb.buildingcare.buildingcare.entity.TypeUser;
 import ucb.buildingcare.buildingcare.entity.User;
 import ucb.buildingcare.buildingcare.repository.TypeUserRepository;
 import ucb.buildingcare.buildingcare.repository.UserRepository;
+import ucb.buildingcare.buildingcare.util.BuildingcareException;
+import ucb.buildingcare.buildingcare.util.ValidatePassword;
 
 @Service
 public class UserBl {
@@ -48,8 +50,17 @@ public class UserBl {
         
     }
     
-    public UserResponse signUp(UserRequest signUpRequest){
+    public UserResponse signUp(UserRequest signUpRequest) throws BuildingcareException{
         LOG.info("Registrando... user service nickname : "+ signUpRequest.getUsername() + " y password : "+ signUpRequest.getPassword());
+
+        LOG.info("Validando password");
+        try {
+            ValidatePassword.validatePassword(signUpRequest.getPassword());
+        } catch (Exception e) {
+            LOG.error("Error en la validacion de la contraseña", e);
+            throw new BuildingcareException(e.getMessage());
+        }
+
         User user = new User();
         user.setName(signUpRequest.getName());
         user.setUsename(signUpRequest.getUsername());
