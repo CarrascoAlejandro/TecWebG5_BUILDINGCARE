@@ -116,5 +116,19 @@ public class UserAPI {
         }
         return buildingcareResponse;
     }
+
+    @PostMapping("/request_reset_password")
+    public BuildingcareResponse requestResetPassword(@RequestParam int userId, @RequestParam String email){
+        BuildingcareResponse buildingcareResponse = new BuildingcareResponse();
+        try {
+            buildingcareResponse.setResponseCode("USER-0006");
+            buildingcareResponse.setData(userService.sendResetPasswordEmail(userId, email));
+
+        } catch (RuntimeException e) {
+            buildingcareResponse.setResponseCode("USER-6006");
+            buildingcareResponse.setErrorMessage(e.getMessage());
+        }
+        return buildingcareResponse;
+    }
     
 }

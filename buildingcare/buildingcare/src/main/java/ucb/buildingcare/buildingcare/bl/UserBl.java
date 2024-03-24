@@ -25,6 +25,10 @@ public class UserBl {
     //User
     //TypeUser
     private static final Logger LOG = LoggerFactory.getLogger(UserBl.class);
+
+    @Autowired
+    private final EmailService emailService;
+
     @Autowired
     private final UserRepository userRepository;
 
@@ -32,9 +36,10 @@ public class UserBl {
     private final TypeUserRepository typeUserRepository;
 
     
-    public UserBl(UserRepository userRepository, TypeUserRepository typeUserRepository) {
+    public UserBl(UserRepository userRepository, TypeUserRepository typeUserRepository, EmailService emailService) {
         this.userRepository = userRepository;
         this.typeUserRepository = typeUserRepository;
+        this.emailService = emailService;
     }
     //login del usuario en base a nickname y password
     public UserResponse login(UserRequest userRequest) {
@@ -140,6 +145,22 @@ public class UserBl {
                 LOG.error("No se pudo guardar el elemento", e);
             }
             return "Contraseña cambiada con exito";
+        } else {
+            throw new RuntimeException("No se encontro el elemento");
+        }
+    }
+
+    public String sendResetPasswordEmail(int idUser, String email) {
+        LOG.info("UserBl - sendResetPasswordEmail");
+        User user = userRepository.findById(idUser).orElse(null);
+        if (user != null){
+            if(user.getEmail().equals(email)){
+                emailService.sendResetPasswordEmail(email, idUser);
+                return "Email enviado con exito";
+            } else {
+                LOG.error("El email no coincide con el usuario: " + email + " - " + user.getEmail());
+                throw new RuntimeException("El email no coincide con el usuario");
+            }
         } else {
             throw new RuntimeException("No se encontro el elemento");
         }
