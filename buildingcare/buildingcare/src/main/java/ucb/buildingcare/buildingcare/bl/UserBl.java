@@ -127,7 +127,7 @@ public class UserBl {
         return new BuildingcareResponse(typeResponses);
     }
 
-    public String resetPassword(String newPassword, int idUser) throws BuildingcareException {
+    public String resetPassword(String newPassword, String username) throws BuildingcareException {
         LOG.info("UserBl - resetPassword");
         LOG.info("Validando password");
         try {
@@ -136,8 +136,9 @@ public class UserBl {
             LOG.error("Error en la validacion de la contraseña", e);
             throw new BuildingcareException(e.getMessage());
         }
-        User user = userRepository.findById(idUser).orElse(null);
-        if (user != null){
+        
+        try {
+            User user = userRepository.findByUsename(username).get(0);
             user.setPassword(newPassword);
             try {
                 userRepository.save(user);
@@ -145,23 +146,24 @@ public class UserBl {
                 LOG.error("No se pudo guardar el elemento", e);
             }
             return "Contraseña cambiada con exito";
-        } else {
+        } catch (IndexOutOfBoundsException e) {
             throw new RuntimeException("No se encontro el elemento");
         }
     }
 
-    public String sendResetPasswordEmail(int idUser, String email) {
+    public String sendResetPasswordEmail(String username, String email) {
         LOG.info("UserBl - sendResetPasswordEmail");
-        User user = userRepository.findById(idUser).orElse(null);
-        if (user != null){
+        
+        try{
+            User user = userRepository.findByUsename(username).get(0);
             if(user.getEmail().equals(email)){
-                emailService.sendResetPasswordEmail(email, idUser);
+                emailService.sendResetPasswordEmail(email, username);
                 return "Email enviado con exito";
             } else {
                 LOG.error("El email no coincide con el usuario: " + email + " - " + user.getEmail());
                 throw new RuntimeException("El email no coincide con el usuario");
             }
-        } else {
+        } catch(IndexOutOfBoundsException e) {
             throw new RuntimeException("No se encontro el elemento");
         }
     }

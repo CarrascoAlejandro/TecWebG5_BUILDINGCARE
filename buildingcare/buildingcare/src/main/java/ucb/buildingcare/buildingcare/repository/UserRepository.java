@@ -22,5 +22,7 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     List<User> findByIdTypeUser(int typeUser);
 
     List<User> findByIdTypeUser(TypeUser typeUser);
+
+    List<User> findByUsename(String usename);
     
 }

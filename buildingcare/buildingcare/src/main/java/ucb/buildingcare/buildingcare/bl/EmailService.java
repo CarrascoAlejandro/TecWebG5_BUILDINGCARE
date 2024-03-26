@@ -34,9 +34,9 @@ public class EmailService {
         LOG.info("Email enviado a: " + to);
     }
 
-    public void sendResetPasswordEmail(String to, int token) {
+    public void sendResetPasswordEmail(String to, String username) {
         String subject = "Recuperar contraseña";
-        String text = "Para recuperar tu contraseña, haz click en el siguiente enlace: http://" + referralUrl + "/reset-password?userId=" + token;
+        String text = "Para recuperar tu contraseña, haz click en el siguiente enlace: http://" + referralUrl + "/reset-password/reset/" + username;
         sendEmail(to, subject, text);
     }
 }

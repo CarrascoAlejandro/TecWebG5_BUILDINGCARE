@@ -101,11 +101,11 @@ public class UserAPI {
     }
     
     @PatchMapping("/reset_password")
-    public BuildingcareResponse resetPassword(@RequestBody String newPassword, @RequestParam int userId){
+    public BuildingcareResponse resetPassword(@RequestBody String newPassword, @RequestParam String username){
         BuildingcareResponse buildingcareResponse = new BuildingcareResponse();
         try {
             buildingcareResponse.setResponseCode("USER-0005");
-            buildingcareResponse.setData(userService.resetPassword(newPassword, userId));
+            buildingcareResponse.setData(userService.resetPassword(newPassword, username));
 
         } catch (RuntimeException e) {
             buildingcareResponse.setResponseCode("USER-6005");
@@ -118,11 +118,11 @@ public class UserAPI {
     }
 
     @PostMapping("/request_reset_password")
-    public BuildingcareResponse requestResetPassword(@RequestParam int userId, @RequestParam String email){
+    public BuildingcareResponse requestResetPassword(@RequestParam String username, @RequestParam String email){
         BuildingcareResponse buildingcareResponse = new BuildingcareResponse();
         try {
             buildingcareResponse.setResponseCode("USER-0006");
-            buildingcareResponse.setData(userService.sendResetPasswordEmail(userId, email));
+            buildingcareResponse.setData(userService.sendResetPasswordEmail(username, email));
 
         } catch (RuntimeException e) {
             buildingcareResponse.setResponseCode("USER-6006");
