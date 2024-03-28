@@ -10,6 +10,7 @@ public class UserRequest {
     private String email;
     private String ci;
     private String phone;
+    private byte[] salt;
 
     public UserRequest(String username, String password) {
         this.username = username;
@@ -53,6 +54,12 @@ public class UserRequest {
     }
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+    public byte[] getSalt() {
+        return salt;
+    }
+    public void setSalt(byte[] salt) {
+        this.salt = salt;
     }
 
 }

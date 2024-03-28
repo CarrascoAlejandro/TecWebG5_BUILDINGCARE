@@ -16,7 +16,7 @@ public class User {
     @Column(name = "usename", length = 128, nullable = false)
     private String usename;
 
-    @Column(name = "password", length = 32, nullable = false)
+    @Column(name = "password", length = 65, nullable = false)
     private String password;
 
     @Column(name = "email", length = 128, nullable = true)
@@ -27,6 +27,9 @@ public class User {
 
     @Column(name = "phone", length = 13, nullable = true)
     private String phone;
+
+    @Column(name = "salt", length = 65, nullable = false)
+    private byte[] salt;
 
     @ManyToOne
     @JoinColumn(name = "idTypeUser", referencedColumnName = "id", nullable = false)
@@ -101,8 +104,16 @@ public class User {
         this.idTypeUser = idTypeUser;
     }
 
+    public byte[] getSalt() {
+        return salt;
+    }
+
+    public void setSalt(byte[] salt) {
+        this.salt = salt;
+    }
+
     @Override
     public String toString() {
-        return "\"User\" [idUser=" + idUser + ", name=" + name + ", usename=" + usename + ", password=" + password + ", email=" + email + ", CI=" + CI + ", phone=" + phone + ", idTypeUser=" + idTypeUser + "]";
+        return "\"User\" [idUser=" + idUser + ", name=" + name + ", usename=" + usename + ", password=" + password + ", email=" + email + ", CI=" + CI + ", phone=" + phone + ", idTypeUser=" + idTypeUser + ", salt=" + salt + "]";
     }
 }
