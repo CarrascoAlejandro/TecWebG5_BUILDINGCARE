@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ucb.buildingcare.buildingcare.bl.UserBl;
 import ucb.buildingcare.buildingcare.dto.BuildingcareResponse;
+import ucb.buildingcare.buildingcare.dto.ResetPasswordRequest;
 import ucb.buildingcare.buildingcare.dto.UserRequest;
 import ucb.buildingcare.buildingcare.dto.UserResponse;
 import ucb.buildingcare.buildingcare.util.BuildingcareException;
@@ -97,11 +98,11 @@ public class UserAPI {
     }
     
     @PatchMapping("/reset_password")
-    public BuildingcareResponse resetPassword(@RequestBody String newPassword, @RequestParam String username){
+    public BuildingcareResponse resetPassword(@RequestBody ResetPasswordRequest resetPasswordRequest){
         BuildingcareResponse buildingcareResponse = new BuildingcareResponse();
         try {
             buildingcareResponse.setResponseCode("USER-0005");
-            buildingcareResponse.setData(userService.resetPassword(newPassword, username));
+            buildingcareResponse.setData(userService.resetPassword(resetPasswordRequest));
 
         } catch (RuntimeException e) {
             buildingcareResponse.setResponseCode("USER-6005");

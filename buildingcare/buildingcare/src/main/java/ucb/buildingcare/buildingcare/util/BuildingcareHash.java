@@ -6,7 +6,7 @@ import java.security.SecureRandom;
 
 
 public class BuildingcareHash {
-        public byte[] getSalt() {
+    public byte[] getSalt() {
         SecureRandom random = new SecureRandom();
         byte[] salt = new byte[16];
         random.nextBytes(salt);

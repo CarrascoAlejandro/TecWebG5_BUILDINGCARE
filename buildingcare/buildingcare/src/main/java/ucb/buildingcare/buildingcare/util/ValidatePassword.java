@@ -14,7 +14,7 @@ public class ValidatePassword {
         if (!password.matches(".*[0-9].*")) {
             throw new IllegalArgumentException("La contraseña debe tener al menos un número");
         }
-        if (!password.matches(".*[!@#$%^&*].*")) {
+        if (!password.matches(".*[!@#$%^&*,.].*")) {
             throw new IllegalArgumentException("La contraseña debe tener al menos un caracter especial");
         }
         return true;
