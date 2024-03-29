@@ -6,11 +6,11 @@ VALUES
     (3, 'Viewer');
 
 -- Insert mock data into User table
-INSERT INTO "user" (id, name, usename, password, email, CI, phone, id_type_user)
+INSERT INTO "user" (id, name, usename, password, salt, email, CI, phone, id_type_user)
 VALUES
-    (1, 'Admin User', 'admin_user', 'password123', 'admin@example.com', '12345', '123-456-7890', 1),
-    (2, 'Editor User', 'editor_user', 'password456', 'editor@example.com', '67890', '987-654-3210', 2),
-    (3, 'Viewer User', 'viewer_user', 'password789', 'viewer@example.com', '54321', '555-555-5555', 3);
+    (1, 'Admin User', 'admin_user', 'password123', 'salt1','admin@example.com', '12345', '123-456-7890', 1),
+    (2, 'Editor User', 'editor_user', 'password456', 'salt2','editor@example.com', '67890', '987-654-3210', 2),
+    (3, 'Viewer User', 'viewer_user', 'password789', 'salt3','viewer@example.com', '54321', '555-555-5555', 3);
 
 -- Insert mock data into Section table
 INSERT INTO section (id, name, location, id_user)

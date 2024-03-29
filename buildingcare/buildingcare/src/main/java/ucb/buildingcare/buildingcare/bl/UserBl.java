@@ -19,6 +19,7 @@ import ucb.buildingcare.buildingcare.repository.TypeUserRepository;
 import ucb.buildingcare.buildingcare.repository.UserRepository;
 import ucb.buildingcare.buildingcare.util.BuildingcareException;
 import ucb.buildingcare.buildingcare.util.ValidatePassword;
+import ucb.buildingcare.buildingcare.util.BuildingcareHash;
 
 @Service
 public class UserBl {
@@ -45,9 +46,11 @@ public class UserBl {
     }
     //login del usuario en base a nickname y password
     public UserResponse login(UserRequest userRequest) {
-        try{
+        try{ //TODO evaluate if the merge is working
+            BuildingcareHash hash = new BuildingcareHash();
             LOG.info("llego a user service nickname : "+ userRequest.getUsername() + " y password : "+ userRequest.getPassword());
-            User user = userRepository.findByUsenameAndPassword(userRequest.getUsername(), userRequest.getPassword()).get(0);
+            //recuperar el salt
+            User user = userRepository.findByUsename(userRequest.getUsername()).get(0);
             LOG.info("se recupero un usuario");
             UserResponse response = new UserResponse(user);
             if ( //si la contraseña tiene mas de 3 meses de antiguedad se le avisa al usuario
@@ -59,12 +62,22 @@ public class UserBl {
             } else {
                 response.setWarnings(new String[]{});
             }
-            return response;
+            
+            byte[] salt = user.getSalt();
+            //hashear el password
+            String hashedPassword = hash.HashWithSalt(userRequest.getPassword(), salt);
+            //comparar el password hasheado con el de la base
+            if (hashedPassword.equals(user.getPassword())){
+                LOG.info("se logeo un usuario");
+                return new UserResponse(user);
+            } else {
+                LOG.warn("no se logeo un usuario");
+                throw new RuntimeException("No se encontro el usuario");
+            }
         } catch (RuntimeException e){
             LOG.warn("no se encontro al usuario");
             throw e;
         }
-        
     }
     
     public UserResponse signUp(UserRequest signUpRequest) throws BuildingcareException{
@@ -79,14 +92,18 @@ public class UserBl {
         }
 
         User user = new User();
+        BuildingcareHash hash = new BuildingcareHash();
         user.setName(signUpRequest.getName());
         user.setUsename(signUpRequest.getUsername());
-        user.setPassword(signUpRequest.getPassword());
+        //user.setPassword(signUpRequest.getPassword());
+        byte[] salt = hash.getSalt();
+        user.setPassword(hash.HashWithSalt(signUpRequest.getPassword(),salt));
         user.setEmail(signUpRequest.getEmail());
         user.setCI(signUpRequest.getCi());
         user.setPhone(signUpRequest.getPhone());
         user.setIdTypeUser(typeUserRepository.findById(3).orElse(null));
         user.setPwLastUpdate(Date.valueOf(LocalDate.now()));
+        user.setSalt(salt);
         userRepository.save(user);
         LOG.info("se registro un usuario");
         return new UserResponse(user);
@@ -138,6 +155,7 @@ public class UserBl {
         }
         LOG.info("retornando new BuildingcareResponse(typeResponses): "+ new BuildingcareResponse(typeResponses).toString());
         return new BuildingcareResponse(typeResponses);
+ 
     }
 
     public String resetPassword(String newPassword, String username) throws BuildingcareException {

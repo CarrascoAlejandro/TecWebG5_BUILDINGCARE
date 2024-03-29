@@ -18,7 +18,7 @@ public class User {
     @Column(name = "usename", length = 128, nullable = false, unique = true)
     private String usename;
 
-    @Column(name = "password", length = 32, nullable = false)
+    @Column(name = "password", length = 65, nullable = false)
     private String password;
 
     @Column(name = "email", length = 128, nullable = true)
@@ -32,6 +32,9 @@ public class User {
 
     @Column(name = "pw_last_update", nullable = true)
     private Date pwLastUpdate;
+    
+    @Column(name = "salt", length = 65, nullable = false)
+    private byte[] salt;
 
     @ManyToOne
     @JoinColumn(name = "idTypeUser", referencedColumnName = "id", nullable = false)
@@ -113,9 +116,16 @@ public class User {
     public void setPwLastUpdate(Date pwLastUpdate) {
         this.pwLastUpdate = pwLastUpdate;
     }
+    public byte[] getSalt() {
+        return salt;
+    }
+
+    public void setSalt(byte[] salt) {
+        this.salt = salt;
+    }
 
     @Override
     public String toString() {
-        return "\"User\" [idUser=" + idUser + ", name=" + name + ", usename=" + usename + ", password=" + password + ", email=" + email + ", CI=" + CI + ", phone=" + phone + ", idTypeUser=" + idTypeUser + "]";
+        return "\"User\" [idUser=" + idUser + ", name=" + name + ", usename=" + usename + ", password=" + password + ", email=" + email + ", CI=" + CI + ", phone=" + phone + ", idTypeUser=" + idTypeUser + ", salt=" + salt + "]";
     }
 }

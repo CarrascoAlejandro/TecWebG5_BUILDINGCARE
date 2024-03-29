@@ -21,10 +21,6 @@ import ucb.buildingcare.buildingcare.util.BuildingcareException;
 @RestController
 @RequestMapping("/api/v1/user")
 public class UserAPI {
-    //Esta API se encarga de la logica sobre los usuarios
-    //De momento solo aplica para el login
-    //Requiere de los servicios:
-    //UserBl
 
     private static final Logger LOG = LoggerFactory.getLogger(UserAPI.class);
     @Autowired

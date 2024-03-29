@@ -23,6 +23,7 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 
     List<User> findByIdTypeUser(TypeUser typeUser);
 
-    List<User> findByUsename(String usename);
+    @Query(value = "SELECT * FROM \"user\" WHERE usename = ?", nativeQuery = true)
+    List<User> findByUsename(String usename);//Nota: Se puso en la base "usename" en vez de "username"
     
 }
