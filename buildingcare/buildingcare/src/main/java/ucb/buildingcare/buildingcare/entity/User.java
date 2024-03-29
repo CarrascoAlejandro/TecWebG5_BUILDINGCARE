@@ -1,5 +1,7 @@
 package ucb.buildingcare.buildingcare.entity;
 
+import java.sql.Date;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -27,6 +29,9 @@ public class User {
 
     @Column(name = "phone", length = 13, nullable = true)
     private String phone;
+
+    @Column(name = "pw_last_update", nullable = true)
+    private Date pwLastUpdate;
 
     @ManyToOne
     @JoinColumn(name = "idTypeUser", referencedColumnName = "id", nullable = false)
@@ -89,6 +94,10 @@ public class User {
         return phone;
     }
 
+    public Date getPwLastUpdate() {
+        return pwLastUpdate;
+    }
+
     public void setPhone(String phone) {
         this.phone = phone;
     }
@@ -99,6 +108,10 @@ public class User {
 
     public void setIdTypeUser(TypeUser idTypeUser) {
         this.idTypeUser = idTypeUser;
+    }
+
+    public void setPwLastUpdate(Date pwLastUpdate) {
+        this.pwLastUpdate = pwLastUpdate;
     }
 
     @Override

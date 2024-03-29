@@ -1,5 +1,7 @@
 package ucb.buildingcare.buildingcare.bl;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,7 +49,17 @@ public class UserBl {
             LOG.info("llego a user service nickname : "+ userRequest.getUsername() + " y password : "+ userRequest.getPassword());
             User user = userRepository.findByUsenameAndPassword(userRequest.getUsername(), userRequest.getPassword()).get(0);
             LOG.info("se recupero un usuario");
-            return new UserResponse(user);
+            UserResponse response = new UserResponse(user);
+            if ( //si la contraseña tiene mas de 3 meses de antiguedad se le avisa al usuario
+                Date.valueOf(LocalDate.now())
+                    .after(Date.valueOf(user.getPwLastUpdate()
+                                            .toLocalDate()
+                                            .plusMonths(3)))) {
+                response.setWarnings(new String[]{"La contraseña ha expirado, por favor cambiala"});
+            } else {
+                response.setWarnings(new String[]{});
+            }
+            return response;
         } catch (RuntimeException e){
             LOG.warn("no se encontro al usuario");
             throw e;
@@ -74,6 +86,7 @@ public class UserBl {
         user.setCI(signUpRequest.getCi());
         user.setPhone(signUpRequest.getPhone());
         user.setIdTypeUser(typeUserRepository.findById(3).orElse(null));
+        user.setPwLastUpdate(Date.valueOf(LocalDate.now()));
         userRepository.save(user);
         LOG.info("se registro un usuario");
         return new UserResponse(user);
@@ -140,6 +153,7 @@ public class UserBl {
         try {
             User user = userRepository.findByUsename(username).get(0);
             user.setPassword(newPassword);
+            user.setPwLastUpdate(Date.valueOf(LocalDate.now()));
             try {
                 userRepository.save(user);
             } catch (Exception e) {
