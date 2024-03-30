@@ -15,11 +15,15 @@ public class TypeUser {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "permission", length = 30, nullable = false)
+    @Column(name = "permission", length = 30, nullable = false, unique = true)
     private String permission;
 
     @OneToMany(mappedBy = "idTypeUser", cascade = CascadeType.ALL)
     private List<User> users;
+
+    @ManyToMany
+    @JoinColumn(name = "idPrivilege", referencedColumnName = "id", nullable = false)
+    private List<Privilege> privileges;
 
     // Constructor por defecto
     public TypeUser() {
@@ -40,6 +44,22 @@ public class TypeUser {
 
     public void setPermission(String permission) {
         this.permission = permission;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
+    public List<Privilege> getPrivileges() {
+        return privileges;
+    }
+
+    public void setPrivileges(List<Privilege> privileges) {
+        this.privileges = privileges;
     }
 
     @Override

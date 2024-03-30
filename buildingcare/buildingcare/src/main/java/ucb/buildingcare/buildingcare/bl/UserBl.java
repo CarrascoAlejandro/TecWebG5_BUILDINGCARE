@@ -3,7 +3,9 @@ package ucb.buildingcare.buildingcare.bl;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +17,7 @@ import ucb.buildingcare.buildingcare.dto.BuildingcareResponse;
 import ucb.buildingcare.buildingcare.dto.ResetPasswordRequest;
 import ucb.buildingcare.buildingcare.dto.UserRequest;
 import ucb.buildingcare.buildingcare.dto.UserResponse;
+import ucb.buildingcare.buildingcare.entity.Privilege;
 import ucb.buildingcare.buildingcare.entity.TypeUser;
 import ucb.buildingcare.buildingcare.entity.User;
 import ucb.buildingcare.buildingcare.repository.TypeUserRepository;
@@ -48,7 +51,7 @@ public class UserBl {
     }
     //login del usuario en base a nickname y password
     public UserResponse login(UserRequest userRequest) {
-        try{ //TODO evaluate if the merge is working
+        try{ 
             BuildingcareHash hash = new BuildingcareHash();
             LOG.info("llego a user service nickname : "+ userRequest.getUsername() + " y password : \""+ userRequest.getPassword() + "\"");
             //recuperar el salt
@@ -64,6 +67,8 @@ public class UserBl {
             } else {
                 response.setWarnings(new String[]{});
             }
+
+            response.setPermissions(permissionsFromUserType(user.getIdTypeUser()));
             
             byte[] salt = user.getSalt();
             //hashear el password
@@ -213,5 +218,13 @@ public class UserBl {
             e.printStackTrace();
             throw new RuntimeException("No se pudo enviar el email");
         }
+    }
+
+    private Map<String, String> permissionsFromUserType(TypeUser typeUser) {
+        Map<String, String> permissions = new HashMap<>();
+        for (Privilege permission : typeUser.getPrivileges()) {
+            permissions.put(permission.getModule(), permission.getAccessPrivilege().getDisplayName());
+        }
+        return permissions;
     }
 }
