@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import jakarta.mail.MessagingException;
 import ucb.buildingcare.buildingcare.dto.BuildingcareResponse;
 import ucb.buildingcare.buildingcare.dto.ResetPasswordRequest;
 import ucb.buildingcare.buildingcare.dto.UserRequest;
@@ -207,6 +208,10 @@ public class UserBl {
             }
         } catch(IndexOutOfBoundsException e) {
             throw new RuntimeException("No se encontro el elemento");
+        } catch (MessagingException e) {
+            LOG.error("No se pudo enviar el email", e);
+            e.printStackTrace();
+            throw new RuntimeException("No se pudo enviar el email");
         }
     }
 }
