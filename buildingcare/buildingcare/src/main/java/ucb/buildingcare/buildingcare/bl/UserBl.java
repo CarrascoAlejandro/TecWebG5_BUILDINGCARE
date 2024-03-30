@@ -1,5 +1,7 @@
 package ucb.buildingcare.buildingcare.bl;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,12 +11,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ucb.buildingcare.buildingcare.dto.BuildingcareResponse;
+import ucb.buildingcare.buildingcare.dto.ResetPasswordRequest;
 import ucb.buildingcare.buildingcare.dto.UserRequest;
 import ucb.buildingcare.buildingcare.dto.UserResponse;
 import ucb.buildingcare.buildingcare.entity.TypeUser;
 import ucb.buildingcare.buildingcare.entity.User;
 import ucb.buildingcare.buildingcare.repository.TypeUserRepository;
 import ucb.buildingcare.buildingcare.repository.UserRepository;
+import ucb.buildingcare.buildingcare.util.BuildingcareException;
+import ucb.buildingcare.buildingcare.util.ValidatePassword;
 import ucb.buildingcare.buildingcare.util.BuildingcareHash;
 
 @Service
@@ -24,6 +29,10 @@ public class UserBl {
     //User
     //TypeUser
     private static final Logger LOG = LoggerFactory.getLogger(UserBl.class);
+
+    @Autowired
+    private final EmailService emailService;
+
     @Autowired
     private final UserRepository userRepository;
 
@@ -31,27 +40,43 @@ public class UserBl {
     private final TypeUserRepository typeUserRepository;
 
     
-    public UserBl(UserRepository userRepository, TypeUserRepository typeUserRepository) {
+    public UserBl(UserRepository userRepository, TypeUserRepository typeUserRepository, EmailService emailService) {
         this.userRepository = userRepository;
         this.typeUserRepository = typeUserRepository;
+        this.emailService = emailService;
     }
     //login del usuario en base a nickname y password
     public UserResponse login(UserRequest userRequest) {
-        try{
+        try{ //TODO evaluate if the merge is working
             BuildingcareHash hash = new BuildingcareHash();
-            LOG.info("llego a user service nickname : "+ userRequest.getUsername() + " y password : "+ userRequest.getPassword());
+            LOG.info("llego a user service nickname : "+ userRequest.getUsername() + " y password : \""+ userRequest.getPassword() + "\"");
             //recuperar el salt
             User user = userRepository.findByUsename(userRequest.getUsername()).get(0);
+            LOG.info("se recupero un usuario");
+            UserResponse response = new UserResponse(user);
+            if ( //si la contraseña tiene mas de 3 meses de antiguedad se le avisa al usuario
+                Date.valueOf(LocalDate.now())
+                    .after(Date.valueOf(user.getPwLastUpdate()
+                                            .toLocalDate()
+                                            .plusMonths(3)))) {
+                response.setWarnings(new String[]{"La contraseña ha expirado, por favor cambiala"});
+            } else {
+                response.setWarnings(new String[]{});
+            }
+            
             byte[] salt = user.getSalt();
             //hashear el password
             String hashedPassword = hash.HashWithSalt(userRequest.getPassword(), salt);
+            LOG.info(salt.toString());
+            LOG.info(hashedPassword);
+            LOG.info(user.getPassword());
             //comparar el password hasheado con el de la base
             if (hashedPassword.equals(user.getPassword())){
                 LOG.info("se logeo un usuario");
-                return new UserResponse(user);
+                return response;
             } else {
                 LOG.warn("no se logeo un usuario");
-                throw new RuntimeException("No se encontro el usuario");
+                throw new RuntimeException("El usuario o la contraseña son incorrectos");
             }
         } catch (RuntimeException e){
             LOG.warn("no se encontro al usuario");
@@ -59,9 +84,18 @@ public class UserBl {
         }
     }
     
-    public UserResponse signUp(UserRequest signUpRequest){
+    public UserResponse signUp(UserRequest signUpRequest) throws BuildingcareException{
         LOG.info("Registrando... user service nickname : "+ signUpRequest.getUsername() + " y password : "+ signUpRequest.getPassword());
-        User user = new User(); 
+
+        LOG.info("Validando password");
+        try {
+            ValidatePassword.validatePassword(signUpRequest.getPassword());
+        } catch (Exception e) {
+            LOG.error("Error en la validacion de la contraseña", e);
+            throw new BuildingcareException(e.getMessage());
+        }
+
+        User user = new User();
         BuildingcareHash hash = new BuildingcareHash();
         user.setName(signUpRequest.getName());
         user.setUsename(signUpRequest.getUsername());
@@ -72,6 +106,7 @@ public class UserBl {
         user.setCI(signUpRequest.getCi());
         user.setPhone(signUpRequest.getPhone());
         user.setIdTypeUser(typeUserRepository.findById(3).orElse(null));
+        user.setPwLastUpdate(Date.valueOf(LocalDate.now()));
         user.setSalt(salt);
         userRepository.save(user);
         LOG.info("se registro un usuario");
@@ -127,5 +162,51 @@ public class UserBl {
  
     }
 
-    
+    public String resetPassword(ResetPasswordRequest request) throws BuildingcareException {
+        LOG.info("UserBl - resetPassword");
+        LOG.info("Validando password +\"" + request.getNewPassword() + "\"");
+        try {
+            ValidatePassword.validatePassword(request.getNewPassword());
+        } catch (Exception e) {
+            LOG.error("Error en la validacion de la contraseña", e);
+            throw new BuildingcareException(e.getMessage());
+        }
+        
+        try {
+            User user = userRepository.findByUsename(request.getUsername()).get(0);
+
+            BuildingcareHash hash = new BuildingcareHash();
+            byte[] salt = hash.getSalt();
+            user.setPassword(hash.HashWithSalt(request.getNewPassword(), salt));
+            user.setSalt(salt);
+
+            user.setPwLastUpdate(Date.valueOf(LocalDate.now()));
+            try {
+                userRepository.save(user);
+                return "Contraseña cambiada con exito";
+            } catch (Exception e) {
+                LOG.error("No se pudo guardar el elemento", e);
+                throw new RuntimeException("No se pudo guardar el elemento");
+            }
+        } catch (IndexOutOfBoundsException e) {
+            throw new RuntimeException("No se encontro el elemento");
+        }
+    }
+
+    public String sendResetPasswordEmail(String username, String email) {
+        LOG.info("UserBl - sendResetPasswordEmail");
+        
+        try{
+            User user = userRepository.findByUsename(username).get(0);
+            if(user.getEmail().equals(email)){
+                emailService.sendResetPasswordEmail(email, username);
+                return "Email enviado con exito";
+            } else {
+                LOG.error("El email no coincide con el usuario: " + email + " - " + user.getEmail());
+                throw new RuntimeException("El email no coincide con el usuario");
+            }
+        } catch(IndexOutOfBoundsException e) {
+            throw new RuntimeException("No se encontro el elemento");
+        }
+    }
 }

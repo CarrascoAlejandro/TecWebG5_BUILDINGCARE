@@ -49,7 +49,7 @@ public class PropertyBl {
     }
     public BuildingcareResponse ListAllProperties() {
         LOGGER.info("PropertyBl - ListAllProperties");
-        List<Property> properties = propertyRepository.findAll();
+        List<Property> properties = propertyRepository.findAllReverseOrder();
         LOGGER.info("el tamano de properties List<Property> es: "+ properties.size());
         List<PropertyResponse> propertyResponses = new ArrayList<>();
         for (Property property : properties) {

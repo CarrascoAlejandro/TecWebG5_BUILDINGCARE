@@ -13,7 +13,8 @@
 
     @Repository
     public interface PropertyRepository extends JpaRepository<Property, Integer> {
-        List<Property> findAll();
+        @Query("SELECT p FROM Property p ORDER BY p.id DESC")
+        List<Property> findAllReverseOrder();
         Property findById(int id);
 
         @Query("SELECT p.id FROM Property p")

@@ -1,5 +1,7 @@
 package ucb.buildingcare.buildingcare.entity;
 
+import java.sql.Date;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -13,7 +15,7 @@ public class User {
     @Column(name = "name", length = 128, nullable = true)
     private String name;
 
-    @Column(name = "usename", length = 128, nullable = false)
+    @Column(name = "usename", length = 128, nullable = false, unique = true)
     private String usename;
 
     @Column(name = "password", length = 65, nullable = false)
@@ -28,6 +30,9 @@ public class User {
     @Column(name = "phone", length = 13, nullable = true)
     private String phone;
 
+    @Column(name = "pw_last_update", nullable = true)
+    private Date pwLastUpdate;
+    
     @Column(name = "salt", length = 65, nullable = false)
     private byte[] salt;
 
@@ -92,6 +97,10 @@ public class User {
         return phone;
     }
 
+    public Date getPwLastUpdate() {
+        return pwLastUpdate;
+    }
+
     public void setPhone(String phone) {
         this.phone = phone;
     }
@@ -104,6 +113,9 @@ public class User {
         this.idTypeUser = idTypeUser;
     }
 
+    public void setPwLastUpdate(Date pwLastUpdate) {
+        this.pwLastUpdate = pwLastUpdate;
+    }
     public byte[] getSalt() {
         return salt;
     }

@@ -10,9 +10,9 @@ public class UserResponse {
     String CI;
     String phone;
     String typeUser;
+    String[] warnings;
 
-    public UserResponse(int idUser, String name, String usename, String email, String cI, String phone,
-            String typeUser) {
+    public UserResponse(int idUser, String name, String usename, String email, String cI, String phone, String typeUser, String[] warnings) {
         this.idUser = idUser;
         this.name = name;
         this.usename = usename;
@@ -20,6 +20,7 @@ public class UserResponse {
         CI = cI;
         this.phone = phone;
         this.typeUser = typeUser;
+        this.warnings = warnings;
     }
 
     public UserResponse(User user){
@@ -86,6 +87,14 @@ public class UserResponse {
 
     public void setTypeUser(String typeUser) {
         this.typeUser = typeUser;
+    }
+
+    public String[] getWarnings() {
+        return warnings;
+    }
+
+    public void setWarnings(String[] warnings) {
+        this.warnings = warnings;
     }
 
     @Override

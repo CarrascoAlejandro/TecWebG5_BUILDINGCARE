@@ -4,16 +4,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ucb.buildingcare.buildingcare.bl.UserBl;
 import ucb.buildingcare.buildingcare.dto.BuildingcareResponse;
+import ucb.buildingcare.buildingcare.dto.ResetPasswordRequest;
 import ucb.buildingcare.buildingcare.dto.UserRequest;
 import ucb.buildingcare.buildingcare.dto.UserResponse;
+import ucb.buildingcare.buildingcare.util.BuildingcareException;
 
 @RestController
 @RequestMapping("/api/v1/user")
@@ -91,5 +95,37 @@ public class UserAPI {
             buildingcareResponse.setErrorMessage(e.getMessage());
         }
         return buildingcareResponse;
-    }   
+    }
+    
+    @PatchMapping("/reset_password")
+    public BuildingcareResponse resetPassword(@RequestBody ResetPasswordRequest resetPasswordRequest){
+        BuildingcareResponse buildingcareResponse = new BuildingcareResponse();
+        try {
+            buildingcareResponse.setResponseCode("USER-0005");
+            buildingcareResponse.setData(userService.resetPassword(resetPasswordRequest));
+
+        } catch (RuntimeException e) {
+            buildingcareResponse.setResponseCode("USER-6005");
+            buildingcareResponse.setErrorMessage(e.getMessage());
+        } catch (BuildingcareException e) {
+            buildingcareResponse.setResponseCode("USER-6105");
+            buildingcareResponse.setErrorMessage(e.getMessage());
+        }
+        return buildingcareResponse;
+    }
+
+    @PostMapping("/request_reset_password")
+    public BuildingcareResponse requestResetPassword(@RequestParam String username, @RequestParam String email){
+        BuildingcareResponse buildingcareResponse = new BuildingcareResponse();
+        try {
+            buildingcareResponse.setResponseCode("USER-0006");
+            buildingcareResponse.setData(userService.sendResetPasswordEmail(username, email));
+
+        } catch (RuntimeException e) {
+            buildingcareResponse.setResponseCode("USER-6006");
+            buildingcareResponse.setErrorMessage(e.getMessage());
+        }
+        return buildingcareResponse;
+    }
+    
 }
