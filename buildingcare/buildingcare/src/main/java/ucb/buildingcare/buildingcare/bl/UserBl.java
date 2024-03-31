@@ -3,17 +3,21 @@ package ucb.buildingcare.buildingcare.bl;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import jakarta.mail.MessagingException;
 import ucb.buildingcare.buildingcare.dto.BuildingcareResponse;
 import ucb.buildingcare.buildingcare.dto.ResetPasswordRequest;
 import ucb.buildingcare.buildingcare.dto.UserRequest;
 import ucb.buildingcare.buildingcare.dto.UserResponse;
+import ucb.buildingcare.buildingcare.entity.Privilege;
 import ucb.buildingcare.buildingcare.entity.TypeUser;
 import ucb.buildingcare.buildingcare.entity.User;
 import ucb.buildingcare.buildingcare.repository.TypeUserRepository;
@@ -47,7 +51,7 @@ public class UserBl {
     }
     //login del usuario en base a nickname y password
     public UserResponse login(UserRequest userRequest) {
-        try{ //TODO evaluate if the merge is working
+        try{ 
             BuildingcareHash hash = new BuildingcareHash();
             LOG.info("llego a user service nickname : "+ userRequest.getUsername() + " y password : \""+ userRequest.getPassword() + "\"");
             //recuperar el salt
@@ -63,6 +67,8 @@ public class UserBl {
             } else {
                 response.setWarnings(new String[]{});
             }
+
+            response.setPermissions(permissionsFromUserType(user.getIdTypeUser()));
             
             byte[] salt = user.getSalt();
             //hashear el password
@@ -176,9 +182,13 @@ public class UserBl {
             User user = userRepository.findByUsename(request.getUsername()).get(0);
 
             BuildingcareHash hash = new BuildingcareHash();
-            byte[] salt = hash.getSalt();
-            user.setPassword(hash.HashWithSalt(request.getNewPassword(), salt));
-            user.setSalt(salt);
+            byte[] salt = user.getSalt();
+            try {
+                user.setPassword(hash.HashWithSalt(request.getNewPassword(), salt));
+            } catch (IllegalArgumentException e) {
+                LOG.error("Password must be different from the last 3 passwords", e);
+                throw new BuildingcareException("La contraseña no puede ser igual a las ultimas 3 contraseñas");
+            }
 
             user.setPwLastUpdate(Date.valueOf(LocalDate.now()));
             try {
@@ -207,6 +217,18 @@ public class UserBl {
             }
         } catch(IndexOutOfBoundsException e) {
             throw new RuntimeException("No se encontro el elemento");
+        } catch (MessagingException e) {
+            LOG.error("No se pudo enviar el email", e);
+            e.printStackTrace();
+            throw new RuntimeException("No se pudo enviar el email");
         }
+    }
+
+    private Map<String, String> permissionsFromUserType(TypeUser typeUser) {
+        Map<String, String> permissions = new HashMap<>();
+        for (Privilege permission : typeUser.getPrivileges()) {
+            permissions.put(permission.getModule(), permission.getAccessPrivilege().getDisplayName());
+        }
+        return permissions;
     }
 }

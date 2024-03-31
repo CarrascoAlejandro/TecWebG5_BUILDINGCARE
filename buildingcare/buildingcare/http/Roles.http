@@ -1,0 +1,38 @@
+GET http://localhost:8080/api/v1/roles/list
+Accept: application/json
+
+###
+POST http://localhost:8080/api/v1/roles/create
+Content-Type: application/json
+
+{
+  "name": "Tesorero",
+  "privileges": {
+    "CommonAreas": "Lectura",
+    "Posts": "Lectura",
+    "Payments": "Modificacion",
+    "Users": "Lectura",
+    "Properties": "Lectura",
+    "Contracts": "Ninguno"
+  }
+}
+
+###
+PUT http://localhost:8080/api/v1/roles/assign
+Content-Type: application/json
+
+{
+  "name": "Tesorero",
+  "privileges": {
+    "CommonAreas": "Modificacion",
+    "Posts": "Lectura",
+    "Payments": "Modificacion",
+    "Users": "Lectura",
+    "Properties": "Lectura",
+    "Contracts": "Ninguno"
+  }
+}
+
+###
+DELETE http://localhost:8080/api/v1/roles?roleName=Tesorero
+Accept: application/json
