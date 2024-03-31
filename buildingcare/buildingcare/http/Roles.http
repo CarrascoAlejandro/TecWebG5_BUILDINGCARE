@@ -25,7 +25,7 @@ Content-Type: application/json
   "name": "Tesorero",
   "privileges": {
     "CommonAreas": "Modificacion",
-    "Posts": "Lectura",
+    "Posts": "Ninguno",
     "Payments": "Modificacion",
     "Users": "Lectura",
     "Properties": "Lectura",

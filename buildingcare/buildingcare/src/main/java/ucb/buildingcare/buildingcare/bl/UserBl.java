@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import jakarta.mail.MessagingException;
 import ucb.buildingcare.buildingcare.dto.BuildingcareResponse;
 import ucb.buildingcare.buildingcare.dto.ResetPasswordRequest;
+import ucb.buildingcare.buildingcare.dto.RoleAssignation;
 import ucb.buildingcare.buildingcare.dto.UserRequest;
 import ucb.buildingcare.buildingcare.dto.UserResponse;
 import ucb.buildingcare.buildingcare.entity.Privilege;
@@ -68,7 +69,7 @@ public class UserBl {
                 response.setWarnings(new String[]{});
             }
 
-            response.setPermissions(permissionsFromUserType(user.getIdTypeUser()));
+            response.setRoleAssignation(permissionsFromUserType(user.getIdTypeUser()));
             
             byte[] salt = user.getSalt();
             //hashear el password
@@ -111,7 +112,8 @@ public class UserBl {
         user.setEmail(signUpRequest.getEmail());
         user.setCI(signUpRequest.getCi());
         user.setPhone(signUpRequest.getPhone());
-        user.setIdTypeUser(typeUserRepository.findById(3).orElse(null));
+         // Set base user privileges id = 4
+        user.setIdTypeUser(typeUserRepository.findById(4).orElse(null));
         user.setPwLastUpdate(Date.valueOf(LocalDate.now()));
         user.setSalt(salt);
         userRepository.save(user);
@@ -224,11 +226,15 @@ public class UserBl {
         }
     }
 
-    private Map<String, String> permissionsFromUserType(TypeUser typeUser) {
+    private RoleAssignation permissionsFromUserType(TypeUser typeUser) {
+        RoleAssignation roleAssignation = new RoleAssignation();
+        List<Privilege> privileges = typeUser.getPrivileges();
         Map<String, String> permissions = new HashMap<>();
-        for (Privilege permission : typeUser.getPrivileges()) {
-            permissions.put(permission.getModule(), permission.getAccessPrivilege().getDisplayName());
+        for (Privilege privilege : privileges) {
+            permissions.put(privilege.getModule(), privilege.getAccessPrivilege().getDisplayName());
         }
-        return permissions;
+        roleAssignation.setPrivileges(permissions);
+        roleAssignation.setName(typeUser.getPermission());
+        return roleAssignation;
     }
 }
