@@ -116,7 +116,12 @@ public class UserBl {
         user.setIdTypeUser(typeUserRepository.findById(4).orElse(null));
         user.setPwLastUpdate(Date.valueOf(LocalDate.now()));
         user.setSalt(salt);
-        userRepository.save(user);
+        try {
+            userRepository.save(user);
+        } catch (Exception e) {
+            LOG.error(e.getMessage());
+            throw new BuildingcareException("El nombre de usuario ya existe");
+        }
         LOG.info("se registro un usuario");
         return new UserResponse(user);
     }

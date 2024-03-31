@@ -25,8 +25,8 @@ Content-Type: application/json
 
 {
     "name": "Alejandro Carrasco",
-    "username": "ale",
-    "password": "mipassword",
+    "username": "ACarrasco",
+    "password": "miPassword2&",
     "email": "andomuriendo@gmail.com",
     "ci": "9884026",
     "phone": "60676400",

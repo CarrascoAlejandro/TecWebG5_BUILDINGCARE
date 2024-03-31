@@ -83,12 +83,13 @@ public class User {
     }
 
     public void setPassword(String password) {
-        if (
-            this.lastPassword1 != null && this.lastPassword1.equals(password) ||
-            this.lastPassword2 != null && this.lastPassword2.equals(password) ||
-            this.lastPassword3 != null && this.lastPassword3.equals(password) ||
-            this.password.equals(password)
-        ) {
+        boolean check1 = false;
+        if (this.lastPassword1 != null) check1 = this.lastPassword1.equals(password);
+        boolean check2 = false;
+        if (this.lastPassword2 != null) check2 = this.lastPassword2.equals(password);
+        boolean check3 = false;
+        if (this.lastPassword3 != null) check3 = this.lastPassword3.equals(password);
+        if (check1 || check2 || check3) {
             throw new IllegalArgumentException("Password must be different from the last 3 passwords");
         } else {
             this.lastPassword3 = this.lastPassword2;
