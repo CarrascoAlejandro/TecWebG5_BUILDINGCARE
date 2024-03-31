@@ -182,9 +182,13 @@ public class UserBl {
             User user = userRepository.findByUsename(request.getUsername()).get(0);
 
             BuildingcareHash hash = new BuildingcareHash();
-            byte[] salt = hash.getSalt();
-            user.setPassword(hash.HashWithSalt(request.getNewPassword(), salt));
-            user.setSalt(salt);
+            byte[] salt = user.getSalt();
+            try {
+                user.setPassword(hash.HashWithSalt(request.getNewPassword(), salt));
+            } catch (IllegalArgumentException e) {
+                LOG.error("Password must be different from the last 3 passwords", e);
+                throw new BuildingcareException("La contraseña no puede ser igual a las ultimas 3 contraseñas");
+            }
 
             user.setPwLastUpdate(Date.valueOf(LocalDate.now()));
             try {

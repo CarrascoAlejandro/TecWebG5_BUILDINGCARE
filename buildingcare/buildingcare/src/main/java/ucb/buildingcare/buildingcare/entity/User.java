@@ -36,6 +36,15 @@ public class User {
     @Column(name = "salt", length = 65, nullable = false)
     private byte[] salt;
 
+    @Column(name = "last_password_1", length = 65, nullable = true)
+    private String lastPassword1;
+
+    @Column(name = "last_password_2", length = 65, nullable = true)
+    private String lastPassword2;
+
+    @Column(name = "last_password_3", length = 65, nullable = true)
+    private String lastPassword3;
+
     @ManyToOne
     @JoinColumn(name = "idTypeUser", referencedColumnName = "id", nullable = false)
     private TypeUser idTypeUser;
@@ -74,7 +83,19 @@ public class User {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        if (
+            this.lastPassword1 != null && this.lastPassword1.equals(password) ||
+            this.lastPassword2 != null && this.lastPassword2.equals(password) ||
+            this.lastPassword3 != null && this.lastPassword3.equals(password) ||
+            this.password.equals(password)
+        ) {
+            throw new IllegalArgumentException("Password must be different from the last 3 passwords");
+        } else {
+            this.lastPassword3 = this.lastPassword2;
+            this.lastPassword2 = this.lastPassword1;
+            this.lastPassword1 = this.password;
+            this.password = password;
+        }
     }
 
     public String getEmail() {
