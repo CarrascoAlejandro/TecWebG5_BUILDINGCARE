@@ -1,0 +1,24 @@
+version: '3.1'
+
+services:
+  condominiodb:
+    image: mysql:8.0.33
+    container_name: condominiodb
+    restart: always
+    ports:
+      - "3309:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: condominiodb
+      MYSQL_USER: springuser
+      MYSQL_PASSWORD: miPassword
+
+  backend:
+    image: bcare-spring:latest
+    container_name: backend
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    depends_on:
+      - condominiodb
+      
