@@ -1,7 +1,5 @@
 package ucb.buildingcare.buildingcare.dto;
 
-import java.util.Map;
-
 import ucb.buildingcare.buildingcare.entity.User;
 
 public class UserResponse {
@@ -13,9 +11,9 @@ public class UserResponse {
     String phone;
     String typeUser;
     String[] warnings;
-    Map<String, String> permissions;
+    RoleAssignation roleAssignation;
 
-    public UserResponse(int idUser, String name, String usename, String email, String cI, String phone, String typeUser, String[] warnings, Map<String, String> permissions) {
+    public UserResponse(int idUser, String name, String usename, String email, String cI, String phone, String typeUser, String[] warnings, RoleAssignation roleAssignation) {
         this.idUser = idUser;
         this.name = name;
         this.usename = usename;
@@ -24,7 +22,7 @@ public class UserResponse {
         this.phone = phone;
         this.typeUser = typeUser;
         this.warnings = warnings;
-        this.permissions = permissions;
+        this.roleAssignation = roleAssignation;
     }
 
     public UserResponse(User user){
@@ -101,12 +99,12 @@ public class UserResponse {
         this.warnings = warnings;
     }
 
-    public Map<String, String> getPermissions() {
-        return permissions;
+    public RoleAssignation getRoleAssignation() {
+        return roleAssignation;
     }
 
-    public void setPermissions(Map<String, String> permissions) {
-        this.permissions = permissions;
+    public void setRoleAssignation(RoleAssignation roleAssignation) {
+        this.roleAssignation = roleAssignation;
     }
 
     @Override
